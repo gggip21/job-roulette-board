@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<title>메이플 직업 룰렛 현황판 — 설정·OBS·사용 가이드</title>
+<style>
+body{font-family:'Noto Sans KR',sans-serif;color:#24223a;font-size:10.5pt;line-height:1.65}
+h1{font-size:19pt;margin:0 0 2px;color:#1d1b30;font-family:'Black Han Sans';font-weight:400}
+.meta{color:#8a87a0;font-size:9pt;margin-bottom:14px;border-bottom:3px solid #ff8a1f;padding-bottom:8px}
+h2{font-size:13.5pt;margin:20px 0 6px;color:#d9650a;page-break-after:avoid}
+p{margin:4px 0 8px} ol,ul{margin:4px 0 10px;padding-left:22px} li{margin:2px 0}
+.f{font-family:'DejaVu Sans Mono',monospace;background:#f3f1f8;border-radius:4px;padding:0 4px;font-size:9.3pt}
+.note{background:#fff5ec;border-left:4px solid #ff8a1f;padding:7px 11px;margin:8px 0;border-radius:4px}
+.tip{background:#eef8ff;border-left:4px solid #8fd3ff;padding:7px 11px;margin:8px 0;border-radius:4px}
+table{border-collapse:collapse;width:100%;margin:6px 0 10px;font-size:9.6pt}
+th,td{border:1px solid #dcd9e8;padding:5px 7px;text-align:left;vertical-align:top} th{background:#f3f1f8} tr{page-break-inside:avoid}
+.chk li{list-style:none;margin-left:-18px}.chk li:before{content:"☐ ";color:#d9650a}
+b.k{background:#24223a;color:#fff;border-radius:4px;padding:0 5px;font-size:9pt}
+img.shot{display:block;margin:8px auto;border-radius:8px}
+</style></head><body>
+<h1>메이플 직업 룰렛 현황판 — 설정·OBS·사용 가이드</h1>
+<div class="meta">설정 페이지 <span class="f">__SITE__</span></div>
+
+<h2>한눈에 보기</h2>
+<p>현황판은 방송 화면 구석에 띄워두는 투표 집계표예요. 시청자가 후원하며 직업을 적으면, 그 직업의 표가 올라가고 순위와 확률(%)이 바로 바뀌어요.</p>
+<img class="shot" src="__PREVIEW__" style="width:62mm">
+<ol>
+<li><b>설정 페이지</b>에서 제목·후원 규칙·투표 불가 직업·테마를 정하고 <b>내 현황판 파일 저장</b> (한 번만)</li>
+<li>OBS에 <b>브라우저 소스</b>로 추가하고 화면에 배치 (한 번만)</li>
+<li>방송 중 후원이 오면 OBS <b>상호작용</b> 창에서 직업과 표를 입력 (매번)</li>
+</ol>
+<div class="note">치지직·SOOP·유튜브 후원은 자동으로 들어오지 않아요. 3번은 직접 입력해야 하며, 입력한 내용은 OBS를 껐다 켜도 남아 있어요.</div>
+
+<h2>1. 설정 페이지에서 내 파일 만들기</h2>
+<p>크롬이나 엣지에서 설정 페이지를 열어요. 왼쪽에서 고치면 오른쪽 미리보기에 바로 반영되고, 설정은 그 브라우저에 자동으로 저장돼요.</p>
+<table>
+<tr><th style="width:22%">항목</th><th>설명</th></tr>
+<tr><td>기본 정보</td><td>제목, 부제(비우면 숨김), 프로필 이미지 또는 글자(이모지 가능)</td></tr>
+<tr><td>테마 색</td><td>준비된 테마를 고르거나 메인·강조·포인트·배경 색을 직접 지정</td></tr>
+<tr><td>후원 규칙</td><td>후원 단위(원/치즈/별풍선/직접 입력)와 1표 금액. 특정 직업만 1표 금액이 다르면 "1표 금액이 다른 직업"을 켜고 직업과 금액을 고름. 메소 후원도 받으면 "메소 후원도 표로 받기"</td></tr>
+<tr><td>투표 불가 직업</td><td>눌러서 켜고 끄기. 투표 불가 직업은 OBS 편집창 버튼에서 빠지고, 입력도 막혀요</td></tr>
+<tr><td>리롤</td><td>받을 때만 켜기. 횟수 1~3회, 회차별 금액</td></tr>
+<tr><td>디데이</td><td>마감·추첨 날짜. 당일은 D-DAY, 지나면 D+</td></tr>
+<tr><td>표시</td><td>총 후원 금액, 판 아래 투표 불가 목록, 작은 제작 표시, 한 페이지 개수, 넘김 간격</td></tr>
+</table>
+<p>다 고쳤으면 <b>💾 내 현황판 파일 저장</b>을 눌러요. <span class="f">roulette-board.html</span> 파일이 받아져요. 지우지 않을 폴더(예: <span class="f">문서\방송\</span>)로 옮겨 두세요. 파일을 옮기거나 지우면 OBS에서 현황판이 사라져요.</p>
+<div class="tip">설정을 따로 하지 않고 바로 쓰고 싶으면 설정 페이지 맨 위의 <b>기본 설정 그대로 받기</b>로 받아도 돼요.</div>
+
+<h2>2. OBS에 띄우기</h2>
+<ol>
+<li>OBS에서 현황판을 넣을 장면을 고르고, "소스" 목록 아래 <b>+</b> → <b>브라우저</b>.</li>
+<li>이름을 <span class="f">직업룰렛 현황판</span> 으로 적고 확인.</li>
+<li>속성 창 설정:
+  <ul>
+  <li><b>로컬 파일</b> 체크 → "찾아보기"로 <span class="f">roulette-board.html</span> 선택</li>
+  <li><b>너비 460, 높이 700</b> (리롤을 켰다면 높이 760)</li>
+  <li>사용자 지정 CSS: 기본값 그대로</li>
+  <li>표시되지 않을 때 소스 종료 · 장면 활성화 시 새로 고침: 둘 다 체크 해제</li>
+  </ul></li>
+<li>확인을 누르면 미리보기에 현황판이 나타나요. 배경은 투명이라 게임 화면 위에 판만 보여요. 처음엔 "아직 투표가 없어요"가 정상이에요.</li>
+</ol>
+<p><b>위치·크기:</b> 미리보기에서 현황판을 클릭해 끌면 위치가 바뀌어요. 크기는 모서리를 끄는 것보다 편집창의 <b>크기 배율</b>이 글씨가 선명해요. 배율을 키웠는데 아래가 잘리면 소스 속성의 너비·높이도 같은 비율로 늘리세요. 자리를 잡았으면 소스 목록의 자물쇠로 잠가 두세요.</p>
+
+<h2>3. 후원이 들어왔을 때 입력하기</h2>
+<ol>
+<li>OBS 소스 목록에서 현황판 우클릭 → <b>상호작용</b>. 방송 내내 켜둬도 돼요.</li>
+<li>상호작용 창의 빈 곳을 클릭한 뒤 <b class="k">E</b> 를 누르면 편집창이 열려요. (판 오른쪽 위에 마우스를 올리면 보이는 ⚙️ 버튼도 같아요.)</li>
+<li>직업군별 <b>직업 버튼</b>을 눌러 고르고, <b>+1표 / +5표 / +10표</b>를 눌러요. 그 직업의 1표 금액만큼 자동으로 들어가요.
+  <ul><li>메소 후원은 아래 노란 줄의 +표 버튼</li>
+  <li>그 외 금액은 숫자를 적고 <b>금액 추가</b> (메소는 억 단위 숫자 → <b>억 추가</b>)</li></ul></li>
+<li>다 넣었으면 <b class="k">E</b> 로 닫아요.</li>
+</ol>
+<div class="note"><b>주의:</b> 편집창도 현황판의 일부라서, 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 바로 닫으세요.</div>
+<ul>
+<li>OBS 상호작용 창에서는 한글이 입력되지 않아요. 그래서 직업은 버튼으로 고르고 숫자만 키보드로 써요.</li>
+<li>1표 금액으로 나누어떨어지지 않는 금액은 총 후원에는 더해지고, 표는 내림으로 계산돼요.</li>
+</ul>
+
+<h2>4. 수정·취소·리롤</h2>
+<ul>
+<li><b>방금 잘못 넣었을 때:</b> ↩ 마지막 입력 취소 (여러 번 누르면 하나씩 되돌아감)</li>
+<li><b>특정 직업 표만 고칠 때:</b> 편집창 직업 목록의 <b>+1 / −1</b>, 아예 빼려면 <b>삭제</b></li>
+<li><b>리롤 후원:</b> "리롤 사용 처리"에서 해당 회차 버튼 → "사용됨". 판의 칸에 ✓와 남은 횟수가 줄어요. 다시 누르면 취소</li>
+<li><b>처음부터 다시:</b> <b>투표 전체 초기화</b>를 두 번 연속. 되돌릴 수 없으니 테스트 후에만 쓰세요</li>
+<li><b>화면:</b> 편집창 아래에서 한 페이지 개수, 넘김 간격, 크기 배율을 바로 바꿀 수 있어요</li>
+</ul>
+
+<h2>5. 설정 바꾸기 (제목·규칙·투표 불가 직업·테마)</h2>
+<ol>
+<li>설정 페이지를 다시 열어요. 같은 브라우저라면 지난 설정이 그대로 있고, 다른 PC라면 <b>📂 저장한 파일 불러오기</b>로 쓰던 <span class="f">roulette-board.html</span>을 고르면 설정이 돌아와요.</li>
+<li>고친 뒤 <b>내 현황판 파일 저장</b> → 받은 파일로 기존 파일을 <b>같은 폴더·같은 이름으로 덮어쓰기</b>.</li>
+<li>OBS 소스 속성에서 <b>현재 페이지 새로 고침</b>. 쌓인 표는 그대로 남아요.</li>
+</ol>
+<div class="tip">1표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. 표가 있는 직업을 투표 불가로 바꾸면 순위표에서 빠져요(다시 풀면 돌아옴).</div>
+
+<h2>문제 해결</h2>
+<table>
+<tr><th style="width:34%">증상</th><th>해결</th></tr>
+<tr><td>현황판이 안 보인다 / 하얀 화면</td><td>소스 속성에서 "로컬 파일" 체크와 파일 경로를 확인하세요. 파일을 옮겼다면 다시 골라야 해요.</td></tr>
+<tr><td>배경이 검거나 하얗다</td><td>"사용자 지정 CSS"를 기본값으로 되돌리세요 (칸을 비우면 OBS가 다시 채워요).</td></tr>
+<tr><td>판 아래쪽이 잘린다</td><td>소스 속성의 높이를 늘리거나, 편집창에서 한 페이지 개수를 줄이세요.</td></tr>
+<tr><td>E를 눌러도 편집창이 안 열린다</td><td>상호작용 창의 빈 곳을 먼저 클릭하세요. 입력 칸에 커서가 있으면 E가 글자로 들어가요.</td></tr>
+<tr><td>글씨체가 평범하게 바뀌었다</td><td>인터넷 연결을 확인하고 "현재 페이지 새로 고침"을 누르세요. 글꼴을 인터넷에서 불러와요.</td></tr>
+<tr><td>입력한 표가 사라졌다</td><td>소스 속성의 "현재 페이지의 캐시 새로 고침"은 저장된 표를 지울 수 있어요. 누르지 마세요. 표는 그 PC의 OBS 안에만 저장돼요.</td></tr>
+<tr><td>설정 페이지 미리보기가 안 나온다</td><td>설정 페이지는 인터넷 주소(https://)로 열어야 해요. 받은 html을 더블클릭해서 여는 건 현황판 파일이에요.</td></tr>
+</table>
+<p>후원 기록을 안전하게 남기려면, 방송을 마칠 때마다 현황판 화면을 한 장 캡처해 두세요.</p>
+
+<h2>방송 당일 체크리스트</h2>
+<p><b>시작 전</b></p>
+<ul class="chk"><li>현황판이 방송 장면에 보이고 채팅창·미니맵과 겹치지 않는다</li><li>테스트로 넣은 표가 있었다면 "투표 전체 초기화"</li><li>디데이·리롤 상태 확인</li><li>편집창이 닫혀 있다</li></ul>
+<p><b>방송 중</b></p>
+<ul class="chk"><li>후원이 오면 직업 고르고 +표 → 편집창 닫기</li><li>투표 불가 직업 후원은 방송에서 처리 방법 안내</li><li>리롤 후원이 오면 해당 회차 "사용됨"</li></ul>
+<p><b>종료 후</b></p>
+<ul class="chk"><li>현황판 화면 캡처</li><li>표는 지우지 않기 — 다음 방송에서 이어서 쌓여요</li></ul>
+</body></html>

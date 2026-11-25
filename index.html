@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>메이플 직업 룰렛 현황판 — 방송용 후원 투표 현황판 (무료)</title>
+<meta name="description" content="방송 화면(OBS)에 띄우는 메이플스토리 직업 룰렛 후원 투표 현황판. 내 방송에 맞게 설정하고 파일 하나로 바로 사용하세요.">
+<meta property="og:title" content="메이플 직업 룰렛 현황판">
+<meta property="og:description" content="OBS에 띄우는 직업 룰렛 후원 투표 현황판 · 무료 · 설정해서 바로 다운로드">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#ff8a1f;--hi:#ffe08a;--bg:#14121c;--card:#1d1a28;--line:rgba(255,255,255,.09);--txt:#f3f1f8;--sub:#a09cb4;--red:#ff4d5e;--pt:#8fd3ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Noto Sans KR',sans-serif;line-height:1.6}
+a{color:var(--hi)}
+.in{max-width:1120px;margin:0 auto;padding:0 20px}
+header{padding:56px 0 36px;background:radial-gradient(900px 300px at 20% 0,rgba(255,138,31,.18),transparent),radial-gradient(700px 260px at 90% 10%,rgba(143,211,255,.12),transparent)}
+h1{font-family:'Black Han Sans';font-weight:400;font-size:44px;line-height:1.15;margin:0 0 10px}
+h1 span{color:var(--acc)}
+.lead{font-size:17px;color:#d6d2e4;margin:0 0 22px;max-width:640px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.b{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:900;font-size:15px;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;text-decoration:none;background:var(--acc);color:#1a0e00}
+.b.s{background:#2c2840;color:var(--txt)}
+.b.sm{font-size:13px;padding:8px 12px;border-radius:9px}
+.feat{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.feat span{font-size:13px;font-weight:700;color:var(--sub);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+section{padding:34px 0}
+h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
+.desc{color:var(--sub);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:24px;align-items:start}
+.form{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card h3{margin:0 0 10px;font-size:16px;font-weight:900;display:flex;align-items:center;gap:8px}
+.card h3 small{font-weight:700;color:var(--sub);font-size:12px}
+.row{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
+.row>label.k{flex:0 0 118px;color:var(--sub);font-weight:700;font-size:14px}
+.row .f{flex:1;min-width:160px}
+input[type=text],input[type=number],input[type=date],select{font:inherit;font-size:15px;padding:8px 11px;background:#28243a;color:var(--txt);border:1px solid #3b3652;border-radius:9px;width:100%}
+input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;border-radius:8px;background:none;cursor:pointer}
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.sw button{font:inherit;font-size:13px;font-weight:700;color:var(--txt);background:#28243a;border:2px solid transparent;border-radius:10px;padding:6px 10px 6px 6px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.sw button i{width:22px;height:22px;border-radius:6px;display:inline-block}
+.sw button.on{border-color:var(--hi)}
+.colors{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.colors label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);font-weight:700}
+.tg{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;cursor:pointer;user-select:none}
+.tg input{width:18px;height:18px;accent-color:var(--acc)}
+.jobs .g{font-size:12px;color:var(--sub);font-weight:900;margin:8px 0 5px}
+.jobs .chips{display:flex;flex-wrap:wrap;gap:5px}
+.jobs button{font:inherit;font-size:13px;font-weight:700;border:1px solid #3b3652;background:#28243a;color:var(--txt);border-radius:8px;padding:5px 9px;cursor:pointer}
+.jobs.ban button.on{background:rgba(255,77,94,.18);border-color:rgba(255,77,94,.8);color:#ffb3ba}
+.jobs.sp button.on{background:rgba(255,224,138,.16);border-color:var(--hi);color:var(--hi)}
+.jobs button:disabled{opacity:.3;cursor:not-allowed}
+.hint{font-size:12.5px;color:var(--sub);margin:4px 0 0}
+.sub-opts{margin:6px 0 0 26px}
+.sub-opts.off{display:none}
+.ava-row{display:flex;align-items:center;gap:10px}
+.ava-pv{width:44px;height:44px;border-radius:50%;background:#28243a center/cover;display:grid;place-items:center;font-family:'Black Han Sans';font-size:18px;flex:none;border:2px solid var(--acc)}
+.side{position:sticky;top:14px}
+.pv{border-radius:16px;border:1px solid var(--line);overflow:hidden;
+  background:linear-gradient(135deg,#3b4a5e,#28323f 50%,#3a3448)}
+.pv .cap{font-size:12px;font-weight:700;color:#cfd6e2;padding:8px 12px;background:rgba(0,0,0,.25);display:flex;justify-content:space-between}
+.pv iframe{display:block;width:460px;height:740px;border:0;background:transparent;margin:0 auto}
+.save{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.save .b{justify-content:center;font-size:17px;padding:14px}
+.save .two{display:flex;gap:8px}.save .two>*{flex:1;justify-content:center}
+.note{font-size:12.5px;color:var(--sub);line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:s}
+.steps .card{position:relative;padding-top:44px}
+.steps .card:before{counter-increment:s;content:counter(s);position:absolute;top:12px;left:16px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#1a0e00;font-weight:900;display:grid;place-items:center}
+.steps h3{margin-bottom:4px}
+.steps p{margin:0;color:#d0cce0;font-size:14px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+.faq summary{font-weight:900;cursor:pointer}
+.faq p{margin:8px 0 0;color:#d0cce0;font-size:14px}
+.awards{margin-top:26px;border-radius:16px;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  background:linear-gradient(90deg,rgba(255,138,31,.12),rgba(143,211,255,.08));border:1px dashed rgba(255,224,138,.4)}
+.awards .t{flex:1;min-width:260px;font-size:14px;color:#e4e0f0}
+.awards .t b{color:var(--hi)}
+.awards .t small{display:block;color:var(--sub);font-size:12px;margin-top:2px}
+footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line);margin-top:20px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--acc);color:#1a0e00;font-weight:900;padding:10px 16px;border-radius:999px;transition:.3s;z-index:9;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.hide{display:none!important}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}.side{position:static}.steps{grid-template-columns:1fr}h1{font-size:34px}.colors{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.pv iframe{transform:scale(.72);transform-origin:top left;width:460px;height:740px;margin:0 0 -207px}.row>label.k{flex-basis:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <h1>메이플 <span>직업 룰렛</span> 현황판</h1>
+    <p class="lead">시청자가 후원하며 고른 직업의 표와 확률을 방송 화면에 실시간으로 보여주는 현황판이에요. 내 방송에 맞게 설정하고, 파일 하나를 OBS에 넣으면 끝.</p>
+    <div class="cta">
+      <a class="b" href="#setup">⚙️ 내 방송에 맞게 설정하기</a>
+      <a class="b s" href="download/job-roulette-board.zip" download>⬇️ 기본 설정 그대로 받기 (.zip)</a>
+      <a class="b s" href="GUIDE.pdf" target="_blank">📘 사용 가이드 (PDF)</a>
+    </div>
+    <div class="feat"><span>무료</span><span>설치 없음 · html 파일 하나</span><span>배경 투명</span><span>치지직·SOOP·유튜브</span><span>메소 투표·리롤·디데이</span><span>방송 껐다 켜도 기록 유지</span></div>
+  </div>
+</header>
+
+<section id="setup">
+  <div class="in">
+    <h2>내 현황판 설정</h2>
+    <p class="desc">왼쪽에서 고치면 오른쪽 미리보기에 바로 반영돼요. 다 고쳤으면 <b>내 현황판 파일 저장</b>을 누르세요. 설정은 이 브라우저에 자동 저장돼요.</p>
+    <div class="grid">
+      <div class="form">
+        <div class="card">
+          <h3>📝 기본 정보</h3>
+          <div class="row"><label class="k">제목</label><input class="f" type="text" id="title" maxlength="30"></div>
+          <div class="row"><label class="k">부제 <small>(비우면 숨김)</small></label><input class="f" type="text" id="sub" maxlength="40"></div>
+          <div class="row"><label class="k">프로필</label>
+            <div class="f ava-row"><div class="ava-pv" id="avaPv"></div>
+              <input type="text" id="avatarText" maxlength="2" style="width:70px" title="이미지가 없을 때 보일 글자 (1~2자)">
+              <label class="b s sm" style="cursor:pointer">이미지 선택<input type="file" id="avatarFile" accept="image/*" hidden></label>
+              <button class="b s sm" id="avatarDel">이미지 빼기</button></div></div>
+          <p class="hint">프로필 이미지는 정사각형으로 잘려 파일 안에 들어가요. 이미지가 없으면 왼쪽 글자(이모지 가능)가 보여요.</p>
+        </div>
+
+        <div class="card">
+          <h3>🎨 테마 색</h3>
+          <div class="sw" id="presets"></div>
+          <div class="colors">
+            <label><input type="color" id="c_acc"> 메인</label>
+            <label><input type="color" id="c_hi"> 강조</label>
+            <label><input type="color" id="c_pt"> 포인트</label>
+            <label><input type="color" id="c_bg"> 배경</label>
+          </div>
+          <p class="hint">메인: 1위 줄·버튼·디데이 / 강조: 확률·부제 / 포인트: 리롤 사용 표시 / 배경: 판 바탕(살짝 투명)</p>
+        </div>
+
+        <div class="card">
+          <h3>💰 후원 규칙</h3>
+          <div class="row"><label class="k">후원 단위</label>
+            <select class="f" id="curSel" style="max-width:160px"><option>원</option><option>치즈</option><option>별풍선</option><option value="_">직접 입력</option></select>
+            <input type="text" id="curTxt" maxlength="6" placeholder="예: 포인트" style="max-width:140px"></div>
+          <div class="row"><label class="k">1표 금액</label><input class="f" type="number" id="unit" min="1" style="max-width:160px"><span id="curEcho"></span></div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+          <label class="tg"><input type="checkbox" id="spOn"> 1표 금액이 다른 직업이 있어요</label>
+          <div class="sub-opts" id="spOpts">
+            <div class="row"><label class="k">그 직업 1표</label><input class="f" type="number" id="spUnit" min="1" style="max-width:160px"><span class="curE"></span></div>
+            <div class="jobs sp" id="spJobs"></div>
+            <p class="hint">고른 직업은 현황판에 금액 배지가 붙고, +1표 버튼도 이 금액으로 들어가요.</p>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+          <label class="tg"><input type="checkbox" id="mesoOn"> 메소 후원도 표로 받기</label>
+          <div class="sub-opts" id="mesoOpts">
+            <div class="row"><label class="k">1표 메소</label><input class="f" type="number" id="mesoUnit" min="1" style="max-width:120px"> 억</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🚫 투표 불가 직업 <small>눌러서 켜고 끄기</small></h3>
+          <div class="jobs ban" id="banJobs"></div>
+          <div class="row" style="margin-top:10px"><button class="b s sm" id="banClear">모두 해제</button><span class="hint" id="banCnt"></span></div>
+        </div>
+
+        <div class="card">
+          <h3>🔁 리롤</h3>
+          <label class="tg"><input type="checkbox" id="rrOn"> 리롤 받기</label>
+          <div class="sub-opts" id="rrOpts">
+            <div class="row"><label class="k">횟수</label><select id="rrN" style="max-width:120px"><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option></select></div>
+            <div id="rrCosts"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📅 디데이</h3>
+          <label class="tg"><input type="checkbox" id="ddOn"> 디데이 표시</label>
+          <div class="sub-opts" id="ddOpts">
+            <div class="row"><label class="k">날짜</label><input type="date" id="ddDate" style="max-width:190px"></div>
+            <div class="row"><label class="k">앞에 붙는 말</label><input type="text" id="ddLabel" maxlength="6" placeholder="마감 / 추첨" style="max-width:140px"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🖥️ 표시</h3>
+          <label class="tg"><input type="checkbox" id="showTotal"> 총 후원 금액 표시</label>
+          <label class="tg"><input type="checkbox" id="showBanned"> 판 아래 투표 불가 직업 목록 표시</label>
+          <label class="tg"><input type="checkbox" id="showCredit"> 오른쪽 아래 작은 제작 표시 (Maple Job Roulette Board)</label>
+          <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select></div>
+          <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초</div>
+          <p class="hint">표를 받은 직업이 한 페이지보다 많으면 자동으로 다음 페이지로 넘어가요. 크기는 OBS에서 조절해요.</p>
+        </div>
+      </div>
+
+      <div class="side">
+        <div class="pv"><div class="cap"><span>미리보기 (예시 데이터)</span><span>OBS 화면에선 배경 투명</span></div>
+          <iframe id="pv" title="현황판 미리보기"></iframe></div>
+        <div class="save">
+          <button class="b" id="saveBtn">💾 내 현황판 파일 저장</button>
+          <div class="two"><label class="b s sm" style="cursor:pointer">📂 저장한 파일 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
+            <button class="b s sm" id="resetBtn">↺ 처음 설정으로</button></div>
+          <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 새로 저장한 파일을 <b>같은 위치·같은 이름으로 덮어쓰면</b> OBS 설정도, 쌓인 표도 그대로 유지돼요.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="in">
+    <h2>사용법</h2>
+    <p class="desc">자세한 화면 설명은 <a href="GUIDE.pdf" target="_blank">사용 가이드(PDF)</a>에 있어요.</p>
+    <div class="steps">
+      <div class="card"><h3>파일 저장</h3><p>위에서 설정하고 <b>내 현황판 파일 저장</b>. 파일은 지우지 않을 폴더(예: 문서\방송)에 두세요.</p></div>
+      <div class="card"><h3>OBS에 추가</h3><p>소스 + → <b>브라우저</b> → <b>로컬 파일</b> 체크 후 파일 선택. 너비 460, 높이 700 (리롤 켜면 760).</p></div>
+      <div class="card"><h3>후원 입력</h3><p>소스 우클릭 → <b>상호작용</b> → <b>E</b> 키로 편집창. 직업 버튼 누르고 +1표. 입력 끝나면 E로 닫기.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="in">
+    <h2>자주 묻는 질문</h2>
+    <details><summary>후원이 자동으로 들어오나요?</summary><p>아니요. 치지직·SOOP·유튜브 후원은 자동 연동되지 않아서, 후원이 오면 OBS 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요.</p></details>
+    <details><summary>OBS 편집창에서 한글이 안 써져요.</summary><p>OBS 상호작용 창은 한글 입력을 지원하지 않아요. 그래서 제목 같은 글자 설정은 이 페이지에서 하고, OBS에서는 버튼과 숫자만 써요.</p></details>
+    <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 1표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
+    <details><summary>편집창이 방송에 보이나요?</summary><p>네, 편집창도 현황판의 일부라 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 E 키로 바로 닫아 주세요.</p></details>
+    <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "저장한 파일 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
+  </div>
+</section>
+
+<div class="in">
+  <div class="awards hide" id="awards">
+    <div class="t">🍁 이 현황판을 만든 사람이 넥슨 <b>직업 추천 AWARDS</b>에 <b id="awVideo"></b> 영상으로 참가하고 있어요. 영상이 도움이 됐다면 투표로 응원해 주세요.
+      <small>현황판은 투표와 상관없이 누구나 무료로 쓸 수 있어요.</small></div>
+    <a class="b s sm" id="awLink" target="_blank" rel="noopener">투표 페이지 보기 ↗</a>
+  </div>
+</div>
+
+<footer><div class="in">
+  Maple Job Roulette Board · 메이플스토리 팬메이드 도구이며 넥슨의 공식 도구가 아니에요. 메이플스토리 및 직업 이름의 권리는 넥슨코리아에 있어요.
+</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 어워즈 배너 설정 (url이 비어 있거나 마감이 지나면 배너가 숨겨져요) ===== */
+const AWARDS={ url:"", video:"아~란 | 직업추천", until:"2026-12-09T23:59:59+09:00" };
+/* ================================================================================== */
+const GROUPS=[["전사",["히어로","팔라딘","다크나이트","소울마스터","미하일","블래스터","데몬슬레이어","데몬어벤져","아란","카이저","아델","제로","렌"]],
+ ["마법사",["아크메이지(불,독)","아크메이지(썬,콜)","비숍","플레임위자드","배틀메이지","에반","루미너스","일리움","라라","키네시스","레테"]],
+ ["궁수",["보우마스터","신궁","패스파인더","윈드브레이커","와일드헌터","메르세데스","카인"]],
+ ["도적",["나이트로드","섀도어","듀얼블레이드","나이트워커","제논","팬텀","카데나","칼리","호영"]],
+ ["해적",["바이퍼","캡틴","캐논마스터","스트라이커","메카닉","은월","엔젤릭버스터","아크"]]];
+const SHORT={"아크메이지(썬,콜)":"썬콜","아크메이지(불,독)":"불독"}; const disp=j=>SHORT[j]||j;
+const PRESETS=[["메이플 오렌지",{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"}],["코랄",{acc:"#ff6153",hi:"#fff09a",pt:"#5ce6b0",bg:"#18162c"}],
+ ["민트",{acc:"#00e6a0",hi:"#b9b0ff",pt:"#7b6cff",bg:"#141518"}],["라벤더",{acc:"#a78bfa",hi:"#ffd6f5",pt:"#67e8f9",bg:"#16142a"}],
+ ["스카이",{acc:"#4cc3ff",hi:"#fff3a6",pt:"#ff8fb0",bg:"#121a26"}],["핑크",{acc:"#ff7aa8",hi:"#fff0a8",pt:"#7ee8c6",bg:"#221424"}],
+ ["모노",{acc:"#e8e8ee",hi:"#ffd166",pt:"#9be7a6",bg:"#141416"}]];
+const todayPlus=n=>{const d=new Date(Date.now()+n*864e5);return d.toISOString().slice(0,10)};
+const DEFAULT=()=>({v:1,title:"직업 룰렛 현황",sub:"원하는 직업에 투표!",avatarText:"🍁",avatarImg:"",theme:{...PRESETS[0][1]},currency:"원",unit:2000,
+  spJobs:[],spUnit:4000,banned:[],meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},
+  dday:{on:false,date:todayPlus(14),label:"마감"},show:{total:false,banned:true,credit:true},page:{top:10,sec:6}});
+const KEY="mjrb.setup.v1";
+const merge=(base,o)=>{for(const k in o){if(o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k])&&base[k]&&typeof base[k]==="object")merge(base[k],o[k]);else if(k in base)base[k]=o[k];}return base;};
+let F=DEFAULT(); try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) F=merge(DEFAULT(),s);}catch(e){}
+const $=id=>document.getElementById(id);
+const fmt=n=>(+n||0).toLocaleString("ko-KR");
+let tt;const toast=t=>{const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),2200);};
+
+let TEMPLATE=null;
+fetch("roulette-board.html").then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{TEMPLATE=t;refresh();})
+  .catch(()=>{$("pv").srcdoc='<p style="color:#fff;font:14px sans-serif;padding:20px">미리보기를 불러오지 못했어요. 인터넷 주소(https://)로 열었는지 확인해 주세요.</p>';});
+const CFG_RE=/(<script id="board-config" type="application\/json">)[\s\S]*?(<\/script>)/;
+const build=(cfg)=>TEMPLATE.replace(CFG_RE,(m,a,b)=>a+"\n"+JSON.stringify(cfg).replace(/</g,"\\u003c")+"\n"+b);
+
+function chips(box,sel,disabledSet){
+  box.innerHTML=GROUPS.map(([g,l])=>`<div class="g">${g}</div><div class="chips">${l.map(j=>
+    `<button type="button" data-j="${j}" class="${sel.includes(j)?"on":""}" ${disabledSet&&disabledSet.includes(j)?"disabled":""}>${disp(j)}</button>`).join("")}</div>`).join("");
+}
+function fill(){
+  $("title").value=F.title;$("sub").value=F.sub;$("avatarText").value=F.avatarText;
+  $("avaPv").style.backgroundImage=F.avatarImg?`url(${F.avatarImg})`:"";$("avaPv").textContent=F.avatarImg?"":F.avatarText;$("avaPv").style.borderColor=F.theme.acc;
+  $("presets").innerHTML=PRESETS.map(([n,t],i)=>`<button type="button" data-p="${i}" class="${JSON.stringify(t)===JSON.stringify(F.theme)?"on":""}"><i style="background:linear-gradient(135deg,${t.acc} 50%,${t.bg} 50%)"></i>${n}</button>`).join("");
+  ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).value=F.theme[k]);
+  const std=["원","치즈","별풍선"].includes(F.currency); $("curSel").value=std?F.currency:"_"; $("curTxt").value=std?"":F.currency; $("curTxt").classList.toggle("hide",std);
+  $("unit").value=F.unit; document.querySelectorAll(".curE").forEach(e=>e.textContent=F.currency); $("curEcho").textContent=F.currency;
+  $("spOn").checked=F.spJobs.length>0||F._spOpen; $("spOpts").classList.toggle("off",!$("spOn").checked); $("spUnit").value=F.spUnit;
+  chips($("spJobs"),F.spJobs,F.banned); chips($("banJobs"),F.banned);
+  $("banCnt").textContent=F.banned.length?`${F.banned.length}개 직업 투표 불가`:"투표 불가 직업 없음";
+  $("mesoOn").checked=F.meso.on;$("mesoOpts").classList.toggle("off",!F.meso.on);$("mesoUnit").value=F.meso.unit;
+  $("rrOn").checked=F.reroll.on;$("rrOpts").classList.toggle("off",!F.reroll.on);$("rrN").value=F.reroll.n;
+  $("rrCosts").innerHTML=Array.from({length:F.reroll.n},(_,i)=>`<div class="row"><label class="k">${i+1}회 금액</label><input type="number" data-rc="${i}" min="0" value="${F.reroll.costs[i]||0}" style="max-width:160px"> <span class="curE">${F.currency}</span></div>`).join("");
+  $("ddOn").checked=F.dday.on;$("ddOpts").classList.toggle("off",!F.dday.on);$("ddDate").value=F.dday.date;$("ddLabel").value=F.dday.label;
+  $("showTotal").checked=F.show.total;$("showBanned").checked=F.show.banned;$("showCredit").checked=F.show.credit;
+  $("top").value=F.page.top;$("sec").value=F.page.sec;
+}
+let rt; function refresh(){ try{localStorage.setItem(KEY,JSON.stringify(F))}catch(e){}
+  clearTimeout(rt); rt=setTimeout(()=>{ if(!TEMPLATE) return; $("pv").srcdoc=build({...F,_preview:true,_demo:true}).replace("<body>",'<body style="background:transparent">'); },200); }
+const upd=(fn,refill)=>{fn();if(refill)fill();refresh();};
+
+// listeners
+$("title").oninput=e=>upd(()=>F.title=e.target.value);
+$("sub").oninput=e=>upd(()=>F.sub=e.target.value);
+$("avatarText").oninput=e=>upd(()=>{F.avatarText=e.target.value;$("avaPv").textContent=F.avatarImg?"":F.avatarText;});
+$("avatarFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader(),img=new Image();
+  r.onload=()=>{img.onload=()=>{const c=document.createElement("canvas");c.width=c.height=160;const x=c.getContext("2d"),s=Math.min(img.width,img.height);
+    x.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,160,160);upd(()=>F.avatarImg=c.toDataURL("image/jpeg",.85),true);};img.src=r.result;};r.readAsDataURL(f);e.target.value="";};
+$("avatarDel").onclick=()=>upd(()=>F.avatarImg="",true);
+$("presets").onclick=e=>{const b=e.target.closest("[data-p]");if(b)upd(()=>F.theme={...PRESETS[+b.dataset.p][1]},true);};
+["acc","hi","pt","bg"].forEach(k=>$("c_"+k).oninput=e=>upd(()=>{F.theme={...F.theme,[k]:e.target.value};document.querySelectorAll("#presets button").forEach(b=>b.classList.remove("on"));}));
+$("curSel").onchange=e=>upd(()=>{F.currency=e.target.value==="_"?($("curTxt").value||"포인트"):e.target.value;},true);
+$("curTxt").oninput=e=>upd(()=>{F.currency=e.target.value||"포인트";document.querySelectorAll(".curE").forEach(x=>x.textContent=F.currency);$("curEcho").textContent=F.currency;});
+$("unit").onchange=e=>upd(()=>F.unit=Math.max(1,+e.target.value||1),true);
+$("spOn").onchange=e=>upd(()=>{F._spOpen=e.target.checked;if(!e.target.checked)F.spJobs=[];},true);
+$("spUnit").onchange=e=>upd(()=>F.spUnit=Math.max(1,+e.target.value||1),true);
+$("spJobs").onclick=e=>{const b=e.target.closest("[data-j]");if(!b||b.disabled)return;const j=b.dataset.j;
+  upd(()=>F.spJobs=F.spJobs.includes(j)?F.spJobs.filter(x=>x!==j):[...F.spJobs,j],true);};
+$("banJobs").onclick=e=>{const b=e.target.closest("[data-j]");if(!b)return;const j=b.dataset.j;
+  upd(()=>{F.banned=F.banned.includes(j)?F.banned.filter(x=>x!==j):[...F.banned,j];F.spJobs=F.spJobs.filter(x=>!F.banned.includes(x));},true);};
+$("banClear").onclick=()=>upd(()=>F.banned=[],true);
+$("mesoOn").onchange=e=>upd(()=>F.meso.on=e.target.checked,true);
+$("mesoUnit").onchange=e=>upd(()=>F.meso.unit=Math.max(1,+e.target.value||1),true);
+$("rrOn").onchange=e=>upd(()=>F.reroll.on=e.target.checked,true);
+$("rrN").onchange=e=>upd(()=>F.reroll.n=+e.target.value,true);
+$("rrCosts").onchange=e=>{const i=e.target.dataset.rc;if(i==null)return;upd(()=>F.reroll.costs[+i]=Math.max(0,+e.target.value||0));};
+$("ddOn").onchange=e=>upd(()=>F.dday.on=e.target.checked,true);
+$("ddDate").onchange=e=>upd(()=>F.dday.date=e.target.value);
+$("ddLabel").oninput=e=>upd(()=>F.dday.label=e.target.value);
+$("showTotal").onchange=e=>upd(()=>F.show.total=e.target.checked);
+$("showBanned").onchange=e=>upd(()=>F.show.banned=e.target.checked);
+$("showCredit").onchange=e=>upd(()=>F.show.credit=e.target.checked);
+$("top").onchange=e=>upd(()=>F.page.top=+e.target.value);
+$("sec").onchange=e=>upd(()=>F.page.sec=Math.min(60,Math.max(2,+e.target.value||6)),true);
+
+$("saveBtn").onclick=()=>{ if(!TEMPLATE) return toast("파일을 아직 불러오는 중이에요");
+  const cfg=JSON.parse(JSON.stringify(F)); delete cfg._spOpen; cfg.reroll.costs=cfg.reroll.costs.slice(0,3);
+  const blob=new Blob([build(cfg)],{type:"text/html"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="roulette-board.html";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  toast("roulette-board.html 저장됨"); };
+$("loadFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=t.match(/<script id="board-config" type="application\/json">([\s\S]*?)<\/script>/);
+  if(!m) return toast("현황판 파일이 아니에요"); try{F=merge(DEFAULT(),JSON.parse(m[1]));fill();refresh();toast("설정을 불러왔어요");}catch(err){toast("설정을 읽지 못했어요");}});e.target.value="";};
+let armed=false;$("resetBtn").onclick=()=>{if(!armed){armed=true;$("resetBtn").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("resetBtn").textContent="↺ 처음 설정으로"},3000);return;}
+  armed=false;$("resetBtn").textContent="↺ 처음 설정으로";F=DEFAULT();fill();refresh();};
+
+// awards banner
+if(AWARDS.url&&(!AWARDS.until||Date.now()<Date.parse(AWARDS.until))){$("awards").classList.remove("hide");$("awVideo").textContent=`"${AWARDS.video}"`;$("awLink").href=AWARDS.url;}
+fill();refresh();
+</script>
+</body>
+</html>

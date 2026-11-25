@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>메이플 직업 룰렛 현황판</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<!--
+  메이플 직업 룰렛 현황판 (OBS 브라우저 소스용)
+  설정은 아래 board-config 안에 들어 있습니다. 직접 고치기보다 설정 페이지에서 새 파일을 만드는 걸 추천합니다.
+-->
+<script id="board-config" type="application/json">
+{"v":1,"title":"직업 룰렛 현황","sub":"원하는 직업에 투표!","avatarText":"🍁","avatarImg":"","theme":{"acc":"#ff8a1f","hi":"#ffe08a","pt":"#8fd3ff","bg":"#22180f"},"currency":"원","unit":2000,"spJobs":[],"spUnit":4000,"banned":[],"meso":{"on":false,"unit":1},"reroll":{"on":false,"n":3,"costs":[50000,100000,200000]},"dday":{"on":false,"date":"","label":"마감"},"show":{"total":false,"banned":true,"credit":true},"page":{"top":10,"sec":6}}
+</script>
+<style>
+:root{--w:420px;--acc:#ff6153;--acc2:#e8453a;--hi:#fff09a;--pt:#5ce6b0;--acc-rgb:255,97,83;--hi-rgb:255,240,154;--pt-rgb:92,230,176;--bg-rgb:24,22,44;--on-acc:#fff;
+  --panel:rgba(255,255,255,.05);--line:rgba(255,255,255,.09);--txt:#f4f2fa;--sub:#a29fb8;--red:#ff4d5e}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent;color:var(--txt);font-family:'Noto Sans KR',sans-serif;overflow:hidden}
+.wrap{transform-origin:top left;width:calc(var(--w) + 20px);padding:10px}
+.board{position:relative;width:var(--w);background:rgba(var(--bg-rgb),.93);border-radius:20px;padding:16px 16px 14px;
+  border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.5);overflow:hidden}
+.board:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--acc),var(--hi) 55%,var(--pt))}
+.head{display:flex;align-items:center;gap:12px}
+.ava{width:54px;height:54px;border-radius:50%;flex:none;padding:3px;background:conic-gradient(var(--acc),var(--hi),var(--acc));display:grid;place-items:center}
+.ava div{width:100%;height:100%;border-radius:50%;background:rgb(var(--bg-rgb)) center/cover no-repeat;display:grid;place-items:center;font-family:'Black Han Sans';font-size:22px;color:var(--acc)}
+.ttl{flex:1;min-width:0}
+.ttl .s{font-size:12px;color:var(--hi);font-weight:700;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl h1{margin:1px 0 0;font-family:'Black Han Sans';font-weight:400;font-size:22px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gear{opacity:0;background:none;border:0;color:var(--sub);font-size:18px;cursor:pointer;align-self:flex-start;transition:.2s}
+.board:hover .gear, body.edit .gear{opacity:1}
+.rule{font-size:0;display:flex;gap:6px;margin:12px 0 10px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--sub)}
+.pill b{color:var(--acc);font-weight:900}
+.pill.y b{color:var(--hi)}
+.pill.m b{color:var(--pt)}
+.list{display:grid;grid-auto-flow:column;grid-template-columns:1fr 1fr;grid-template-rows:repeat(var(--rows,5),42px);gap:5px 6px;transition:opacity .35s;align-content:start}
+.list.banpage{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:30px}
+.list.fade{opacity:0}
+.bhead{grid-column:1/-1;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:900;color:#ff8b96}
+.bhead small{color:var(--sub);font-weight:700;font-size:11px}
+.brow{display:flex;align-items:center;gap:4px;padding:0 6px;border-radius:9px;background:rgba(255,77,94,.08);border:1px solid rgba(255,77,94,.35);
+  font-size:12px;font-weight:900;color:#d0cdde;white-space:nowrap;overflow:hidden}
+.brow span{overflow:hidden;text-overflow:ellipsis}
+.empty{grid-column:1/-1;grid-row:1/-1;text-align:center;color:var(--sub);padding:18px 0;font-size:14px;font-weight:700;line-height:1.7}
+.empty b{color:var(--acc)}
+.pager{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:700;color:var(--sub);min-height:16px}
+.pager i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);display:inline-block}
+.pager i.on{background:var(--acc);width:18px;border-radius:4px}
+.row{position:relative;display:grid;grid-template-columns:18px minmax(0,1fr) auto;align-items:center;gap:6px;padding:0 9px;
+  background:var(--panel);border-radius:12px;overflow:hidden;border:1px solid transparent}
+.row .bar{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(var(--acc-rgb),.30),rgba(var(--acc-rgb),.05));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.row>*:not(.bar){position:relative}
+.row.first{border-color:rgba(var(--acc-rgb),.6);box-shadow:0 0 16px rgba(var(--acc-rgb),.22)}
+.row.first .bar{background:linear-gradient(90deg,rgba(var(--acc-rgb),.5),rgba(var(--hi-rgb),.15))}
+.rank{font-family:'Black Han Sans';font-size:15px;text-align:center;color:var(--sub)}
+.row.first .rank{color:var(--hi)}
+.name{font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.name .x2{font-size:9px;font-weight:900;color:var(--pt);border:1px solid rgba(var(--pt-rgb),.6);border-radius:5px;padding:0 3px;margin-left:3px;vertical-align:2px}
+.val{text-align:right;white-space:nowrap;line-height:1.1}
+.val .p{font-family:'Black Han Sans';font-size:16px;color:var(--hi)}
+.val .c{font-size:10px;color:var(--sub);font-weight:700}
+.row.flash{animation:flash 1s}
+@keyframes flash{0%{transform:scale(1.05);border-color:var(--acc);background:rgba(var(--acc-rgb),.4)}100%{transform:none}}
+.sec{display:flex;align-items:center;gap:8px;margin:12px 0 6px;font-size:12px;font-weight:900;color:var(--sub);letter-spacing:.5px}
+.sec:after{content:"";flex:1;height:1px;background:var(--line)}
+.rr{display:grid;grid-template-columns:repeat(var(--rrn,3),1fr);gap:6px}
+.rr>div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center}
+.rr .n{font-size:11px;color:var(--sub);font-weight:700}
+.rr .a{font-family:'Black Han Sans';font-size:15px}
+.rr>div.used{border-color:rgba(var(--pt-rgb),.7);background:rgba(var(--pt-rgb),.14)}
+.rr>div.used .a{opacity:.7;text-decoration:line-through}
+.rr>div.used .n:after{content:" ✓ 사용";color:var(--pt)}
+.rr>div.next{border-color:rgba(var(--acc-rgb),.55)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--sub)}
+.stats{display:flex;gap:18px;align-items:flex-end}
+.stats.l{gap:22px}
+.st{line-height:1.1}
+.stats:not(.l) .st{text-align:right}
+.st small{font-size:11px;display:block;margin-bottom:2px}
+.st b{font-family:'Black Han Sans';font-weight:400;font-size:20px;color:var(--txt)}
+.stats.l .st b{font-size:24px}
+.st.dd small{color:var(--hi)}
+.st.dd b{color:var(--acc);font-size:24px}
+.st.dd.today b{color:var(--hi)}
+.ban{display:flex;flex-wrap:wrap;gap:5px}
+.ban span{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#d0cdde;background:rgba(255,77,94,.08);
+  border:1px solid rgba(255,77,94,.35);border-radius:8px;padding:3px 8px 3px 5px}
+.ban span svg,.brow svg{flex:none}
+.credit{text-align:right;margin:8px -4px -8px 0;font-size:9px;font-weight:700;color:var(--sub);opacity:.45;letter-spacing:.3px}
+.toast{position:absolute;right:16px;top:16px;background:var(--acc);color:var(--on-acc);font-weight:900;font-size:14px;padding:6px 12px;border-radius:999px;
+  opacity:0;transform:translateY(-6px);transition:.3s;pointer-events:none;box-shadow:0 4px 14px rgba(var(--acc-rgb),.45);z-index:3}
+.toast.show{opacity:1;transform:none}
+.toast.bad{background:#3a3550;color:#ffb3ba;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.hide{display:none!important}
+/* editor */
+.editor{display:none;position:fixed;top:8px;left:8px;right:8px;bottom:8px;max-width:460px;overflow-y:auto;overscroll-behavior:contain;z-index:50;
+  background:#1d1b2a;border:1px solid var(--line);border-radius:16px;padding:14px;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.editor::-webkit-scrollbar{width:8px}.editor::-webkit-scrollbar-thumb{background:#3d3a5a;border-radius:8px}
+.ehead{position:sticky;top:-14px;margin:-14px -14px 10px;padding:10px 14px;background:#1d1b2a;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;z-index:1}
+.ehead b{color:var(--acc);font-size:14px}
+.ehead button{border:0;background:#37344f;color:var(--txt);border-radius:8px;padding:5px 10px;font-weight:900;cursor:pointer}
+body.edit .editor{display:block}
+.editor h3{margin:2px 0 8px;font-size:15px;font-weight:900;color:var(--acc)}
+.editor input{font:inherit;font-size:14px;padding:7px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;width:100%;min-width:0}
+.line{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.line>*{flex:1}
+.line label{color:var(--sub);font-weight:700}
+.cur{flex:0 0 38px!important;font-size:12px;font-weight:900;color:var(--acc);text-align:center}
+.cur.m{color:var(--hi)}
+.btn{font:inherit;font-weight:900;font-size:13px;border:0;border-radius:8px;padding:8px 6px;cursor:pointer;background:var(--acc);color:var(--on-acc)}
+.btn.s{background:#37344f;color:var(--txt)}
+.btn.y{background:var(--hi);color:#2a2200}
+.btn.g{background:var(--pt);color:#06301f}
+.btn.red{background:var(--red);color:#fff}
+.jlist{max-height:180px;overflow:auto;margin-top:6px;border-top:1px solid var(--line)}
+.jl{display:flex;align-items:center;gap:5px;padding:5px 0;border-bottom:1px solid var(--line)}
+.jl span{flex:1}
+.jl button{border:0;background:#37344f;color:var(--txt);border-radius:6px;padding:3px 7px;cursor:pointer;font-weight:700}
+.picked{font-size:13px;margin:2px 0 8px;color:var(--sub);font-weight:700}
+.picked b{color:var(--acc);font-size:16px}
+.picked em{font-style:normal;color:var(--hi)}
+.jg .g{font-size:11px;color:var(--sub);font-weight:900;margin:6px 0 4px}
+.jg .chips{display:flex;flex-wrap:wrap;gap:4px}
+.jg button{font:inherit;font-size:12px;font-weight:700;border:1px solid #3d3a5a;background:#2a2844;color:var(--txt);border-radius:7px;padding:5px 8px;cursor:pointer}
+.jg button.on{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
+.jg button .v{color:var(--hi);margin-left:3px}
+.jg button .u{color:var(--pt);font-size:10px;margin-left:3px}
+.jg button.on .v,.jg button.on .u{color:inherit}
+.tip{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.6}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="board" id="board">
+    <div class="head">
+      <div class="ava"><div id="ava"></div></div>
+      <div class="ttl"><div class="s" id="sub"></div><h1 id="title"></h1></div>
+      <button class="gear" id="gear" title="편집 (E)">⚙️</button>
+    </div>
+    <div class="rule" id="rule"></div>
+    <div class="list" id="list"></div>
+    <div class="pager" id="pager"></div>
+    <div id="rrBox"><div class="sec">리롤</div><div class="rr" id="rr"></div></div>
+    <div class="foot">
+      <div class="stats l">
+        <div class="st"><small>총 득표</small><b id="votes">0표</b></div>
+        <div class="st"><small>참여 직업</small><b id="jobCnt">0개</b></div>
+      </div>
+      <div class="stats">
+        <div class="st" id="totBox"><small>총 후원</small><b id="total">0</b></div>
+        <div class="st" id="mesoBox"><small>메소</small><b id="mesoTotal">0억</b></div>
+        <div class="st dd" id="dday"><small id="ddayD"></small><b id="ddayN"></b></div>
+      </div>
+    </div>
+    <div id="exBox"><div class="sec">투표 불가 직업</div><div class="ban" id="excl"></div></div>
+    <div class="credit" id="credit">Maple Job Roulette Board</div>
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<div class="editor" id="editor">
+  <div class="ehead"><b>현황판 편집</b><button id="closeEd">닫기 (E)</button></div>
+  <h3>➕ 후원 입력</h3>
+  <div class="picked">선택한 직업: <b id="pickedName">없음</b> <em id="pickedUnit"></em></div>
+  <div class="jg" id="jg"></div>
+  <div class="line"><span class="cur" id="curLbl">원</span>
+    <button class="btn" data-v="1">+1표</button><button class="btn" data-v="5">+5표</button><button class="btn" data-v="10">+10표</button></div>
+  <div class="line" id="mesoRow"><span class="cur m">메소</span>
+    <button class="btn y" data-mv="1">+1표</button><button class="btn y" data-mv="5">+5표</button><button class="btn y" data-mv="10">+10표</button></div>
+  <div class="line"><input id="amt" type="number" placeholder="금액 직접 입력 (숫자만)" style="flex:2"><button class="btn s" id="addCustom">금액 추가</button><button class="btn s" id="addMeso">억 추가</button></div>
+  <div class="jlist" id="jlist"></div>
+  <div id="rrEdBox"><hr><h3>🔁 리롤 사용 처리</h3><div class="line" id="rrEdit"></div></div>
+  <hr>
+  <h3>⚙️ 화면</h3>
+  <div class="line"><label>한 페이지 개수</label><input id="sTop" type="number" min="2" max="40" step="2"><label>넘김 간격(초)</label><input id="sSec" type="number" min="2" max="60"></div>
+  <div class="line"><label>크기 배율</label><input id="sScale" type="number" step="0.1" min="0.5" max="2.5" style="flex:2.4"></div>
+  <div class="line"><button class="btn s" id="undo">↩ 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
+  <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
+    • 직업 버튼을 누른 뒤 +표 버튼을 누르면 그 직업의 1표 금액만큼 들어가요.<br>
+    • 제목·단위·투표 불가 직업·테마 같은 설정은 설정 페이지에서 새 파일을 만들어 바꿔요. 같은 이름으로 덮어쓰면 표는 그대로 남아요.<br>
+    • 데이터는 OBS 안에 저장돼 방송을 껐다 켜도 유지돼요.</div>
+</div>
+
+<script>
+let CFG={};
+try{CFG=JSON.parse(document.getElementById("board-config").textContent)}catch(e){}
+const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"🍁",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},currency:"원",unit:2000,spJobs:[],spUnit:4000,banned:[],
+  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,credit:true},page:{top:10,sec:6}};
+for(const k in DEF){ if(CFG[k]===undefined) CFG[k]=DEF[k]; else if(DEF[k]&&typeof DEF[k]==="object"&&!Array.isArray(DEF[k])) CFG[k]=Object.assign({},DEF[k],CFG[k]); }
+const PREVIEW=!!CFG._preview;
+
+const GROUPS_ALL=[["전사",["히어로","팔라딘","다크나이트","소울마스터","미하일","블래스터","데몬슬레이어","데몬어벤져","아란","카이저","아델","제로","렌"]],
+ ["마법사",["아크메이지(불,독)","아크메이지(썬,콜)","비숍","플레임위자드","배틀메이지","에반","루미너스","일리움","라라","키네시스","레테"]],
+ ["궁수",["보우마스터","신궁","패스파인더","윈드브레이커","와일드헌터","메르세데스","카인"]],
+ ["도적",["나이트로드","섀도어","듀얼블레이드","나이트워커","제논","팬텀","카데나","칼리","호영"]],
+ ["해적",["바이퍼","캡틴","캐논마스터","스트라이커","메카닉","은월","엔젤릭버스터","아크"]]];
+const JOBS=GROUPS_ALL.flatMap(g=>g[1]);
+const EX=(CFG.banned||[]).filter(j=>JOBS.includes(j));
+const SP_JOBS=(CFG.spJobs||[]).filter(j=>JOBS.includes(j)&&!EX.includes(j));
+const GROUPS=GROUPS_ALL.map(([g,l])=>[g,l.filter(j=>!EX.includes(j))]).filter(g=>g[1].length);
+const SHORT={"아크메이지(썬,콜)":"썬콜","아크메이지(불,독)":"불독"};
+const disp=j=>SHORT[j]||j;
+const CUR=CFG.currency||"원";
+const SPU=Math.max(1,+CFG.spUnit||1), UNIT=Math.max(1,+CFG.unit||1), MU=Math.max(1,+CFG.meso.unit||1);
+const MESO=!!CFG.meso.on, RR=!!CFG.reroll.on, RRN=Math.min(3,Math.max(1,+CFG.reroll.n||3));
+const unitOf=j=>SP_JOBS.includes(j)?SPU:UNIT;
+const showSp=SP_JOBS.length&&SPU!==UNIT;
+
+// theme
+(function(){const t=CFG.theme||{},r=document.documentElement.style;
+  const rgb=h=>{h=(h||"").replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");const n=parseInt(h,16);return isNaN(n)?null:[n>>16&255,n>>8&255,n&255]};
+  const set=(k,h)=>{const c=rgb(h);if(!c)return;r.setProperty("--"+k,h);r.setProperty("--"+k+"-rgb",c.join(","));return c};
+  const a=set("acc",t.acc); set("hi",t.hi); set("pt",t.pt); set("bg",t.bg);
+  if(a){r.setProperty("--acc2",`rgb(${a.map(x=>Math.round(x*.85)).join(",")})`);
+    const L=(.2126*a[0]+.7152*a[1]+.0722*a[2])/255; r.setProperty("--on-acc",L>.62?"#14121f":"#fff");}
+})();
+
+const KEY="mapleJobRouletteBoard.v1";
+let S={data:{},meso:{},log:[],rr:[false,false,false]};
+if(!PREVIEW){try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}}
+const save=()=>{if(PREVIEW)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const opt=k=>S[k]!==undefined?S[k]:(k==="scale"?1:CFG.page[k]);
+const $=id=>document.getElementById(id);
+const fmt=n=>(+n||0).toLocaleString("ko-KR");
+let tt; function toast(t,bad){const e=$("toast");e.textContent=t;e.classList.toggle("bad",!!bad);e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),2400);}
+
+function add(job,amt,silent,kind){
+  kind=kind||"c"; amt=Math.round(+amt||0); if(!job||!amt) return;
+  if(amt>0&&EX.includes(job)) return toast(`${disp(job)}는 투표 불가 직업`,1);
+  if(amt>0&&!JOBS.includes(job)) return toast(`'${job}' 직업을 못 찾았어요`,1);
+  const box=kind==="m"?S.meso:S.data;
+  box[job]=(box[job]||0)+amt; if(box[job]<=0) delete box[job];
+  S.log.push([job,amt,kind]); S.log=S.log.slice(-300); save();
+  const idx=sorted().findIndex(x=>x[0]===job); if(idx>=0){page=Math.floor(idx/opt("top")); restartTimer();}
+  render(job);
+  if(!silent&&amt>0) toast(`${disp(job)} +${kind==="m"?Math.floor(amt/MU):Math.floor(amt/unitOf(job))}표`);
+}
+let page=0,timer=null;
+const cV=j=>Math.floor((S.data[j]||0)/unitOf(j)), mV=j=>MESO?Math.floor((S.meso[j]||0)/MU):0, vOf=j=>cV(j)+mV(j);
+const sorted=()=>[...new Set([...Object.keys(S.data),...Object.keys(S.meso)])].filter(j=>!EX.includes(j)&&JOBS.includes(j))
+  .map(j=>[j,vOf(j)]).sort((a,b)=>b[1]-a[1]||(S.data[b[0]]||0)-(S.data[a[0]]||0));
+const rankOf=(arr,i)=>{const v=arr[i][1];let r=i;while(r>0&&arr[r-1][1]===v)r--;return r+1;};
+const pages=()=>Math.max(1,Math.ceil(sorted().length/opt("top")))+(EX.length?1:0);
+function restartTimer(){clearInterval(timer);timer=setInterval(()=>{if(pages()<2)return;
+  $("list").classList.add("fade");setTimeout(()=>{page=(page+1)%pages();render();$("list").classList.remove("fade");},350);},Math.max(2,opt("sec"))*1000);}
+const BAN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4d5e" stroke-width="2.6"><circle cx="12" cy="12" r="9.5"/><path d="M5.5 5.5l13 13"/></svg>';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let picked=null;
+
+function renderDday(){
+  const d=CFG.dday; $("dday").classList.toggle("hide",!d.on||!d.date); if(!d.on||!d.date) return;
+  const [y,m,dd]=d.date.split("-").map(Number),t=new Date();
+  const diff=Math.round((Date.UTC(y,m-1,dd)-Date.UTC(t.getFullYear(),t.getMonth(),t.getDate()))/864e5);
+  $("ddayN").textContent=diff===0?"D-DAY":diff>0?`D-${diff}`:`D+${-diff}`;
+  $("ddayD").textContent=`${d.label||""} ${m}/${dd}`.trim(); $("dday").classList.toggle("today",diff===0);
+}
+function render(flash){
+  const top=opt("top");
+  $("wrap").style.transform=`scale(${opt("scale")})`;
+  $("title").textContent=CFG.title; $("sub").textContent=CFG.sub; $("sub").classList.toggle("hide",!CFG.sub);
+  $("ava").style.backgroundImage=CFG.avatarImg?`url(${CFG.avatarImg})`:""; $("ava").textContent=CFG.avatarImg?"":(CFG.avatarText||"");
+  const rrA=S.rr.slice(0,RRN),used=rrA.filter(Boolean).length,nextI=rrA.indexOf(false);
+  $("rule").innerHTML=`<span class="pill"><b>${fmt(UNIT)}</b>${esc(CUR)}${MESO?` · <b>${fmt(MU)}억</b> 메소`:""} = 1표</span>`+
+    (showSp?`<span class="pill y"><b>${SP_JOBS.map(disp).join("·")}</b> <b>${fmt(SPU)}</b>${esc(CUR)}</span>`:"")+
+    (RR?`<span class="pill m">리롤 <b>${RRN-used}</b>회 남음</span>`:"");
+  const arr=sorted(); if(page>=pages()) page=0;
+  const total=Object.entries(S.data).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
+  const mesoTotal=Object.entries(S.meso).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
+  const votes=arr.reduce((s,x)=>s+x[1],0), max=arr.length&&arr[0][1]?arr[0][1]:1;
+  $("votes").textContent=fmt(votes)+"표"; $("jobCnt").textContent=arr.filter(x=>x[1]>0).length+"개";
+  $("total").textContent=fmt(total)+CUR; $("mesoTotal").textContent=fmt(mesoTotal)+"억";
+  $("totBox").classList.toggle("hide",!CFG.show.total); $("mesoBox").classList.toggle("hide",!CFG.show.total||!MESO);
+  const off=page*top, shown=arr.slice(off,off+top), rows=Math.ceil(top/2), isBan=EX.length&&page===pages()-1;
+  $("list").style.setProperty("--rows",rows); $("list").style.height=(rows*42+(rows-1)*5)+"px";
+  $("list").classList.toggle("banpage",!!isBan);
+  if(isBan) $("list").innerHTML=`<div class="bhead">${BAN} 투표 불가 직업 <small>이 직업들은 투표할 수 없어요</small></div>`+EX.map(j=>`<div class="brow">${BAN}<span>${disp(j)}</span></div>`).join("");
+  else $("list").innerHTML=shown.length?shown.map(([j,vt],k)=>{const rk=rankOf(arr,off+k),pct=votes?(vt/votes*100).toFixed(1):"0.0";
+    return `<div class="row${rk===1&&vt?" first":""}${j===flash?" flash":""}"><div class="bar" style="width:${vt/max*100}%"></div>
+      <div class="rank">${rk}</div><div class="name">${disp(j)}${showSp&&SP_JOBS.includes(j)?`<span class="x2">${SPU%1000?fmt(SPU):fmt(SPU/1000)+"천"}</span>`:""}</div>
+      <div class="val"><span class="p">${pct}%</span><div class="c">${fmt(vt)}표</div></div></div>`;}).join("")
+    :`<div class="empty">아직 투표가 없어요<br><b>${fmt(UNIT)}${esc(CUR)}</b>${MESO?` 또는 <b>${fmt(MU)}억 메소</b>`:""} 후원 + 원하는 직업으로 참여!</div>`;
+  const P=pages();
+  $("pager").innerHTML=(P>1?Array.from({length:P},(_,i)=>`<i class="${i===page?"on":""}"></i>`).join(""):"")+
+    `<span>${isBan?"투표 불가 직업":arr.length?`${rankOf(arr,off)}~${rankOf(arr,Math.min(off+top,arr.length)-1)}위 / ${arr.length}개 직업`:"투표 현황"}</span>`;
+  $("rr").style.setProperty("--rrn",RRN);
+  $("rr").innerHTML=rrA.map((u,i)=>`<div class="${u?"used":(i===nextI?"next":"")}"><div class="n">${i+1}회</div><div class="a">${fmt(CFG.reroll.costs[i]||0)}${esc(CUR)}</div></div>`).join("");
+  $("rrBox").classList.toggle("hide",!RR);
+  $("excl").innerHTML=EX.map(j=>`<span>${BAN}${disp(j)}</span>`).join("");
+  $("exBox").classList.toggle("hide",!CFG.show.banned||!EX.length);
+  $("credit").classList.toggle("hide",!CFG.show.credit);
+  renderDday();
+  // editor
+  $("curLbl").textContent=CUR; $("mesoRow").classList.toggle("hide",!MESO); $("addMeso").classList.toggle("hide",!MESO);
+  $("jlist").innerHTML=arr.map(([j,vt])=>`<div class="jl"><span>${disp(j)} — ${fmt(vt)}표 <small>(${fmt(S.data[j]||0)}${esc(CUR)}${MESO&&S.meso[j]?` · ${fmt(S.meso[j])}억`:""})</small></span>
+    <button data-j="${j}" data-a="${unitOf(j)}">+1</button><button data-j="${j}" data-a="${-unitOf(j)}">−1</button><button data-j="${j}" data-del="1">삭제</button></div>`).join("");
+  $("pickedName").textContent=picked?disp(picked):"없음";
+  $("pickedUnit").textContent=picked?`(1표 ${fmt(unitOf(picked))}${CUR})`:"— 직업을 누른 뒤 +표 버튼";
+  $("jg").innerHTML=GROUPS.map(([g,l])=>`<div class="g">${g}</div><div class="chips">${l.map(j=>{const vt=vOf(j);
+    return `<button data-pick="${j}" class="${j===picked?"on":""}">${disp(j)}${showSp&&SP_JOBS.includes(j)?`<span class="u">×${+(SPU/UNIT).toFixed(1)}</span>`:""}${vt?`<span class="v">${vt}</span>`:""}</button>`}).join("")}</div>`).join("");
+  $("rrEdBox").classList.toggle("hide",!RR);
+  $("rrEdit").innerHTML=rrA.map((u,i)=>`<button class="btn ${u?"g":"s"}" data-rr="${i}">${i+1}회 ${u?"사용됨":"미사용"}</button>`).join("");
+  $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");
+}
+const need=()=>{if(!picked){toast("먼저 직업을 눌러주세요",1);return false}return true};
+document.querySelectorAll(".editor [data-v]").forEach(b=>b.onclick=()=>{if(need())add(picked,+b.dataset.v*unitOf(picked));});
+document.querySelectorAll(".editor [data-mv]").forEach(b=>b.onclick=()=>{if(need())add(picked,+b.dataset.mv*MU,false,"m");});
+$("addCustom").onclick=()=>{if(!need())return;add(picked,$("amt").value);$("amt").value="";};
+$("addMeso").onclick=()=>{if(!need())return;add(picked,$("amt").value,false,"m");$("amt").value="";};
+$("amt").onkeydown=e=>{if(e.key==="Enter")$("addCustom").click();};
+$("jg").onclick=e=>{const b=e.target.closest("[data-pick]");if(!b)return;picked=b.dataset.pick;render();};
+$("jlist").onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=b.dataset.j;
+  if(b.dataset.del){if(S.data[j])S.log.push([j,-S.data[j],"c"]);if(S.meso[j])S.log.push([j,-S.meso[j],"m"]);delete S.data[j];delete S.meso[j];save();render();}
+  else add(j,+b.dataset.a,true);};
+$("rrEdit").onclick=e=>{const b=e.target.closest("[data-rr]");if(!b)return;const i=+b.dataset.rr;S.rr[i]=!S.rr[i];
+  if(S.rr[i])toast(`리롤 ${i+1}회 사용!`);save();render();};
+$("undo").onclick=()=>{const l=S.log.pop();if(!l)return;const box=l[2]==="m"?S.meso:S.data;box[l[0]]=(box[l[0]]||0)-l[1];if(box[l[0]]<=0)delete box[l[0]];save();render();};
+let armed=false;
+$("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("reset").textContent="투표 전체 초기화"},3000);return;}
+  S.data={};S.meso={};S.log=[];S.rr=[false,false,false];armed=false;$("reset").textContent="투표 전체 초기화";save();render();};
+["sTop","sSec","sScale"].forEach(id=>$(id).onchange=()=>{
+  S.top=Math.max(2,Math.round(+$("sTop").value/2)*2||10);S.sec=Math.max(2,+$("sSec").value||6);S.scale=Math.min(2.5,Math.max(.5,+$("sScale").value||1));
+  page=0;restartTimer();save();render();});
+const toggle=()=>document.body.classList.toggle("edit");
+$("gear").onclick=toggle;$("closeEd").onclick=toggle;
+document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SELECT/.test(document.activeElement.tagName))toggle();});
+if(PREVIEW&&CFG._demo){const d=[["아란",6],["에반",4],["엔젤릭버스터",3],["카데나",3],["아델",2],["아크메이지(썬,콜)",2],["칼리",1]].filter(([j])=>JOBS.includes(j)&&!EX.includes(j));
+  d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; if(RR)S.rr[0]=true;}
+render();restartTimer();setInterval(renderDday,60000);
+</script>
+</body>
+</html>

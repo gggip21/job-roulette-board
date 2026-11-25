@@ -1,0 +1,54 @@
+# 메이플 직업 룰렛 현황판
+
+방송 화면(OBS)에 띄우는 **메이플스토리 직업 룰렛 후원 투표 현황판**이에요.
+시청자가 후원하며 고른 직업의 표와 확률을 실시간으로 보여주고, 파일 하나로 동작해요.
+
+<p align="center"><img src="docs/preview.png" width="360" alt="현황판 미리보기"></p>
+
+## ⬇️ 바로 쓰기
+
+| | |
+|---|---|
+| ⚙️ **내 방송에 맞게 설정하고 받기** | **https://gggip21.github.io/job-roulette-board/** |
+| 📦 기본 설정 그대로 받기 | [download/job-roulette-board.zip](https://gggip21.github.io/job-roulette-board/download/job-roulette-board.zip) |
+| 📘 사용 가이드 (PDF) | [GUIDE.pdf](https://gggip21.github.io/job-roulette-board/GUIDE.pdf) |
+
+## 사용법 3단계
+
+1. **설정 페이지**에서 제목·후원 규칙·투표 불가 직업·테마를 정하고 **내 현황판 파일 저장** → `roulette-board.html`
+2. OBS 소스 **+ → 브라우저 → 로컬 파일**로 그 파일 선택 · 너비 460, 높이 700 (리롤 켜면 760)
+3. 후원이 오면 소스 우클릭 **→ 상호작용 → E 키**로 편집창 열고 직업 버튼 → **+1표**
+
+> 치지직·SOOP·유튜브 후원은 자동 연동되지 않아 직접 입력해요. 입력한 표는 OBS 안에 저장돼 방송을 껐다 켜도 남아요.
+
+## 할 수 있는 것
+
+- 후원 단위(원·치즈·별풍선·직접 입력)와 1표 금액, **직업별로 다른 1표 금액**
+- **투표 불가 직업** 지정 (편집창 버튼에서 빠지고 입력도 막힘, 판 아래·마지막 페이지에 표시)
+- **메소 후원** 표 집계 (억 단위)
+- **리롤** 1~3회, 회차별 금액, 사용 처리
+- **디데이** (마감·추첨일), 총 후원 금액 표시 여부
+- 테마 색 7종 + 직접 지정, 프로필 이미지
+- 표가 많으면 페이지 자동 넘김, 후원 입력 시 해당 줄 반짝임 + 알림
+- 설정을 바꿔 새로 저장한 파일로 **덮어써도 쌓인 표는 유지**
+
+<p align="center"><img src="docs/setup.png" width="720" alt="설정 페이지"></p>
+
+## 구조 (개발자용)
+
+```
+index.html            설정·다운로드 페이지 (GitHub Pages 첫 화면)
+roulette-board.html   현황판 본체 = 설정 페이지가 쓰는 템플릿 = 기본 설정 파일
+GUIDE.pdf             스트리머용 사용 가이드
+download/             기본 설정 zip
+docs/                 README 이미지
+tools/guide-source.html  GUIDE.pdf 원본 (브라우저 PDF 인쇄로 생성)
+```
+
+- 현황판 설정은 `roulette-board.html` 안의 `<script id="board-config" type="application/json">` 한 곳에 들어 있어요. 설정 페이지는 이 부분만 바꿔서 새 파일을 만들어요.
+- 투표 데이터는 OBS 브라우저 소스의 `localStorage` (`mapleJobRouletteBoard.v1`)에 저장돼요. 서버나 외부 전송은 없어요.
+- 빌드 도구 없이 html·css·js만 써요.
+
+---
+
+메이플스토리 팬메이드 도구이며 넥슨의 공식 도구가 아니에요. 메이플스토리 및 직업 이름의 권리는 넥슨코리아에 있어요.
