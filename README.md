@@ -5,30 +5,33 @@
 
 <p align="center"><img src="docs/preview.png" width="360" alt="현황판 미리보기"></p>
 
-## ⬇️ 바로 쓰기
+## 바로 쓰기
 
 | | |
 |---|---|
-| ⚙️ **내 방송에 맞게 설정하고 받기** | **https://gggip21.github.io/job-roulette-board/** |
-| 📦 기본 설정 그대로 받기 | [download/job-roulette-board.zip](https://gggip21.github.io/job-roulette-board/download/job-roulette-board.zip) |
-| 📘 사용 가이드 (PDF) | [GUIDE.pdf](https://gggip21.github.io/job-roulette-board/GUIDE.pdf) |
+| **내 방송에 맞게 설정하고 받기** | **https://gggip21.github.io/job-roulette-board/** |
+| 기본 설정 그대로 받기 | [download/job-roulette-board.zip](https://gggip21.github.io/job-roulette-board/download/job-roulette-board.zip) |
+| 사용 가이드 (PDF) | [GUIDE.pdf](https://gggip21.github.io/job-roulette-board/GUIDE.pdf) |
 
 ## 사용법 3단계
 
 1. **설정 페이지**에서 제목·후원 규칙·투표 불가 직업·테마를 정하고 **내 현황판 파일 저장** → `roulette-board.html`
-2. OBS 소스 **+ → 브라우저 → 로컬 파일**로 그 파일 선택 · 너비 460, 높이 700 (리롤 켜면 760)
+2. OBS 소스 **+ → 브라우저 → 로컬 파일**로 그 파일 선택 · 너비·높이는 설정 페이지에 나오는 **OBS 소스 크기** (기본 설정 460 × 500)
 3. 후원이 오면 소스 우클릭 **→ 상호작용 → E 키**로 편집창 열고 직업 버튼 → **+1표**
 
-> 치지직·SOOP·유튜브 후원은 자동 연동되지 않아 직접 입력해요. 입력한 표는 OBS 안에 저장돼 방송을 껐다 켜도 남아요.
+> 치지직·SOOP·유튜브 후원은 자동 집계되지 않아 직접 입력해요. 입력한 표는 OBS 안에 저장돼 방송을 껐다 켜도 남아요.
+>
+> **압축파일(.zip)로 받았다면** 압축파일 안에서 바로 열지 말고, 반드시 저장공간에 **압축을 푼 뒤** 그 파일을 OBS 소스에 넣으세요.
 
 ## 할 수 있는 것
 
-- 후원 단위(원·치즈·별풍선·직접 입력)와 1표 금액, **직업별로 다른 1표 금액**
+- 후원 단위(원·치즈·별풍선·직접 입력)와 표 금액, **직업별로 다른 표 금액**
 - **투표 불가 직업** 지정 (편집창 버튼에서 빠지고 입력도 막힘, 판 아래·마지막 페이지에 표시)
 - **메소 후원** 표 집계 (억 단위)
 - **리롤** 1~3회, 회차별 금액, 사용 처리
 - **디데이** (마감·추첨일), 총 후원 금액 표시 여부
-- 테마 색 7종 + 직접 지정, 프로필 이미지
+- 테마 색 7종 + 직접 지정, **배경 투명도 조절**, 프로필 이미지
+- **추첨용 복사**: 핀볼 추첨 사이트에 바로 붙여넣는 형식(`아란*6,에반*4`)으로 복사
 - 표가 많으면 페이지 자동 넘김, 후원 입력 시 해당 줄 반짝임 + 알림
 - 설정을 바꿔 새로 저장한 파일로 **덮어써도 쌓인 표는 유지**
 
@@ -42,6 +45,7 @@ roulette-board.html   현황판 본체 = 설정 페이지가 쓰는 템플릿 = 
 GUIDE.pdf             스트리머용 사용 가이드
 download/             기본 설정 zip
 docs/                 README 이미지
+img/                  설정 페이지 이미지
 tools/guide-source.html  GUIDE.pdf 원본 (브라우저 PDF 인쇄로 생성)
 ```
 

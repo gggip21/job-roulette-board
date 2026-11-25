@@ -24,6 +24,8 @@ h1 span{color:var(--acc)}
 .b.sm{font-size:13px;padding:8px 12px;border-radius:9px}
 .feat{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .feat span{font-size:13px;font-weight:700;color:var(--sub);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.feat .multi{display:inline-flex;flex-wrap:wrap;gap:2px 12px}.feat em{font-style:normal;display:inline-flex;align-items:center;gap:5px}.feat em .i{color:var(--acc)}
+.pi{height:14px;width:14px;flex:none;display:block}.pi.wide{width:auto}svg.pi.wide{width:20px}img.pi.wide{height:13px}
 section{padding:34px 0}
 h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .desc{color:var(--sub);margin:0 0 20px}
@@ -41,6 +43,7 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .sw button{font:inherit;font-size:13px;font-weight:700;color:var(--txt);background:#28243a;border:2px solid transparent;border-radius:10px;padding:6px 10px 6px 6px;cursor:pointer;display:flex;align-items:center;gap:7px}
 .sw button i{width:22px;height:22px;border-radius:6px;display:inline-block}
 .sw button.on{border-color:var(--hi)}
+.seg2{display:inline-flex;background:#28243a;border:1px solid #3b3652;border-radius:10px;padding:3px}.seg2 button{font:inherit;font-size:13px;font-weight:700;color:var(--sub);background:none;border:0;border-radius:7px;padding:5px 14px;cursor:pointer}.seg2 button.on{background:var(--acc);color:#1a0e00}
 .colors{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .colors label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);font-weight:700}
 .tg{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;cursor:pointer;user-select:none}
@@ -58,11 +61,12 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .ava-pv{width:44px;height:44px;border-radius:50%;background:#28243a center/cover;display:grid;place-items:center;font-family:'Black Han Sans';font-size:18px;flex:none;border:2px solid var(--acc)}
 .side{position:sticky;top:14px}
 .pv{border-radius:16px;border:1px solid var(--line);overflow:hidden;
-  background:linear-gradient(135deg,#3b4a5e,#28323f 50%,#3a3448)}
-.pv .cap{font-size:12px;font-weight:700;color:#cfd6e2;padding:8px 12px;background:rgba(0,0,0,.25);display:flex;justify-content:space-between}
-.pv iframe{display:block;width:460px;height:740px;border:0;background:transparent;margin:0 auto}
+  background:linear-gradient(rgba(12,10,20,.10),rgba(12,10,20,.10)),url(img/stage.webp) 0 100%/cover no-repeat #28323f}
+.pv .cap{font-size:12px;font-weight:700;color:#fff;padding:8px 12px;background:rgba(12,10,20,.72);display:flex;justify-content:space-between}
+.pv iframe{display:block;width:460px;height:var(--pvh,740px);border:0;background:transparent;margin:0 auto}
 .save{margin-top:14px;display:flex;flex-direction:column;gap:8px}
 .save .b{justify-content:center;font-size:17px;padding:14px}
+.obs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;line-height:1.5}.obs b{color:var(--hi);font-size:16px}.obs small{display:block;color:var(--sub);font-size:12px}
 .save .two{display:flex;gap:8px}.save .two>*{flex:1;justify-content:center}
 .note{font-size:12.5px;color:var(--sub);line-height:1.6}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:s}
@@ -73,31 +77,98 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
 .faq summary{font-weight:900;cursor:pointer}
 .faq p{margin:8px 0 0;color:#d0cce0;font-size:14px}
-.awards{margin-top:26px;border-radius:16px;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
-  background:linear-gradient(90deg,rgba(255,138,31,.12),rgba(143,211,255,.08));border:1px dashed rgba(255,224,138,.4)}
-.awards .t{flex:1;min-width:260px;font-size:14px;color:#e4e0f0}
-.awards .t b{color:var(--hi)}
-.awards .t small{display:block;color:var(--sub);font-size:12px;margin-top:2px}
+.promo{padding:0}
+.promo .in{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.pb{position:relative;display:flex;align-items:stretch;min-height:132px;border-radius:0;overflow:hidden;border:1px solid var(--line);text-decoration:none;color:var(--txt);background:var(--card);transition:transform .15s,border-color .15s}
+.pb:hover{transform:translateY(-2px);border-color:rgba(255,224,138,.45)}
+.pb .tx{position:relative;z-index:1;flex:1;min-width:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.pb .h{font-family:'Black Han Sans';font-weight:400;font-size:22px;line-height:1.2}
+.pb .m{font-size:11.5px;color:var(--sub);margin-top:2px}
+/* shared official-style */
+.pb.aw,.pb.gd{min-height:176px;border:0}
+.pb.aw .tx,.pb.gd .tx{max-width:60%;padding:20px 22px;gap:5px}
+.pb .s1{font-size:13.5px;color:#ffe08a;font-weight:900}
+.pb.aw .h,.pb.gd .h{font-family:'Noto Sans KR';font-weight:900;font-size:22px;line-height:1.28;color:#fff;letter-spacing:-.3px}
+.pb.aw .m,.pb.gd .m{color:#e2e4f4;font-size:12px;font-weight:700}
+/* awards */
+.pb.aw{background:#2b2a3c}
+.pb.aw .vid{position:absolute;left:0;top:0;height:100%;width:72%;object-fit:cover;object-position:right center;mix-blend-mode:screen;opacity:.75;
+  -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent);pointer-events:none}
+.pb.aw .s1,.pb.aw .h,.pb.aw .m,.pb.gd .s1,.pb.gd .h,.pb.gd .m{text-shadow:0 1px 3px rgba(10,8,25,.9),0 2px 12px rgba(20,18,40,.85)}
+.pb.aw .vcard{position:absolute;right:24px;top:64%;transform:translateY(-50%) rotate(4deg);width:min(38%,200px);aspect-ratio:461/365;z-index:1;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.pb.aw .vcard img{width:100%;height:100%;object-fit:contain;display:block}
+.pb.aw .bubble{position:absolute;right:calc(min(38%,200px) - 70px);top:10px;z-index:2;display:inline-flex;align-items:center;gap:5px;background:#fff;color:#2b2a3c;font-size:13.5px;font-weight:900;line-height:1;padding:7px 13px 7px 11px;border-radius:14px;transform:rotate(-3deg);white-space:nowrap;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.pb.aw .bubble:after{content:"";position:absolute;right:22px;bottom:-9px;border-style:solid;border-width:10px 0 0 12px;border-color:#fff transparent transparent transparent}
+.pb.aw .bubble em{font-style:normal;font-weight:900;font-size:inherit;line-height:1;letter-spacing:.4px;color:#2b2a3c;background:linear-gradient(transparent 52%,#ffd23f 52%);padding:0 2px}
+/* guide */
+.pb.gd{background:#241d3a}
+.pb.gd .bg{position:absolute;right:0;top:0;height:140%;aspect-ratio:780/556;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
+.pb.gd .bg video{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:980px){.promo .in{grid-template-columns:1fr!important}}
+@media(max-width:520px){.pb.gd .bg{height:120%}.pb.aw .h,.pb.gd .h{font-size:19px}.pb.aw .vcard{right:10px;width:40%}.pb.aw .bubble{right:12px;top:8px;font-size:11.5px}.pb.aw .tx,.pb.gd .tx{max-width:62%;padding:16px}}
+.pb .tx{word-break:keep-all}
+@media(max-width:520px){.pb.aw .h,.pb.gd .h{font-size:16px}.pb.aw .tx{max-width:58%}.pb.gd .tx{max-width:70%}.pb.gd .bg{height:118%;right:-92px}}
 footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line);margin-top:20px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--acc);color:#1a0e00;font-weight:900;padding:10px 16px;border-radius:999px;transition:.3s;z-index:9;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.i{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em}
+.card h3 .i,.obs .i,.tg .i{color:var(--acc)}
 .hide{display:none!important}
-@media(max-width:1000px){.grid{grid-template-columns:1fr}.side{position:static}.steps{grid-template-columns:1fr}h1{font-size:34px}.colors{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.pv iframe{transform:scale(.72);transform-origin:top left;width:460px;height:740px;margin:0 0 -207px}.row>label.k{flex-basis:100%}}
+@media(max-width:1000px){.grid{grid-template-columns:minmax(0,1fr)}.side{position:static}.steps{grid-template-columns:1fr}h1{font-size:34px}.colors{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.pv iframe{transform:scale(.72);transform-origin:top left;margin:0 0 calc(var(--pvh,740px)*-.28)}.row>label.k{flex-basis:100%}}
+@media(max-width:374px){.pv iframe{transform:scale(.6);margin:0 0 calc(var(--pvh,740px)*-.4)}}
+.maker{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:18px;color:var(--txt)}
+.maker .mk{font-weight:900;font-size:15px;margin-right:4px}
+.by .yt{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:inherit}.by .yt:hover b,.maker a.it:hover{text-decoration:underline}
+.maker .it{color:var(--txt);text-decoration:none;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:5px 13px}
+.maker .it small{color:var(--sub);font-size:12px;font-weight:700}
+.by{margin-top:16px;font-size:13.5px;color:var(--sub);font-weight:700}.by b{color:var(--txt)}.by{display:flex;align-items:center;gap:7px}.by i{font-style:normal}.ic{height:15px;width:auto;display:block;flex:none}.ic.lf{height:20px}
+header{position:relative;overflow:hidden}header>.in{position:relative;z-index:1}
+/* 맨 위 배경: 직업 그림 띠(img/jobs.webp)가 왼쪽으로 흐름. 띠를 두 번 이어 붙이고 절반만큼 움직여 끊김 없이 반복 */
+.flow{position:absolute;inset:0;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%);mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%)}
+.flow i{position:absolute;left:0;bottom:-14%;height:112%;aspect-ratio:16704/430;background:url(img/jobs.webp) 0 0/50% 100% repeat-x;animation:flow 160s linear infinite}
+.flow i:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/96 - 1px),rgba(255,255,255,.13) 0 calc(100%/96));-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
+@keyframes flow{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.flow i{animation:none}}
+header:after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(transparent,var(--bg))}
+@media(max-width:700px){.flow{opacity:.4;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%)}.flow i{height:340px;bottom:-40px}}
+header h1,header .lead,header .by{text-shadow:0 1px 8px rgba(10,8,18,.9),0 0 2px rgba(10,8,18,.8)}
+header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color:#d6d2e4}header .by{color:#d6d2e4}
+@media(min-width:521px){.pv{height:calc(var(--pvh,740px)*.86 + 137px)}.pv iframe{margin:0;transform:scale(.86);transform-origin:top left}}
 </style>
 </head>
 <body>
-<header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h6M16 18h4"/><circle cx="15" cy="6" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="13" cy="18" r="2.2"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M4 19.5h16"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M5 17.2V6.5A2.5 2.5 0 0 1 7.5 4H19v16H7.8A2.8 2.8 0 0 1 5 17.2a2.8 2.8 0 0 1 2.8-2.7H19"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16 4.5 19.5 8 8.5 19zM13.5 7l3.5 3.5"/></symbol><symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.3 6 10.5a6 6 0 0 1-12 0c0-4.2 6-10.5 6-10.5z"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="7.5" ry="3"/><path d="M4.5 7v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V7M4.5 12v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 3.5l3 3-3 3M4 11V9.5a3 3 0 0 1 3-3h13M7 20.5l-3-3 3-3M20 13v1.5a3 3 0 0 1-3 3H4"/></symbol><symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol><symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="11.5" rx="2"/><path d="M12 16v4M8 20h8"/></symbol><symbol id="i-size" viewBox="0 0 24 24"><path d="M9 4H4v5M15 20h5v-5M4 4l6 6M20 20l-6-6"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l4 4v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM8 4v5h7V4M8 20v-6h8v6"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></symbol><symbol id="i-reset" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.7-6.2L3.5 8.3M3.5 3.5v4.8h4.8"/></symbol><symbol id="i-meso" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 15.5V8.8l3.7 4.3 3.7-4.3v6.7"/></symbol></defs></svg>
+<section class="promo hide" id="promo"><div class="in">
+  <a class="pb aw hide" id="pbAw" target="_blank" rel="noopener">
+    <video class="vid" data-src="assets/banner-aran.mp4" data-poster="assets/banner-aran-poster.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+    <div class="bubble" id="awBubble"></div>
+    <div class="vcard"><img data-src="assets/banner-card.png" alt="직업 추천 AWARDS 투표 카드 — 아란, 현재 순위와 득표"></div>
+    <div class="tx"><div class="s1">도움이 되었다면</div>
+      <div class="h">제작자의 직업 추천<br>AWARDS 응원하러 가기</div>
+      <div class="m" id="awMeta"></div>
+      </div>
+  </a>
+  <a class="pb gd hide" id="pbGd" target="_blank" rel="noopener">
+    <div class="bg"><video data-src="assets/banner-seren.mp4" data-poster="assets/banner-seren-poster.jpg" autoplay muted loop playsinline aria-hidden="true"></video></div>
+    <div class="tx"><div class="s1" id="gdKick"></div>
+      <div class="h" id="gdTitle"></div>
+      <div class="m" id="gdMeta"></div>
+      </div>
+  </a>
+</div></section>
+<header><div class="flow" aria-hidden="true"><i></i></div>
   <div class="in">
     <h1>메이플 <span>직업 룰렛</span> 현황판</h1>
     <p class="lead">시청자가 후원하며 고른 직업의 표와 확률을 방송 화면에 실시간으로 보여주는 현황판이에요. 내 방송에 맞게 설정하고, 파일 하나를 OBS에 넣으면 끝.</p>
     <div class="cta">
-      <a class="b" href="#setup">⚙️ 내 방송에 맞게 설정하기</a>
-      <a class="b s" href="download/job-roulette-board.zip" download>⬇️ 기본 설정 그대로 받기 (.zip)</a>
-      <a class="b s" href="GUIDE.pdf" target="_blank">📘 사용 가이드 (PDF)</a>
+      <a class="b" href="#setup"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg>내 방송에 맞게 설정하기</a>
+      <a class="b s" href="download/job-roulette-board.zip" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>기본 설정 그대로 받기 (.zip)</a>
+      <a class="b s" href="GUIDE.pdf" target="_blank"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg>상세 가이드 (PDF)</a>
     </div>
-    <div class="feat"><span>무료</span><span>설치 없음 · html 파일 하나</span><span>배경 투명</span><span>치지직·SOOP·유튜브</span><span>메소 투표·리롤·디데이</span><span>방송 껐다 켜도 기록 유지</span></div>
-  </div>
+    <div class="feat"><span>무료</span><span>설치 없음 · html 파일 하나</span><span class="multi"><em><svg class="pi" viewBox="0 0 24 24" role="img" aria-label="치지직"><rect width="24" height="24" rx="6" fill="#00ffa3"/><path d="M13.8 3.8L6.6 13.4h4.3L9.8 20.2l7.6-9.9h-4.5z" fill="#0b0d10"/></svg>치지직</em><em><svg class="pi wide" viewBox="0 0 34 24" role="img" aria-label="SOOP"><defs><linearGradient id="soopg" x1="0" x2="1"><stop offset="0" stop-color="#0a5cff"/><stop offset="1" stop-color="#1fe3ff"/></linearGradient></defs><path d="M17 12C14.5 7.5 12.3 5.5 9.5 5.5a6.5 6.5 0 0 0 0 13c2.8 0 5-2 7.5-6.5s4.7-6.5 7.5-6.5a6.5 6.5 0 0 1 0 13c-2.8 0-5-2-7.5-6.5z" fill="none" stroke="url(#soopg)" stroke-width="4.6" stroke-linejoin="round"/></svg>SOOP</em><em><img class="pi wide" src="img/youtube.png" alt="유튜브">유튜브</em></span><span class="multi"><em><svg class="i" aria-hidden="true"><use href="#i-meso"/></svg>메소 투표</em><em><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg>리롤</em><em><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>디데이</em></span><span>방송 껐다 켜도 기록 유지</span></div>
+  <div class="by">만든 사람 <a class="yt" href="https://www.youtube.com/@GGG-w1q9l" target="_blank" rel="noopener"><img class="ic" src="img/youtube.png" alt="유튜브"><b>gggip</b></a> <i>·</i> <img class="ic lf" src="img/leaf.png" alt="메이플"><b>스카@콤보드레인</b></div>
+</div>
 </header>
 
 <section id="setup">
@@ -107,7 +178,7 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
     <div class="grid">
       <div class="form">
         <div class="card">
-          <h3>📝 기본 정보</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>기본 정보</h3>
           <div class="row"><label class="k">제목</label><input class="f" type="text" id="title" maxlength="30"></div>
           <div class="row"><label class="k">부제 <small>(비우면 숨김)</small></label><input class="f" type="text" id="sub" maxlength="40"></div>
           <div class="row"><label class="k">프로필</label>
@@ -115,11 +186,11 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
               <input type="text" id="avatarText" maxlength="2" style="width:70px" title="이미지가 없을 때 보일 글자 (1~2자)">
               <label class="b s sm" style="cursor:pointer">이미지 선택<input type="file" id="avatarFile" accept="image/*" hidden></label>
               <button class="b s sm" id="avatarDel">이미지 빼기</button></div></div>
-          <p class="hint">프로필 이미지는 정사각형으로 잘려 파일 안에 들어가요. 이미지가 없으면 왼쪽 글자(이모지 가능)가 보여요.</p>
+          <p class="hint">프로필 이미지는 정사각형으로 잘려 파일 안에 들어가요. 이미지가 없으면 왼쪽 글자가 보여요.</p>
         </div>
 
         <div class="card">
-          <h3>🎨 테마 색</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>테마 색</h3>
           <div class="sw" id="presets"></div>
           <div class="colors">
             <label><input type="color" id="c_acc"> 메인</label>
@@ -127,37 +198,39 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
             <label><input type="color" id="c_pt"> 포인트</label>
             <label><input type="color" id="c_bg"> 배경</label>
           </div>
-          <p class="hint">메인: 1위 줄·버튼·디데이 / 강조: 확률·부제 / 포인트: 리롤 사용 표시 / 배경: 판 바탕(살짝 투명)</p>
+          <p class="hint">메인: 1위 줄·버튼·디데이 / 강조: 확률·부제 / 포인트: 리롤 사용 표시 / 배경: 판 바탕</p>
+          <div class="row" style="margin:12px 0 0"><label class="k" for="opacity">배경 투명도</label><span class="hint" style="margin:0">투명</span><input type="range" id="opacity" min="0" max="100" step="5" style="flex:1;min-width:120px;accent-color:var(--acc)"><span class="hint" style="margin:0">진하게</span><b id="opacityV" style="width:46px;text-align:right"></b></div>
+          <div class="row" style="margin:10px 0 0"><label class="k">줄·테두리 색</label><div class="seg2" id="grad"><button type="button" data-g="1">그라데이션</button><button type="button" data-g="0">단색</button></div></div>
         </div>
 
         <div class="card">
-          <h3>💰 후원 규칙</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-coin"/></svg>후원 규칙</h3>
           <div class="row"><label class="k">후원 단위</label>
             <select class="f" id="curSel" style="max-width:160px"><option>원</option><option>치즈</option><option>별풍선</option><option value="_">직접 입력</option></select>
             <input type="text" id="curTxt" maxlength="6" placeholder="예: 포인트" style="max-width:140px"></div>
-          <div class="row"><label class="k">1표 금액</label><input class="f" type="number" id="unit" min="1" style="max-width:160px"><span id="curEcho"></span></div>
+          <div class="row"><label class="k">표 금액</label><input class="f" type="number" id="unit" min="1" style="max-width:160px"><span id="curEcho"></span></div>
           <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
-          <label class="tg"><input type="checkbox" id="spOn"> 1표 금액이 다른 직업이 있어요</label>
+          <label class="tg"><input type="checkbox" id="spOn"> 표 금액이 다른 직업이 있어요</label>
           <div class="sub-opts" id="spOpts">
             <div class="row"><label class="k">그 직업 1표</label><input class="f" type="number" id="spUnit" min="1" style="max-width:160px"><span class="curE"></span></div>
             <div class="jobs sp" id="spJobs"></div>
             <p class="hint">고른 직업은 현황판에 금액 배지가 붙고, +1표 버튼도 이 금액으로 들어가요.</p>
           </div>
           <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
-          <label class="tg"><input type="checkbox" id="mesoOn"> 메소 후원도 표로 받기</label>
+          <label class="tg"><input type="checkbox" id="mesoOn"> <svg class="i" aria-hidden="true"><use href="#i-meso"/></svg>메소 후원도 표로 받기</label>
           <div class="sub-opts" id="mesoOpts">
             <div class="row"><label class="k">1표 메소</label><input class="f" type="number" id="mesoUnit" min="1" style="max-width:120px"> 억</div>
           </div>
         </div>
 
         <div class="card">
-          <h3>🚫 투표 불가 직업 <small>눌러서 켜고 끄기</small></h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg>투표 불가 직업 <small>눌러서 켜고 끄기</small></h3>
           <div class="jobs ban" id="banJobs"></div>
           <div class="row" style="margin-top:10px"><button class="b s sm" id="banClear">모두 해제</button><span class="hint" id="banCnt"></span></div>
         </div>
 
         <div class="card">
-          <h3>🔁 리롤</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg>리롤</h3>
           <label class="tg"><input type="checkbox" id="rrOn"> 리롤 받기</label>
           <div class="sub-opts" id="rrOpts">
             <div class="row"><label class="k">횟수</label><select id="rrN" style="max-width:120px"><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option></select></div>
@@ -166,7 +239,7 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
         </div>
 
         <div class="card">
-          <h3>📅 디데이</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>디데이</h3>
           <label class="tg"><input type="checkbox" id="ddOn"> 디데이 표시</label>
           <div class="sub-opts" id="ddOpts">
             <div class="row"><label class="k">날짜</label><input type="date" id="ddDate" style="max-width:190px"></div>
@@ -175,9 +248,9 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
         </div>
 
         <div class="card">
-          <h3>🖥️ 표시</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg>표시</h3>
           <label class="tg"><input type="checkbox" id="showTotal"> 총 후원 금액 표시</label>
-          <label class="tg"><input type="checkbox" id="showBanned"> 판 아래 투표 불가 직업 목록 표시</label>
+          <label class="tg"><input type="checkbox" id="showBanned"> <span>판 아래 투표 불가 직업 추가 표시 <small style="color:var(--sub)">(현황판에도 이미 <span id="secE"></span>초 간격으로 떠요)</small></span></label>
           <label class="tg"><input type="checkbox" id="showCredit"> 오른쪽 아래 작은 제작 표시 (Maple Job Roulette Board)</label>
           <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select></div>
           <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초</div>
@@ -186,13 +259,15 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
       </div>
 
       <div class="side">
-        <div class="pv"><div class="cap"><span>미리보기 (예시 데이터)</span><span>OBS 화면에선 배경 투명</span></div>
+        <div class="pv"><div class="cap"><span>미리보기 (예시 데이터)</span></div>
           <iframe id="pv" title="현황판 미리보기"></iframe></div>
         <div class="save">
-          <button class="b" id="saveBtn">💾 내 현황판 파일 저장</button>
-          <div class="two"><label class="b s sm" style="cursor:pointer">📂 저장한 파일 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
-            <button class="b s sm" id="resetBtn">↺ 처음 설정으로</button></div>
+          <div class="obs"><svg class="i" aria-hidden="true"><use href="#i-size"/></svg> OBS 소스 크기 <b class="obsSize"></b><small>지금 설정에 맞춘 크기예요. 설정을 바꾸면 OBS 소스 속성의 높이도 이 숫자로 맞춰 주세요.</small></div>
+          <button class="b" id="saveBtn"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>내 현황판 파일 저장</button>
+          <div class="two"><label class="b s sm" style="cursor:pointer"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>저장한 파일 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
+            <button class="b s sm" id="resetBtn"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg>처음 설정으로</button></div>
           <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 새로 저장한 파일을 <b>같은 위치·같은 이름으로 덮어쓰면</b> OBS 설정도, 쌓인 표도 그대로 유지돼요.</p>
+          <p class="note"><b>압축파일(.zip)로 받았다면</b> 압축파일 안에서 바로 열지 말고, 반드시 저장공간에 <b>압축을 푼 뒤</b> 그 파일을 OBS 소스에 넣으세요.</p>
         </div>
       </div>
     </div>
@@ -204,8 +279,8 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
     <h2>사용법</h2>
     <p class="desc">자세한 화면 설명은 <a href="GUIDE.pdf" target="_blank">사용 가이드(PDF)</a>에 있어요.</p>
     <div class="steps">
-      <div class="card"><h3>파일 저장</h3><p>위에서 설정하고 <b>내 현황판 파일 저장</b>. 파일은 지우지 않을 폴더(예: 문서\방송)에 두세요.</p></div>
-      <div class="card"><h3>OBS에 추가</h3><p>소스 + → <b>브라우저</b> → <b>로컬 파일</b> 체크 후 파일 선택. 너비 460, 높이 700 (리롤 켜면 760).</p></div>
+      <div class="card"><h3>파일 저장</h3><p>위에서 설정하고 <b>내 현황판 파일 저장</b>. 파일은 지우지 않을 폴더(예: 문서\방송)에 두세요. <b>압축파일로 받았다면 반드시 압축을 풀고</b> 쓰세요.</p></div>
+      <div class="card"><h3>OBS에 추가</h3><p>소스 + → <b>브라우저</b> → <b>로컬 파일</b> 체크 후 파일 선택. 크기는 <b class="obsSize"></b>.</p></div>
       <div class="card"><h3>후원 입력</h3><p>소스 우클릭 → <b>상호작용</b> → <b>E</b> 키로 편집창. 직업 버튼 누르고 +1표. 입력 끝나면 E로 닫기.</p></div>
     </div>
   </div>
@@ -214,30 +289,26 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
 <section class="faq">
   <div class="in">
     <h2>자주 묻는 질문</h2>
-    <details><summary>후원이 자동으로 들어오나요?</summary><p>아니요. 치지직·SOOP·유튜브 후원은 자동 연동되지 않아서, 후원이 오면 OBS 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요.</p></details>
-    <details><summary>OBS 편집창에서 한글이 안 써져요.</summary><p>OBS 상호작용 창은 한글 입력을 지원하지 않아요. 그래서 제목 같은 글자 설정은 이 페이지에서 하고, OBS에서는 버튼과 숫자만 써요.</p></details>
-    <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 1표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
+    <details><summary>후원이 자동으로 집계되나요?</summary><p>아직은 아니에요. 후원이 오면 OBS 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요. 많이 써 주시면 자동 집계도 개발해 볼 생각이에요.</p></details>
+    <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
     <details><summary>편집창이 방송에 보이나요?</summary><p>네, 편집창도 현황판의 일부라 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 E 키로 바로 닫아 주세요.</p></details>
     <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "저장한 파일 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
   </div>
 </section>
 
-<div class="in">
-  <div class="awards hide" id="awards">
-    <div class="t">🍁 이 현황판을 만든 사람이 넥슨 <b>직업 추천 AWARDS</b>에 <b id="awVideo"></b> 영상으로 참가하고 있어요. 영상이 도움이 됐다면 투표로 응원해 주세요.
-      <small>현황판은 투표와 상관없이 누구나 무료로 쓸 수 있어요.</small></div>
-    <a class="b s sm" id="awLink" target="_blank" rel="noopener">투표 페이지 보기 ↗</a>
-  </div>
-</div>
-
-<footer><div class="in">
+<footer><div class="in"><div class="maker"><span class="mk">만든 사람</span><a class="it" href="https://www.youtube.com/@GGG-w1q9l" target="_blank" rel="noopener"><img class="ic" src="img/youtube.png" alt="유튜브"><small>유튜브</small> gggip</a><span class="it"><img class="ic lf" src="img/leaf.png" alt="메이플"><small>메이플</small> 스카@콤보드레인</span></div>
   Maple Job Roulette Board · 메이플스토리 팬메이드 도구이며 넥슨의 공식 도구가 아니에요. 메이플스토리 및 직업 이름의 권리는 넥슨코리아에 있어요.
 </div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== 어워즈 배너 설정 (url이 비어 있거나 마감이 지나면 배너가 숨겨져요) ===== */
-const AWARDS={ url:"", video:"아~란 | 직업추천", until:"2026-12-09T23:59:59+09:00" };
+/* ===== 상단 배너 설정 (url이 비어 있거나 until이 지나면 그 배너는 숨겨져요) ===== */
+const BANNERS={
+  awards:{ url:"https://maplestory.nexon.com/promotion/event/2026/20261112/event02", title:"아~란 | 직업추천",
+           meta:"아~란 | 직업추천 · ~12/9(수) · 현황판은 누구나 무료", bubble:"<em>IN 50</em> 도와주세요 ㅠ.ㅠ", until:"2026-12-09T23:59:59+09:00" },
+  guide: { url:"https://www.inven.co.kr/board/maple/2304/48419", kick:"보스 공략 포스트",
+           title:"흉성,<br>배율대로 잡아보자", meta:"메이플 인벤 팁과노하우<br>조회 2.7만+ · 추천 59+ · 댓글 150+", until:"" }
+};
 /* ================================================================================== */
 const GROUPS=[["전사",["히어로","팔라딘","다크나이트","소울마스터","미하일","블래스터","데몬슬레이어","데몬어벤져","아란","카이저","아델","제로","렌"]],
  ["마법사",["아크메이지(불,독)","아크메이지(썬,콜)","비숍","플레임위자드","배틀메이지","에반","루미너스","일리움","라라","키네시스","레테"]],
@@ -250,12 +321,14 @@ const PRESETS=[["메이플 오렌지",{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",b
  ["스카이",{acc:"#4cc3ff",hi:"#fff3a6",pt:"#ff8fb0",bg:"#121a26"}],["핑크",{acc:"#ff7aa8",hi:"#fff0a8",pt:"#7ee8c6",bg:"#221424"}],
  ["모노",{acc:"#e8e8ee",hi:"#ffd166",pt:"#9be7a6",bg:"#141416"}]];
 const todayPlus=n=>{const d=new Date(Date.now()+n*864e5);return d.toISOString().slice(0,10)};
-const DEFAULT=()=>({v:1,title:"직업 룰렛 현황",sub:"원하는 직업에 투표!",avatarText:"🍁",avatarImg:"",theme:{...PRESETS[0][1]},currency:"원",unit:2000,
+/* 기본 프로필(단풍잎) */
+const LEAF="data:image/png;base64,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";
+const DEFAULT=()=>({v:1,title:"직업 룰렛 현황",sub:"원하는 직업에 투표!",avatarText:"룰",avatarImg:LEAF,theme:{...PRESETS[0][1]},opacity:75,grad:true,currency:"원",unit:2000,
   spJobs:[],spUnit:4000,banned:[],meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},
   dday:{on:false,date:todayPlus(14),label:"마감"},show:{total:false,banned:true,credit:true},page:{top:10,sec:6}});
 const KEY="mjrb.setup.v1";
 const merge=(base,o)=>{for(const k in o){if(o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k])&&base[k]&&typeof base[k]==="object")merge(base[k],o[k]);else if(k in base)base[k]=o[k];}return base;};
-let F=DEFAULT(); try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) F=merge(DEFAULT(),s);}catch(e){}
+let F=DEFAULT(); try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s){ if(s.avatarText==="🍁"){ if(!("opacity" in s)&&!s.avatarImg) s.avatarImg=LEAF; if(s.avatarImg===LEAF) s.avatarText="룰"; } F=merge(DEFAULT(),s);} }catch(e){}
 const $=id=>document.getElementById(id);
 const fmt=n=>(+n||0).toLocaleString("ko-KR");
 let tt;const toast=t=>{const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),2200);};
@@ -274,7 +347,7 @@ function fill(){
   $("title").value=F.title;$("sub").value=F.sub;$("avatarText").value=F.avatarText;
   $("avaPv").style.backgroundImage=F.avatarImg?`url(${F.avatarImg})`:"";$("avaPv").textContent=F.avatarImg?"":F.avatarText;$("avaPv").style.borderColor=F.theme.acc;
   $("presets").innerHTML=PRESETS.map(([n,t],i)=>`<button type="button" data-p="${i}" class="${JSON.stringify(t)===JSON.stringify(F.theme)?"on":""}"><i style="background:linear-gradient(135deg,${t.acc} 50%,${t.bg} 50%)"></i>${n}</button>`).join("");
-  ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).value=F.theme[k]);
+  ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).value=F.theme[k]); $("opacity").value=F.opacity;$("opacityV").textContent=F.opacity+"%"; document.querySelectorAll("#grad button").forEach(b=>b.classList.toggle("on",(b.dataset.g==="1")===(F.grad!==false)));
   const std=["원","치즈","별풍선"].includes(F.currency); $("curSel").value=std?F.currency:"_"; $("curTxt").value=std?"":F.currency; $("curTxt").classList.toggle("hide",std);
   $("unit").value=F.unit; document.querySelectorAll(".curE").forEach(e=>e.textContent=F.currency); $("curEcho").textContent=F.currency;
   $("spOn").checked=F.spJobs.length>0||F._spOpen; $("spOpts").classList.toggle("off",!$("spOn").checked); $("spUnit").value=F.spUnit;
@@ -285,8 +358,13 @@ function fill(){
   $("rrCosts").innerHTML=Array.from({length:F.reroll.n},(_,i)=>`<div class="row"><label class="k">${i+1}회 금액</label><input type="number" data-rc="${i}" min="0" value="${F.reroll.costs[i]||0}" style="max-width:160px"> <span class="curE">${F.currency}</span></div>`).join("");
   $("ddOn").checked=F.dday.on;$("ddOpts").classList.toggle("off",!F.dday.on);$("ddDate").value=F.dday.date;$("ddLabel").value=F.dday.label;
   $("showTotal").checked=F.show.total;$("showBanned").checked=F.show.banned;$("showCredit").checked=F.show.credit;
-  $("top").value=F.page.top;$("sec").value=F.page.sec;
+  $("top").value=F.page.top;$("sec").value=F.page.sec;$("secE").textContent=F.page.sec;
 }
+/* 미리보기 현황판에서 필요한 크기를 재서 표시 */
+let SIZE={w:460,h:500};
+$("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();showSize();}catch(e){}};
+function showSize(){document.querySelector(".pv").style.setProperty("--pvh",Math.max(740,SIZE.h)+"px");document.querySelectorAll(".obsSize").forEach(e=>e.textContent=`너비 ${SIZE.w} · 높이 ${SIZE.h}`);}
+showSize();
 let rt; function refresh(){ try{localStorage.setItem(KEY,JSON.stringify(F))}catch(e){}
   clearTimeout(rt); rt=setTimeout(()=>{ if(!TEMPLATE) return; $("pv").srcdoc=build({...F,_preview:true,_demo:true}).replace("<body>",'<body style="background:transparent">'); },200); }
 const upd=(fn,refill)=>{fn();if(refill)fill();refresh();};
@@ -301,6 +379,8 @@ $("avatarFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new 
 $("avatarDel").onclick=()=>upd(()=>F.avatarImg="",true);
 $("presets").onclick=e=>{const b=e.target.closest("[data-p]");if(b)upd(()=>F.theme={...PRESETS[+b.dataset.p][1]},true);};
 ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).oninput=e=>upd(()=>{F.theme={...F.theme,[k]:e.target.value};document.querySelectorAll("#presets button").forEach(b=>b.classList.remove("on"));}));
+$("grad").onclick=e=>{const b=e.target.closest("[data-g]");if(b)upd(()=>F.grad=b.dataset.g==="1",true);};
+$("opacity").oninput=e=>upd(()=>{F.opacity=+e.target.value;$("opacityV").textContent=F.opacity+"%";});
 $("curSel").onchange=e=>upd(()=>{F.currency=e.target.value==="_"?($("curTxt").value||"포인트"):e.target.value;},true);
 $("curTxt").oninput=e=>upd(()=>{F.currency=e.target.value||"포인트";document.querySelectorAll(".curE").forEach(x=>x.textContent=F.currency);$("curEcho").textContent=F.currency;});
 $("unit").onchange=e=>upd(()=>F.unit=Math.max(1,+e.target.value||1),true);
@@ -329,14 +409,21 @@ $("saveBtn").onclick=()=>{ if(!TEMPLATE) return toast("파일을 아직 불러�
   const cfg=JSON.parse(JSON.stringify(F)); delete cfg._spOpen; cfg.reroll.costs=cfg.reroll.costs.slice(0,3);
   const blob=new Blob([build(cfg)],{type:"text/html"}),a=document.createElement("a");
   a.href=URL.createObjectURL(blob);a.download="roulette-board.html";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-  toast("roulette-board.html 저장됨"); };
+  toast(`저장됨 · OBS 소스 크기 ${SIZE.w} × ${SIZE.h}`); };
 $("loadFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=t.match(/<script id="board-config" type="application\/json">([\s\S]*?)<\/script>/);
   if(!m) return toast("현황판 파일이 아니에요"); try{F=merge(DEFAULT(),JSON.parse(m[1]));fill();refresh();toast("설정을 불러왔어요");}catch(err){toast("설정을 읽지 못했어요");}});e.target.value="";};
-let armed=false;$("resetBtn").onclick=()=>{if(!armed){armed=true;$("resetBtn").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("resetBtn").textContent="↺ 처음 설정으로"},3000);return;}
-  armed=false;$("resetBtn").textContent="↺ 처음 설정으로";F=DEFAULT();fill();refresh();};
+const RESET=$("resetBtn").innerHTML;let armed=false;$("resetBtn").onclick=()=>{if(!armed){armed=true;$("resetBtn").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("resetBtn").innerHTML=RESET},3000);return;}
+  armed=false;$("resetBtn").innerHTML=RESET;F=DEFAULT();fill();refresh();};
 
-// awards banner
-if(AWARDS.url&&(!AWARDS.until||Date.now()<Date.parse(AWARDS.until))){$("awards").classList.remove("hide");$("awVideo").textContent=`"${AWARDS.video}"`;$("awLink").href=AWARDS.url;}
+// top banners
+(function(){const live=b=>b&&b.url&&(!b.until||Date.now()<Date.parse(b.until));let any=false;
+  const show=e=>{e.querySelectorAll("[data-src]").forEach(x=>{if(x.dataset.poster)x.poster=x.dataset.poster;x.src=x.dataset.src;});e.classList.remove("hide");};
+  const A=BANNERS.awards,G=BANNERS.guide;
+  if(live(A)){any=true;$("pbAw").href=A.url;$("awMeta").textContent=A.meta;if(A.bubble)$("awBubble").innerHTML=A.bubble;else $("awBubble").remove();show($("pbAw"));}
+  if(live(G)){any=true;$("pbGd").href=G.url;$("gdKick").textContent=G.kick;$("gdTitle").innerHTML=G.title;$("gdMeta").innerHTML=G.meta;show($("pbGd"));}
+  if(any)$("promo").classList.remove("hide");
+  if(!(live(A)&&live(G)))document.querySelector(".promo .in").style.gridTemplateColumns="1fr";
+})();
 fill();refresh();
 </script>
 </body>
