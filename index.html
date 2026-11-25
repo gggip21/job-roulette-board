@@ -337,7 +337,7 @@ const fmt=n=>(+n||0).toLocaleString("ko-KR");
 let tt;const toast=t=>{const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),2200);};
 
 let TEMPLATE=null;
-fetch("roulette-board.html").then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{TEMPLATE=t;refresh();})
+fetch("roulette-board.html",{cache:"no-cache"}).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{TEMPLATE=t;refresh();})
   .catch(()=>{$("pv").srcdoc='<p style="color:#fff;font:14px sans-serif;padding:20px">미리보기를 불러오지 못했어요. 인터넷 주소(https://)로 열었는지 확인해 주세요.</p>';});
 const CFG_RE=/(<script id="board-config" type="application\/json">)[\s\S]*?(<\/script>)/;
 const build=(cfg)=>TEMPLATE.replace(CFG_RE,(m,a,b)=>a+"\n"+JSON.stringify(cfg).replace(/</g,"\\u003c")+"\n"+b);
