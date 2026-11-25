@@ -15,7 +15,9 @@
 :root{--w:420px;--acc:#ff6153;--acc2:#e8453a;--hi:#fff09a;--pt:#5ce6b0;--acc-rgb:255,97,83;--hi-rgb:255,240,154;--pt-rgb:92,230,176;--bg-rgb:24,22,44;--on-acc:#fff;
   --panel:rgba(255,255,255,.05);--line:rgba(255,255,255,.09);--txt:#f4f2fa;--sub:#a29fb8;--red:#ff4d5e}
 *{box-sizing:border-box}
-html,body{margin:0;background:transparent;color:var(--txt);font-family:'Noto Sans KR',sans-serif;overflow:hidden}
+html,body{margin:0;background:transparent;color:var(--txt);font-family:'Noto Sans KR',sans-serif}
+/* overflow는 body에만: html에도 넣으면 배율을 키웠을 때 판 아래가 body 높이에서 잘림 (OBS 기본 CSS도 body에 hidden을 넣음) */
+body{overflow:hidden}
 .wrap{transform-origin:top left;width:calc(var(--w) + 20px);padding:10px}
 .board{position:relative;width:var(--w);background:rgba(var(--bg-rgb),var(--bg-a,.75));border-radius:20px;padding:16px 16px 14px;
   border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.5);overflow:hidden}
@@ -106,6 +108,7 @@ html,body{margin:0;background:transparent;color:var(--txt);font-family:'Noto San
 .ehead b{color:var(--acc);font-size:14px}
 .ehead button{border:0;background:#37344f;color:var(--txt);border-radius:8px;padding:5px 10px;font-weight:900;cursor:pointer}
 body.edit .editor{display:block}
+.editor.peek{opacity:.22}
 .editor h3{margin:2px 0 8px;font-size:15px;font-weight:900;color:var(--acc)}
 .editor input{font:inherit;font-size:14px;padding:7px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;width:100%;min-width:0}
 .line{display:flex;gap:6px;margin-bottom:6px;align-items:center}
@@ -126,6 +129,7 @@ body.edit .editor{display:block}
 .amt .ic{flex:0 0 36px;display:grid;place-items:center;padding:9px 0}.amt #addCustom{flex:0 0 86px}
 #amt{flex:1;text-align:right;appearance:textfield;-moz-appearance:textfield}#amt::-webkit-inner-spin-button,#amt::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .amtTip{font-size:11px;color:var(--sub);margin:-2px 0 8px}.amtTip b{color:var(--txt)}.amtTip em{font-style:normal;color:#ff8b96;font-weight:700}
+.op label,.op small{flex:none}.op small{font-size:11px;color:var(--sub)}.op #sOp{flex:1;min-width:0;padding:0;accent-color:var(--acc);cursor:pointer}.op b{flex:0 0 42px;text-align:right;font-size:13px}
 #pinCopy{display:inline-flex;align-items:center;justify-content:center;gap:5px}#pinCopy svg{flex:none}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .jlist{max-height:180px;overflow:auto;margin-top:6px;border-top:1px solid var(--line)}
@@ -190,6 +194,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <h3><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg> 화면</h3>
   <div class="line"><label>한 페이지 개수</label><input id="sTop" type="number" min="2" max="40" step="2"><label>넘김 간격(초)</label><input id="sSec" type="number" min="2" max="60"></div>
   <div class="line"><label>크기 배율</label><input id="sScale" type="number" step="0.1" min="0.5" max="2.5" style="flex:2.4"></div>
+  <div class="line op"><label for="sOp">배경 투명도</label><small>투명</small><input id="sOp" type="range" min="0" max="100" step="5"><small>진하게</small><b id="sOpV"></b></div>
   <div class="amtTip" id="sizeTip"></div>
   <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
   <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
@@ -234,12 +239,16 @@ const showSp=SP_JOBS.length&&SPU!==UNIT;
 
 // 판 바탕 진하기 (0 = 완전 투명, 100 = 불투명)
 const OP=(v=>Number.isFinite(v)?Math.min(100,Math.max(0,v)):75)(+CFG.opacity);
-document.documentElement.style.setProperty("--bg-a",OP/100); document.getElementById("board").classList.toggle("see",OP<90); document.getElementById("board").classList.toggle("solid",CFG.grad===false);
+const setOp=v=>{document.documentElement.style.setProperty("--bg-a",v/100);document.getElementById("board").classList.toggle("see",v<90);};
+document.getElementById("board").classList.toggle("solid",CFG.grad===false);
 
 const KEY="mapleJobRouletteBoard.v1";
 let S={data:{},meso:{},log:[],rr:[false,false,false]};
 if(!PREVIEW){try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}}
 const save=()=>{if(PREVIEW)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+// 편집창에서 바꾼 투명도. 설정 페이지에서 투명도를 바꿔 새로 저장하면(base가 달라지면) 새 파일 값을 씀
+const curOp=()=>S.op&&S.op.base===OP&&Number.isFinite(S.op.v)?Math.min(100,Math.max(0,S.op.v)):OP;
+setOp(curOp());
 const opt=k=>S[k]!==undefined?S[k]:(k==="scale"?1:CFG.page[k]);
 const $=id=>document.getElementById(id);
 const fmt=n=>(+n||0).toLocaleString("ko-KR");
@@ -324,7 +333,7 @@ function render(flash){
     return `<button data-pick="${j}" class="${j===picked?"on":""}">${disp(j)}${showSp&&SP_JOBS.includes(j)?`<span class="u">×${+(SPU/UNIT).toFixed(1)}</span>`:""}${vt?`<span class="v">${vt}</span>`:""}</button>`}).join("")}</div>`).join("");
   $("rrEdBox").classList.toggle("hide",!RR);
   $("rrEdit").innerHTML=rrA.map((u,i)=>`<button class="btn ${u?"g":"s"}" data-rr="${i}">${i+1}회 ${u?"사용됨":"미사용"}</button>`).join("");
-  $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");
+  $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");$("sOp").value=curOp();$("sOpV").textContent=curOp()+"%";
   fitRows(); renderSize();
 }
 // 이름이 잘리지 않게: 이름 글자 줄이기 → 이 페이지 표·퍼센트 글자를 조금 줄이기 → 그래도 안 되는 줄만 두 줄
@@ -394,6 +403,10 @@ $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 �
 ["sTop","sSec","sScale"].forEach(id=>$(id).onchange=()=>{
   S.top=Math.max(2,Math.round(+$("sTop").value/2)*2||10);S.sec=Math.max(2,+$("sSec").value||6);S.scale=Math.min(2.5,Math.max(.5,+$("sScale").value||1));
   page=0;restartTimer();save();render();});
+// 움직이는 동안만 편집창을 비치게 해서 판이 보이게
+let opT;$("sOp").oninput=e=>{const v=+e.target.value;S.op={v,base:OP};setOp(v);$("sOpV").textContent=v+"%";save();
+  $("editor").classList.add("peek");clearTimeout(opT);opT=setTimeout(()=>$("editor").classList.remove("peek"),900);};
+$("sOp").onchange=e=>e.target.blur();
 const toggle=()=>document.body.classList.toggle("edit");
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
 document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SELECT/.test(document.activeElement.tagName))toggle();});
