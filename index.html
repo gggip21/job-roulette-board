@@ -7,6 +7,12 @@
 <title>메이플 직업 룰렛 현황판 — 방송용 후원 투표 현황판 (무료)</title>
 <meta name="description" content="방송 화면(OBS)에 띄우는 메이플스토리 직업 룰렛 후원 투표 현황판. 내 방송에 맞게 설정하고 파일 하나로 바로 사용하세요.">
 <meta property="og:title" content="메이플 직업 룰렛 현황판">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gggip21.github.io/job-roulette-board/">
+<meta property="og:image" content="https://gggip21.github.io/job-roulette-board/docs/inven/01-site.jpg">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="831">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:description" content="OBS에 띄우는 직업 룰렛 후원 투표 현황판 · 무료 · 설정해서 바로 다운로드">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -452,9 +458,10 @@ function fill(){
 }
 /* 미리보기 현황판에서 필요한 크기를 재서 표시 */
 let SIZE={w:460,h:500};
-$("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();const bd=w.document.getElementById("board");PVH=bd?Math.ceil(bd.getBoundingClientRect().bottom)+80:0;showSize();}catch(e){}};
+$("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();const bd=w.document.getElementById("board");if(bd)PVH=Math.max(PVH,Math.ceil(bd.getBoundingClientRect().bottom)+80);showSize();}catch(e){}};
 // 미리보기 칸 높이 = 판 높이에 맞춤(저장 버튼과 함께 화면 안에 들어오도록)
-let PVH=0;function showSize(){document.querySelector(".pv").style.setProperty("--pvh",Math.max(SIZE.h,PVH)+"px");document.querySelectorAll(".obsSize").forEach(e=>e.textContent=`너비 ${SIZE.w} · 높이 ${SIZE.h}`);}
+let PVH=680; // 기본을 넉넉히, 판이 길어지면 늘고 짧아져도 줄이지 않음
+function showSize(){document.querySelector(".pv").style.setProperty("--pvh",PVH+"px");document.querySelectorAll(".obsSize").forEach(e=>e.textContent=`너비 ${SIZE.w} · 높이 ${SIZE.h}`);}
 showSize();
 // 미리보기 예시 직업: 한 번이라도 직업을 고르면 "처음 설정으로" 전까지 다시 안 띄움
 const DEMO_KEY="mjrb.demoOff";let demoOff=false;try{demoOff=!!localStorage.getItem(DEMO_KEY)}catch(e){}
