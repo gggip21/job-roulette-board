@@ -145,8 +145,8 @@ body.edit .editor{display:block}
 .op label,.op small{flex:none}.op small{font-size:11px;color:var(--sub)}.op #sOp{flex:1;min-width:0;padding:0;accent-color:var(--acc);cursor:pointer}.op b{flex:0 0 42px;text-align:right;font-size:13px}
 #pinCopy{display:inline-flex;align-items:center;justify-content:center;gap:5px}#pinCopy svg{flex:none}
 /* 집계 완료를 누르면 뜨는 추첨용 복사 창 */
-.pinPop{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(8,6,14,.5)}
-.pbox{width:min(400px,100%);background:#1d1b2a;border:1px solid var(--line);border-radius:16px;padding:14px;font-size:13px;box-shadow:0 12px 34px rgba(0,0,0,.6)}
+.pinPop{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:12px;border-radius:inherit;background:rgba(8,6,14,.55)}
+.pbox{width:100%;background:#1d1b2a;border:1px solid var(--line);border-radius:16px;padding:14px;font-size:13px;box-shadow:0 12px 34px rgba(0,0,0,.6)}
 .pbox h3{margin:0 0 10px;font-size:15px;font-weight:900;color:var(--acc)}
 .pbox input{font:inherit;font-size:14px;padding:8px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;width:100%;min-width:0}
 .pmsg{margin:0 0 10px;padding:9px 11px;border-radius:10px;font-weight:900;line-height:1.45;background:rgba(var(--pt-rgb),.16);border:1px solid rgba(var(--pt-rgb),.55);color:var(--txt)}
@@ -197,15 +197,14 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
     <div id="exBox"><div class="sec">투표 불가 직업</div><div class="ban" id="excl"></div></div>
     <div class="credit" id="credit">Maple Job Roulette Board</div>
     <div class="toast" id="toast"></div>
-  </div>
-</div>
-
-<div class="pinPop hide" id="pinPop" role="dialog" aria-modal="true" aria-labelledby="pinT">
-  <div class="pbox">
-    <h3 id="pinT"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> 추첨(핀볼)용 텍스트</h3>
-    <div class="pmsg" id="pinMsg"></div>
-    <div class="line"><input id="pinTxt" readonly style="flex:2"><button class="btn g" id="pinCopy"></button></div>
-    <button class="btn s pclose" id="pinClose">닫기</button>
+    <div class="pinPop hide" id="pinPop" role="dialog" aria-modal="true" aria-labelledby="pinT">
+      <div class="pbox">
+        <h3 id="pinT"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> 추첨(핀볼)용 텍스트</h3>
+        <div class="pmsg" id="pinMsg"></div>
+        <div class="line"><input id="pinTxt" readonly style="flex:2"><button class="btn g" id="pinCopy"></button></div>
+        <button class="btn s pclose" id="pinClose">닫기</button>
+      </div>
+    </div>
   </div>
 </div>
 
