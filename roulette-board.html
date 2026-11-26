@@ -252,9 +252,10 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="line chk" id="sLkBox"><span>선호 직업</span><label><input id="sLiked" type="checkbox">판 아래에 표시</label></div>
   <div class="amtTip" id="sizeTip"></div>
   <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
+  <div class="line"><button class="btn s" id="reload"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 판 새로 고침 (새로 받은 설정 파일 적용)</button></div>
   <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
     • 직업 버튼을 누른 뒤 +표 버튼을 누르면 그 직업의 표 금액만큼 들어가요.<br>
-    • 제목·단위·투표 불가 직업·테마 같은 설정은 설정 페이지에서 새 파일을 만들어 바꿔요. 같은 이름으로 덮어쓰면 표는 그대로 남아요.<br>
+    • 제목·단위·투표 불가 직업·테마 같은 설정은 설정 페이지에서 새 파일을 만들어 바꿔요. 같은 이름으로 덮어쓴 뒤 <b>판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 표는 그대로 남아요.<br>
     • 데이터는 OBS 안에 저장돼 방송을 껐다 켜도 유지돼요.</div>
 </div>
 
@@ -542,6 +543,9 @@ $("sOp").onchange=e=>e.target.blur();
 [["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"],["sRrShow","reroll"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
 const toggle=()=>document.body.classList.toggle("edit");
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
+// 판 새로 고침: 덮어쓴 설정 파일을 다시 읽음(표는 OBS 안에 저장돼 그대로)
+$("reload").onclick=()=>{save();try{sessionStorage.setItem("mjrb.reloaded","1")}catch(e){}location.reload();};
+try{if(sessionStorage.getItem("mjrb.reloaded")){sessionStorage.removeItem("mjrb.reloaded");setTimeout(()=>toast("새로 고침 완료 · 표는 그대로예요"),300);}}catch(e){}
 document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SELECT/.test(document.activeElement.tagName))toggle();});
 if(PREVIEW&&CFG._demo){const d=[["아란",6],["에반",4],["엔젤릭버스터",3],["카데나",3],["아델",2],["아크메이지(썬,콜)",2],["칼리",1]].filter(([j])=>JOBS.includes(j)&&!EX.includes(j));
   d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; }

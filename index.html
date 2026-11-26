@@ -306,7 +306,8 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <button class="b" id="saveBtn"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>내 현황판 파일 저장</button>
           <div class="two"><label class="b s sm" style="cursor:pointer"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>저장한 파일 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
             <button class="b s sm" id="resetBtn"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg>처음 설정으로</button></div>
-          <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 새로 저장한 파일을 <b>같은 위치·같은 이름으로 덮어쓰면</b> OBS 설정도, 쌓인 표도 그대로 유지돼요.</p>
+          <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 저장 창에서 <b>OBS에 넣어 둔 그 파일을 골라 덮어쓰세요.</b> 그다음 OBS 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 쌓인 표도 그대로예요. 소스를 다시 넣을 필요는 없어요.</p>
+          <p class="note">다운로드 폴더에 <b>roulette-board (1).html</b>처럼 새 파일이 생겼다면 OBS는 아직 예전 파일을 보고 있어요. 그 파일 이름을 원래대로 바꿔 기존 파일에 덮어쓰세요.</p>
           <p class="note"><b>압축파일(.zip)로 받았다면</b> 압축파일 안에서 바로 열지 말고, 반드시 저장공간에 <b>압축을 푼 뒤</b> 그 파일을 OBS 소스에 넣으세요.</p>
         </div>
       </div>
@@ -331,6 +332,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
   <div class="in">
     <h2>자주 묻는 질문</h2>
     <details><summary>후원이 자동으로 집계되나요?</summary><p>아직은 아니에요. 후원이 오면 OBS 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요. 많이 써 주시면 자동 집계도 개발해 볼 생각이에요.</p></details>
+    <details><summary>새로 받았는데 OBS 화면이 안 바뀌어요</summary><p>① 받은 파일이 <b>roulette-board (1).html</b>처럼 다른 이름으로 저장되지 않았는지 보세요. OBS에 넣은 파일과 같은 위치·같은 이름으로 덮어써야 해요. ② 덮어쓴 뒤 OBS 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르세요. 방송 중에도 되고 표는 그대로예요. 그래도 안 바뀌면 OBS를 껐다 켜세요(표는 남아요). 소스를 지우고 다시 넣을 필요는 없어요.</p></details>
     <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
     <details><summary>편집창이 방송에 보이나요?</summary><p>네, 편집창도 현황판의 일부라 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 E 키로 바로 닫아 주세요.</p></details>
     <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "저장한 파일 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
@@ -387,7 +389,7 @@ let F=DEFAULT(); try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s
 const $=id=>document.getElementById(id);
 const fmt=n=>(+n||0).toLocaleString("ko-KR");
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let tt;const toast=t=>{const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),2200);};
+let tt;const toast=(t,ms)=>{const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),ms||2200);};
 
 let TEMPLATE=null;
 fetch("roulette-board.html",{cache:"no-cache"}).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{TEMPLATE=t;refresh();})
@@ -487,9 +489,15 @@ $("showCredit").onchange=e=>upd(()=>F.show.credit=e.target.checked);
 $("top").onchange=e=>upd(()=>F.page.top=+e.target.value);
 $("sec").onchange=e=>upd(()=>F.page.sec=Math.min(60,Math.max(2,+e.target.value||6)),true);
 
-$("saveBtn").onclick=()=>{ if(!TEMPLATE) return toast("파일을 아직 불러오는 중이에요");
+$("saveBtn").onclick=async()=>{ if(!TEMPLATE) return toast("파일을 아직 불러오는 중이에요");
   const cfg=JSON.parse(JSON.stringify(F)); delete cfg._spOpen; const used=spG().map(g=>({...g,jobs:g.jobs.filter(x=>!F.banned.includes(x))})).filter(g=>g.jobs.length);cfg.spJobs=used.length?used[0].jobs:[];cfg.spUnit=used.length?used[0].unit:F.spUnit;cfg.spMore=used.slice(1); cfg.reroll.costs=cfg.reroll.costs.slice(0,3);
-  const blob=new Blob([build(cfg)],{type:"text/html"}),a=document.createElement("a");
+  const blob=new Blob([build(cfg)],{type:"text/html"});
+  // 크롬·엣지·웨일: 저장 위치를 직접 골라 OBS에 넣은 기존 파일에 바로 덮어쓰기(다운로드 폴더에 "(1)" 붙은 새 파일이 생기지 않게)
+  if(window.showSaveFilePicker){try{const h=await showSaveFilePicker({id:"mjrb",suggestedName:"roulette-board.html",types:[{description:"현황판 파일",accept:{"text/html":[".html"]}}]});
+      const w=await h.createWritable();await w.write(blob);await w.close();
+      toast(`저장됨 · OBS 편집창(E)에서 판 새로 고침 · 소스 크기 ${SIZE.w} × ${SIZE.h}`,5000);return;}
+    catch(err){if(err&&err.name==="AbortError")return;}}
+  const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);a.download="roulette-board.html";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   toast(`저장됨 · OBS 소스 크기 ${SIZE.w} × ${SIZE.h}`); };
 $("loadFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=t.match(/<script id="board-config" type="application\/json">([\s\S]*?)<\/script>/);
