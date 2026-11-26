@@ -28,6 +28,11 @@ body{overflow:hidden}
 .board.solid:before,.board.solid .ava{background:var(--acc)}
 .ava div{width:100%;height:100%;border-radius:50%;background:rgb(var(--bg-rgb)) center/cover no-repeat;display:grid;place-items:center;font-family:'Black Han Sans';font-size:22px;color:var(--acc)}
 .ttl{flex:1;min-width:0}
+.board.drawing .rule{display:none}
+.board.drawing .toast{top:92px;right:auto;left:50%;transform:translate(-50%,-6px)}.board.drawing .toast.show{transform:translate(-50%,0)}.board.drawing .head{margin-bottom:14px}
+.board.drawing .ttl .s{display:none}.board.drawing .ttl h1{font-size:30px;color:var(--hi);letter-spacing:.5px}
+.rrBig{flex:none;display:flex;align-items:baseline;gap:3px;padding:6px 12px;border-radius:14px;border:1.5px solid var(--pt);background:rgba(var(--pt-rgb),.16);font-weight:900;color:var(--txt);white-space:nowrap}
+.rrBig small{font-size:13px;color:var(--pt)}.rrBig b{font-family:'Black Han Sans';font-weight:400;font-size:30px;line-height:1;color:var(--pt)}
 .ttl .s{font-size:12px;color:var(--hi);font-weight:700;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ttl h1{margin:1px 0 0;font-family:'Black Han Sans';font-weight:400;font-size:22px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gear{opacity:0;background:none;border:0;color:var(--sub);font-size:18px;cursor:pointer;align-self:flex-start;transition:.2s}
@@ -74,9 +79,12 @@ body{overflow:hidden}
 .rr>div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center}
 .rr .n{font-size:11px;color:var(--sub);font-weight:700}
 .rr .a{font-family:'Black Han Sans';font-size:15px}
-.rr>div.used{border-color:rgba(var(--pt-rgb),.7);background:rgba(var(--pt-rgb),.14)}
-.rr>div.used .a{opacity:.7;text-decoration:line-through}
-.rr>div.used .n:after{content:" ✓ 사용";color:var(--pt)}
+.rr>div.used{border-color:var(--pt);background:var(--pt);box-shadow:0 0 14px rgba(var(--pt-rgb),.55)}
+.rr>div.used .n,.rr>div.used .a{color:var(--on-pt,#14121f);opacity:1}
+.rr>div.used .n{font-weight:900}.rr>div.used .a{text-decoration:line-through;text-decoration-thickness:2px}
+.rr>div.used .n:after{content:" ✓ 사용"}
+.rr>div.pop{animation:rrPop .6s ease-out}
+@keyframes rrPop{0%{transform:scale(1)}35%{transform:scale(1.12)}100%{transform:scale(1)}}
 .rr>div.next{border-color:rgba(var(--acc-rgb),.55)}
 .rr.click>div{cursor:pointer;transition:transform .12s,border-color .12s}.rr.click>div:hover{border-color:var(--acc);transform:translateY(-1px)}.rr.click>div:active{transform:scale(.97)}
 .dd.done{border-color:var(--hi);background:rgba(var(--hi-rgb),.16)}.dd.done small,.dd.done b{color:var(--hi)}.dd.done b{font-size:19px}
@@ -164,6 +172,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
     <div class="head">
       <div class="ava"><div id="ava"></div></div>
       <div class="ttl"><div class="s" id="sub"></div><h1 id="title"></h1></div>
+      <div class="rrBig hide" id="rrBig"><small>리롤</small><b id="rrLeft"></b><small>회 남음</small></div>
       <button class="gear" id="gear" title="편집 (E)"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg></button>
     </div>
     <div class="rule" id="rule"></div>
@@ -250,7 +259,8 @@ const short=n=>n%1000?fmt(n):n>=10000?fmt(n/10000)+"만":fmt(n/1000)+"천";
 (function(){const t=CFG.theme||{},r=document.documentElement.style;
   const rgb=h=>{h=(h||"").replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");const n=parseInt(h,16);return isNaN(n)?null:[n>>16&255,n>>8&255,n&255]};
   const set=(k,h)=>{const c=rgb(h);if(!c)return;r.setProperty("--"+k,h);r.setProperty("--"+k+"-rgb",c.join(","));return c};
-  const a=set("acc",t.acc); set("hi",t.hi); set("pt",t.pt); set("bg",t.bg);
+  const a=set("acc",t.acc); set("hi",t.hi); const pc=set("pt",t.pt); set("bg",t.bg);
+  if(pc){const L=(.2126*pc[0]+.7152*pc[1]+.0722*pc[2])/255; r.setProperty("--on-pt",L>.5?"#14121f":"#fff");}
   if(a){r.setProperty("--acc2",`rgb(${a.map(x=>Math.round(x*.85)).join(",")})`);
     const L=(.2126*a[0]+.7152*a[1]+.0722*a[2])/255; r.setProperty("--on-acc",L>.62?"#14121f":"#fff");}
 })();
@@ -304,7 +314,7 @@ function restartTimer(){clearInterval(timer);timer=setInterval(()=>{if(pages()<2
 const HEART='<svg class="lk" width="13" height="13" viewBox="0 0 24 24" fill="#ff6fa3"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.9 1.3 5.3 3.1 1.4-1.8 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
 const BAN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4d5e" stroke-width="2.6"><circle cx="12" cy="12" r="9.5"/><path d="M5.5 5.5l13 13"/></svg>';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let picked=null;
+let picked=null,popI=-1;
 
 function renderDday(){
   const d=CFG.dday,has=d.on&&d.date; $("dday").classList.toggle("done",S.draw);
@@ -319,7 +329,8 @@ function renderDday(){
 function render(flash){
   const top=opt("top");
   $("wrap").style.transform=`scale(${opt("scale")})`;
-  $("title").textContent=CFG.title; $("sub").textContent=CFG.sub; $("sub").classList.toggle("hide",!CFG.sub);
+  $("board").classList.toggle("drawing",S.draw);
+  $("title").textContent=S.draw?"추첨 시작":CFG.title; $("sub").textContent=CFG.sub; $("sub").classList.toggle("hide",!CFG.sub);
   $("ava").style.backgroundImage=CFG.avatarImg?`url(${CFG.avatarImg})`:""; $("ava").textContent=CFG.avatarImg?"":(CFG.avatarText||"");
   const rrA=S.rr.slice(0,RRN),used=rrA.filter(Boolean).length,nextI=rrA.indexOf(false);
   $("rule").innerHTML=`<span class="pill"><b>${fmt(UNIT)}</b>${esc(CUR)}${MESO?` · <b>${fmt(MU)}억</b> 메소`:""} = 1표</span>`+
@@ -346,8 +357,9 @@ function render(flash){
   $("pager").innerHTML=(P>1?Array.from({length:P},(_,i)=>`<i class="${i===page?"on":""}"></i>`).join(""):"")+
     `<span>${isBan?"투표 불가 직업":arr.length?`${rankOf(arr,off)}~${rankOf(arr,Math.min(off+top,arr.length)-1)}위 / ${arr.length}개 직업`:"투표 현황"}</span>`;
   $("rr").style.setProperty("--rrn",RRN);
-  $("rr").innerHTML=rrA.map((u,i)=>`<div class="${u?"used":(i===nextI?"next":"")}"><div class="n">${i+1}회</div><div class="a">${fmt(CFG.reroll.costs[i]||0)}${esc(CUR)}</div></div>`).join("");
+  $("rr").innerHTML=rrA.map((u,i)=>`<div class="${u?"used":(i===nextI?"next":"")}${i===popI?" pop":""}"><div class="n">${i+1}회</div><div class="a">${fmt(CFG.reroll.costs[i]||0)}${esc(CUR)}</div></div>`).join("");
   $("rr").classList.toggle("click",S.draw);
+  $("rrBig").classList.toggle("hide",!(S.draw&&RR)); $("rrLeft").textContent=RRN-used;
   $("rrBox").classList.toggle("hide",!rrShow());
   $("liked").innerHTML=LK.map(j=>`<span>${HEART}${disp(j)}</span>`).join("");
   $("lkBox").classList.toggle("hide",!curShow("liked")||!LK.length);
@@ -388,7 +400,8 @@ function needSize(){
   v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(CFG.show.total)e.textContent="99,999,999";});
   const rb=$("rrBox"),rh=RR&&rb.classList.contains("hide"),dd=$("dday"),dh=dd.classList.contains("hide"),dT=[$("ddayD").textContent,$("ddayN").textContent];
   if(rh) rb.classList.remove("hide"); if(dh){dd.classList.remove("hide");$("ddayD").textContent="투표 마감";$("ddayN").textContent="집계 완료";}
-  const H=$("board").offsetHeight; if(rh) rb.classList.add("hide"); if(dh){dd.classList.add("hide");$("ddayD").textContent=dT[0];$("ddayN").textContent=dT[1];}
+  const dw=S.draw; if(dw) $("board").classList.remove("drawing");
+  const H=$("board").offsetHeight; if(dw) $("board").classList.add("drawing"); if(rh) rb.classList.add("hide"); if(dh){dd.classList.add("hide");$("ddayD").textContent=dT[0];$("ddayN").textContent=dT[1];}
   v.textContent=a; s.innerHTML=h;
   return {w:up(460),h:up(Math.max(500,H+30))};
 }
@@ -425,8 +438,8 @@ $("jlist").onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=b
 $("rrEdit").onclick=e=>{const b=e.target.closest("[data-rr]");if(!b)return;const i=+b.dataset.rr;S.rr[i]=!S.rr[i];
   if(S.rr[i])toast(`리롤 ${i+1}회 사용!`);save();render();};
 $("rr").onclick=e=>{if(!S.draw)return;const c=e.target.closest(".rr>div");if(!c)return;const i=[...$("rr").children].indexOf(c);if(i<0)return;
-  S.rr[i]=!S.rr[i];toast(S.rr[i]?`리롤 ${i+1}회 사용!`:`리롤 ${i+1}회 취소`);save();render();};
-$("drawBtn").onclick=e=>{S.draw=!S.draw;if(S.draw){S.rr=[false,false,false];toast("집계 완료 · 추첨 시작!");}e.target.blur();save();render();};
+  S.rr[i]=!S.rr[i];toast(S.rr[i]?`리롤 ${i+1}회 사용!`:`리롤 ${i+1}회 취소`);save();popI=S.rr[i]?i:-1;render();popI=-1;};
+$("drawBtn").onclick=e=>{S.draw=!S.draw;if(S.draw){S.rr=[false,false,false];document.body.classList.remove("edit");toast("집계 완료 · 추첨 시작!");}e.target.blur();save();render();};
 $("undo").onclick=()=>{const l=S.log.pop();if(!l)return;const box=l[2]==="m"?S.meso:S.data;box[l[0]]=(box[l[0]]||0)-l[1];if(box[l[0]]<=0)delete box[l[0]];save();render();};
 const ICO=p=>`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const PIN_COPY=ICO('<rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5V4.5A1.5 1.5 0 0 1 4.5 3H13.5A1.5 1.5 0 0 1 15 4.5V5"/>')+"복사하기";
