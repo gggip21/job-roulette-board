@@ -382,7 +382,7 @@ function render(flash){
   $("votes").textContent=fmt(votes)+"표";
   const T=CFG.show.total, sumRow=(c,k,v,t)=>`<span class="k ${c}">${esc(k)}</span><span class="v ${c}">${fmt(v)}표</span>${T?`<span>${t}</span>`:""}`;
   $("sum").classList.toggle("amt3",T);
-  $("sum").innerHTML=!T&&!MESO?`<span>참여 직업</span><span class="v">${arr.filter(x=>x[1]>0).length}개</span>`:sumRow("",CUR,arr.reduce((n,x)=>n+cV(x[0]),0),fmt(total))+(MESO?sumRow("m","메소",arr.reduce((n,x)=>n+mV(x[0]),0),fmt(mesoTotal)+"억"):"");
+  $("sum").innerHTML=!T&&!MESO?`<span>참여 직업</span><span class="v">${arr.filter(x=>x[1]>0).length}개</span>`:sumRow("","후원",arr.reduce((n,x)=>n+cV(x[0]),0),fmt(total)+CUR)+(MESO?sumRow("m","메소",arr.reduce((n,x)=>n+mV(x[0]),0),fmt(mesoTotal)+"억"):"");
   const off=page*top, shown=arr.slice(off,off+top), rows=Math.ceil(top/2), isBan=banPage()&&page===pages()-1;
   $("list").style.setProperty("--rows",rows); $("list").style.height=Math.max(rows*42+(rows-1)*5,banPage()?30+Math.ceil(EX.length/3)*35:0)+"px";
   $("list").classList.toggle("banpage",!!isBan);
@@ -441,7 +441,7 @@ function fitRows(){
 // 지금 설정에서 필요한 OBS 소스 크기 (표가 아주 많아져 아래쪽이 두 줄이 되는 경우까지 포함)
 function needSize(){
   const v=$("votes"),s=$("sum"),a=v.textContent,h=s.innerHTML,k=opt("scale"),up=n=>Math.ceil(n*k/10-1e-6)*10;
-  v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(CFG.show.total)e.textContent="99,999,999";});
+  v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(CFG.show.total)e.textContent=e.textContent.replace(/[\d,]+/,"99,999,999");});
   const rb=$("rrBox"),rh=RR&&rb.classList.contains("hide"),dd=$("dday"),dh=dd.classList.contains("hide"),dT=[$("ddayD").textContent,$("ddayN").textContent];
   if(rh) rb.classList.remove("hide"); if(dh){dd.classList.remove("hide");$("ddayD").textContent="투표 마감";$("ddayN").textContent="집계 완료";}
   const dw=S.draw; if(dw) $("board").classList.remove("drawing");
