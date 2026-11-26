@@ -37,6 +37,14 @@ h1 span{color:var(--acc)}
 section{padding:34px 0}
 h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .desc{color:var(--sub);margin:0 0 20px}
+/* 설정 위 한 줄 4단계 */
+.flowbar{list-style:none;margin:4px 0 14px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;font-size:14px;font-weight:700;color:#e4e0f0}
+.flowbar li{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.flowbar li.more:before{display:none}.flowbar li+li:not(.more):before{content:"";width:7px;height:7px;margin:0 12px 0 10px;border-top:2px solid var(--sub);border-right:2px solid var(--sub);transform:rotate(45deg);opacity:.7}
+.flowbar b{flex:none;width:21px;height:21px;border-radius:50%;background:var(--acc);color:#1a0e00;font-size:12px;font-weight:900;display:grid;place-items:center}
+.flowbar em{font-style:normal;color:var(--hi)}
+.flowbar a{margin-left:14px;font-size:12.5px;color:var(--sub);font-weight:700}
+@media(max-width:640px){.flowbar{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}.flowbar li{white-space:normal}.flowbar li+li:before{display:none}.flowbar a{margin:0}}
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:24px;align-items:start}
 .form{display:flex;flex-direction:column;gap:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
@@ -217,6 +225,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 <section id="setup">
   <div class="in">
     <h2>내 현황판 설정</h2>
+    <ol class="flowbar"><li><b>1</b><span>설정하고 <em>파일 저장</em></span></li><li><b>2</b><span>OBS에 <em>브라우저 소스</em>로 추가</span></li><li><b>3</b><span>후원 오면 <em>E</em>로 입력</span></li><li><b>4</b><span><em>집계 완료</em> → 핀볼에 붙여넣기</span></li><li class="more"><a href="#how">자세한 사용법 ↓</a></li></ol>
     <p class="desc">왼쪽에서 고치면 오른쪽 미리보기에 바로 반영돼요. 다 고쳤으면 <b>내 현황판 파일 저장</b>을 누르세요. 설정은 이 브라우저에 자동 저장돼요.</p>
     <p class="keep"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span><b>처음 설정을 잘못해도 괜찮아요.</b> 다시 설정해서 받은 html 파일을 기존 파일에 덮어씌우면 득표수는 그대로 유지돼요.<small>단, 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요.</small></span></p>
     <div class="grid">
@@ -333,7 +342,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
   </div>
 </section>
 
-<section>
+<section id="how">
   <div class="in">
     <h2>사용법</h2>
     <p class="desc">자세한 화면 설명은 <a href="GUIDE.pdf" target="_blank">사용 가이드(PDF)</a>에 있어요.</p>
