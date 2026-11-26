@@ -62,6 +62,9 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .jobs.sp button.on{background:rgba(255,224,138,.16);border-color:var(--hi);color:var(--hi)}
 .jobs button:disabled{opacity:.3;cursor:not-allowed}
 .hint{font-size:12.5px;color:var(--sub);margin:4px 0 0}
+/* 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있는 설정 표시 */
+.ed{display:inline-flex;align-items:center;gap:3px;flex:none;margin-left:6px;padding:1px 7px 1px 5px;border-radius:999px;font-style:normal;font-size:11px;font-weight:700;line-height:1.6;color:var(--acc);background:rgba(255,138,31,.12);border:1px solid rgba(255,138,31,.4);white-space:nowrap;vertical-align:middle}
+.ed .i{width:12px;height:12px}
 .sub-opts{margin:6px 0 0 26px}
 .sub-opts.off{display:none}
 .ava-row{display:flex;align-items:center;gap:10px}
@@ -208,7 +211,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
   <div class="in">
     <h2>내 현황판 설정</h2>
     <p class="desc">왼쪽에서 고치면 오른쪽 미리보기에 바로 반영돼요. 다 고쳤으면 <b>내 현황판 파일 저장</b>을 누르세요. 설정은 이 브라우저에 자동 저장돼요.</p>
-    <p class="keep"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span><b>처음 설정을 잘못해도 괜찮아요.</b> 다시 설정해서 같은 이름으로 덮어쓰면 득표수는 그대로 유지돼요.<small>단, 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요.</small></span></p>
+    <p class="keep"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span><b>처음 설정을 잘못해도 괜찮아요.</b> 다시 설정해서 받은 html 파일을 기존 파일에 덮어씌우면 득표수는 그대로 유지돼요.<small>단, 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요.</small><small><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em> 표시가 있는 설정은 다시 받지 않아도, 받은 파일의 편집창(OBS에서 E)에서 바로 바꿀 수 있어요.</small></span></p>
     <div class="grid">
       <div class="form">
         <div class="card">
@@ -233,7 +236,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
             <label><input type="color" id="c_bg"> 배경</label>
           </div>
           <p class="hint">메인: 1위 줄·버튼·디데이 / 강조: 확률·부제 / 포인트: 리롤 사용 표시 / 배경: 판 바탕</p>
-          <div class="row" style="margin:12px 0 0"><label class="k" for="opacity">배경 투명도</label><span class="hint" style="margin:0">투명</span><input type="range" id="opacity" min="0" max="100" step="5" style="flex:1;min-width:120px;accent-color:var(--acc)"><span class="hint" style="margin:0">진하게</span><b id="opacityV" style="width:46px;text-align:right"></b></div>
+          <div class="row" style="margin:12px 0 0"><label class="k" for="opacity">배경 투명도</label><span class="hint" style="margin:0">투명</span><input type="range" id="opacity" min="0" max="100" step="5" style="flex:1;min-width:120px;accent-color:var(--acc)"><span class="hint" style="margin:0">진하게</span><b id="opacityV" style="width:46px;text-align:right"></b><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></div>
           <div class="row" style="margin:10px 0 0"><label class="k">줄·테두리 색</label><div class="seg2" id="grad"><button type="button" data-g="1">그라데이션</button><button type="button" data-g="0">단색</button></div></div>
         </div>
 
@@ -273,7 +276,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <div class="sub-opts" id="rrOpts">
             <div class="row"><label class="k">횟수</label><select id="rrN" style="max-width:120px"><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option></select></div>
             <div id="rrCosts"></div>
-            <label class="tg" style="margin-top:8px"><input type="checkbox" id="rrShowE"> <span>투표 중에도 판에 리롤 표시 <small style="color:var(--sub)">(끄면 집계 완료 뒤에만 나와요)</small></span></label>
+            <label class="tg" style="margin-top:8px"><input type="checkbox" id="rrShowE"> <span>투표 중에도 판에 리롤 표시 <small style="color:var(--sub)">(끄면 집계 완료 뒤에만 나와요)</small><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></span></label>
             <p class="hint">위를 끄면 리롤은 처음엔 판에 안 보여요. 투표를 다 받은 뒤 편집창(E) 맨 위 <b>집계 완료 · 추첨 시작</b>을 누르면 판에 리롤 칸이 나오고 모든 회차가 미사용으로 시작해요. 리롤 후원이 오면 <b>판의 리롤 칸을 눌러</b> 사용 처리해요. 이 설정은 받은 뒤 편집창(E) "화면"에서도 바꿀 수 있어요.</p>
           </div>
         </div>
@@ -290,12 +293,12 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
         <div class="card">
           <h3><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg>표시</h3>
           <label class="tg"><input type="checkbox" id="showTotal"> 총 후원 금액 표시</label>
-          <label class="tg"><input type="checkbox" id="showBanned"> <span>판 아래에 투표 불가 직업 표시</span></label>
-          <label class="tg"><input type="checkbox" id="showBanPage"> <span>투표 불가 직업 페이지 넣기 <small style="color:var(--sub)">(<span id="secE"></span>초 간격으로 넘어가며 보여요)</small></span></label>
-          <label class="tg"><input type="checkbox" id="showLiked"> <span>판 아래에 선호 직업 표시</span></label>
+          <label class="tg"><input type="checkbox" id="showBanned"> <span>판 아래에 투표 불가 직업 표시<em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></span></label>
+          <label class="tg"><input type="checkbox" id="showBanPage"> <span>투표 불가 직업 페이지 넣기 <small style="color:var(--sub)">(<span id="secE"></span>초 간격으로 넘어가며 보여요)</small><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></span></label>
+          <label class="tg"><input type="checkbox" id="showLiked"> <span>판 아래에 선호 직업 표시<em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></span></label>
           <label class="tg"><input type="checkbox" id="showCredit"> 오른쪽 아래 작은 제작 표시 (Maple Job Roulette Board)</label>
-          <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select></div>
-          <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초</div>
+          <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></div>
+          <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초<em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>받은 파일에서도 변경 가능</em></div>
           <p class="hint">표를 받은 직업이 한 페이지보다 많으면 자동으로 다음 페이지로 넘어가요. 크기는 OBS에서 조절해요.</p>
         </div>
       </div>
