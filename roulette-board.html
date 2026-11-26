@@ -250,6 +250,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="line chk" id="sBanBox"><span>투표 불가 직업</span><label><input id="sBanned" type="checkbox">판 아래에 표시</label><label><input id="sBanPage" type="checkbox">넘기는 페이지</label></div>
   <div class="line chk" id="sRrBox"><span>리롤</span><label><input id="sRrShow" type="checkbox">투표 중에도 판에 표시</label></div>
   <div class="line chk" id="sLkBox"><span>선호 직업</span><label><input id="sLiked" type="checkbox">판 아래에 표시</label></div>
+  <div class="line chk"><span>그 외</span><label><input id="sTotal" type="checkbox">총 후원 금액</label><label><input id="sCredit" type="checkbox">제작 표시</label></div>
   <div class="amtTip" id="sizeTip"></div>
   <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
   <div class="line"><button class="btn s" id="reload"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 판 새로 고침 (새로 받은 설정 파일 적용)</button></div>
@@ -317,7 +318,7 @@ const save=()=>{if(PREVIEW)return;try{localStorage.setItem(KEY,JSON.stringify(S)
 // 편집창에서 바꾼 투명도·투표 불가 표시. 설정 페이지에서 그 값을 바꿔 새로 저장하면(base가 달라지면) 새 파일 값을 씀
 if(S.op&&S.op.base!==OP) delete S.op;
 if(!S.show||typeof S.show!=="object") S.show={};
-for(const k of ["banned","banPage","liked","reroll"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
+for(const k of ["banned","banPage","liked","reroll","total","credit"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
 const curOp=()=>S.op&&Number.isFinite(S.op.v)?Math.min(100,Math.max(0,S.op.v)):OP;
 const curShow=k=>S.show[k]?!!S.show[k].v:!!CFG.show[k];
 const banPage=()=>EX.length>0&&curShow("banPage");
@@ -381,7 +382,7 @@ function render(flash){
   const mesoTotal=Object.entries(S.meso).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
   const votes=arr.reduce((s,x)=>s+x[1],0), max=arr.length&&arr[0][1]?arr[0][1]:1;
   $("votes").textContent=fmt(votes)+"표";
-  const T=CFG.show.total, sumRow=(c,k,v,t)=>`<span class="k ${c}">${esc(k)}</span><span class="v ${c}">${fmt(v)}표</span>${T?`<span>${t}</span>`:""}`;
+  const T=curShow("total"), sumRow=(c,k,v,t)=>`<span class="k ${c}">${esc(k)}</span><span class="v ${c}">${fmt(v)}표</span>${T?`<span>${t}</span>`:""}`;
   $("sum").classList.toggle("amt3",T);
   $("sum").innerHTML=!T&&!MESO?`<span>참여 직업</span><span class="v">${arr.filter(x=>x[1]>0).length}개</span>`:sumRow("","후원",arr.reduce((n,x)=>n+cV(x[0]),0),fmt(total)+CUR)+(MESO?sumRow("m","메소",arr.reduce((n,x)=>n+mV(x[0]),0),fmt(mesoTotal)+"억"):"");
   const off=page*top, shown=arr.slice(off,off+top), rows=Math.ceil(top/2), isBan=banPage()&&page===pages()-1;
@@ -409,7 +410,7 @@ function render(flash){
   $("lkBox").classList.toggle("hide",!curShow("liked")||!LK.length);
   $("excl").innerHTML=EX.map(j=>`<span>${BAN}${disp(j)}</span>`).join("");
   $("exBox").classList.toggle("hide",!curShow("banned")||!EX.length);
-  $("credit").classList.toggle("hide",!CFG.show.credit);
+  $("credit").classList.toggle("hide",!curShow("credit"));
   renderDday();
   // editor
   $("curLbl").textContent=CUR; $("mesoRow").classList.toggle("hide",!MESO); renderAmt();
@@ -427,7 +428,7 @@ function render(flash){
     "투표를 다 받은 뒤 누르세요. 판에 <b>집계 완료</b>가 뜨고"+(RR?", 리롤 칸이 나와요(모든 회차 미사용으로 시작). 리롤은 판의 칸을 눌러 사용 처리해요.":" 투표가 끝났음을 알려요.");
   $("rrEdit").innerHTML=rrA.map((u,i)=>`<button class="btn ${u?"g":"s"}" data-rr="${i}">${i+1}회 ${u?"사용됨":"미사용"}</button>`).join("");
   $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");$("sOp").value=curOp();$("sOpV").textContent=curOp()+"%";
-  $("sBanBox").classList.toggle("hide",!EX.length);$("sLkBox").classList.toggle("hide",!LK.length);$("sRrBox").classList.toggle("hide",!RR);$("sRrShow").checked=curShow("reroll");$("sLiked").checked=curShow("liked");$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");
+  $("sBanBox").classList.toggle("hide",!EX.length);$("sLkBox").classList.toggle("hide",!LK.length);$("sRrBox").classList.toggle("hide",!RR);$("sRrShow").checked=curShow("reroll");$("sLiked").checked=curShow("liked");$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");$("sTotal").checked=curShow("total");$("sCredit").checked=curShow("credit");
   fitRows(); renderSize();
 }
 // 이름이 잘리지 않게: 이름 글자 줄이기 → 이 페이지 표·퍼센트 글자를 조금 줄이기 → 그래도 안 되는 줄만 두 줄
@@ -442,7 +443,7 @@ function fitRows(){
 // 지금 설정에서 필요한 OBS 소스 크기 (표가 아주 많아져 아래쪽이 두 줄이 되는 경우까지 포함)
 function needSize(){
   const v=$("votes"),s=$("sum"),a=v.textContent,h=s.innerHTML,k=opt("scale"),up=n=>Math.ceil(n*k/10-1e-6)*10;
-  v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(CFG.show.total)e.textContent=e.textContent.replace(/[\d,]+/,"99,999,999");});
+  v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(curShow("total"))e.textContent=e.textContent.replace(/[\d,]+/,"99,999,999");});
   const rb=$("rrBox"),rh=RR&&rb.classList.contains("hide"),dd=$("dday"),dh=dd.classList.contains("hide"),dT=[$("ddayD").textContent,$("ddayN").textContent];
   if(rh) rb.classList.remove("hide"); if(dh){dd.classList.remove("hide");$("ddayD").textContent="투표 마감";$("ddayN").textContent="집계 완료";}
   const dw=S.draw; if(dw) $("board").classList.remove("drawing");
@@ -540,7 +541,7 @@ $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 �
 let opT;$("sOp").oninput=e=>{const v=+e.target.value;S.op={v,base:OP};setOp(v);$("sOpV").textContent=v+"%";save();
   $("editor").classList.add("peek");clearTimeout(opT);opT=setTimeout(()=>$("editor").classList.remove("peek"),900);};
 $("sOp").onchange=e=>e.target.blur();
-[["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"],["sRrShow","reroll"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
+[["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"],["sRrShow","reroll"],["sTotal","total"],["sCredit","credit"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
 const toggle=()=>document.body.classList.toggle("edit");
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
 // 판 새로 고침: 덮어쓴 설정 파일을 다시 읽음(표는 OBS 안에 저장돼 그대로)
