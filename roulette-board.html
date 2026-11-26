@@ -218,7 +218,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 let CFG={};
 try{CFG=JSON.parse(document.getElementById("board-config").textContent)}catch(e){}
 const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"룰",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},opacity:75,grad:true,currency:"원",unit:2000,spJobs:[],spUnit:4000,spMore:[],banned:[],liked:[],
-  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,credit:true},page:{top:10,sec:6}};
+  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:false,credit:true},page:{top:10,sec:6}};
 for(const k in DEF){ if(CFG[k]===undefined) CFG[k]=DEF[k]; else if(DEF[k]&&typeof DEF[k]==="object"&&!Array.isArray(DEF[k])) CFG[k]=Object.assign({},DEF[k],CFG[k]); }
 const PREVIEW=!!CFG._preview;
 
