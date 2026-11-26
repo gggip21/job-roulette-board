@@ -74,12 +74,14 @@ body{overflow:hidden}
 .val .p{font-family:'Black Han Sans';font-size:15px;color:var(--hi)}
 .val .c{font-size:13px;color:var(--txt);font-weight:900}
 .row.flash{animation:flash 1s}
-/* 투표 중: 줄에 마우스를 올리면 −/+ (1표) */
-.row .hb{position:absolute;right:5px;top:50%;transform:translateY(-50%);display:none;gap:4px;z-index:2}
-.row .hb button{width:26px;height:26px;border-radius:8px;border:1px solid rgba(var(--acc-rgb),.7);background:rgba(20,18,31,.88);color:var(--txt);font:900 16px/1 sans-serif;cursor:pointer;padding:0}
-.row .hb button:hover{background:var(--acc);color:var(--on-acc)}
-.row:hover .hb{display:flex}.row:hover .val{visibility:hidden}
-.board.drawing .row .hb{display:none}.board.drawing .row:hover .val{visibility:visible}
+/* 투표 중: 줄에 마우스를 올리면 표 수 양옆에 −/+ (1표). 확률은 잠시 숨김 */
+.val .hbw{display:none;flex:none;gap:1px;align-self:center}.val .hbw .hb:first-child{border-radius:7px 0 0 7px}.val .hbw .hb:last-child{border-radius:0 7px 7px 0}
+.val .hb{display:grid;place-items:center;width:22px;height:22px;flex:none;align-self:center;border-radius:7px;border:1px solid rgba(var(--acc-rgb),.75);background:rgba(20,18,31,.88);color:var(--txt);font:900 15px/1 sans-serif;cursor:pointer;padding:0;text-shadow:none}
+.val .hb:hover{background:var(--acc);color:var(--on-acc)}
+.board:not(.drawing) .row.hv .val .hbw{display:flex}
+.board:not(.drawing) .row.hv .val .p{display:none}
+.board:not(.drawing) .row.two.hv .val{flex-direction:row;align-items:center;gap:4px}
+.board:not(.drawing) .row.hv .val .c{font-size:14px}
 @keyframes flash{0%{transform:scale(1.05);border-color:var(--acc);background:rgba(var(--acc-rgb),.4)}100%{transform:none}}
 .sec{display:flex;align-items:center;gap:8px;margin:12px 0 6px;font-size:12px;font-weight:900;color:var(--sub);letter-spacing:.5px}
 .sec:after{content:"";flex:1;height:1px;background:var(--line)}
@@ -98,8 +100,9 @@ body{overflow:hidden}
 .rr .fill{position:absolute;inset:0 auto 0 0;background:rgba(var(--pt-rgb),.32);transition:width .35s}
 .rr .got{font-weight:900;color:var(--pt)}
 #rrBox{position:relative}
-.rrAdd{position:absolute;right:0;top:-3px;display:none;align-items:center;gap:5px;z-index:2;font-size:11.5px;font-weight:900;color:var(--txt);background:rgba(20,18,31,.88);border:1px solid rgba(var(--pt-rgb),.6);border-radius:9px;padding:2px 3px}
-.rrAdd button{width:24px;height:22px;border-radius:6px;border:0;background:rgba(var(--pt-rgb),.25);color:var(--txt);font:900 15px/1 sans-serif;cursor:pointer;padding:0;user-select:none;touch-action:none}
+.rrAdd{position:absolute;right:auto;top:0;box-sizing:border-box;display:none;align-items:center;justify-content:space-between;gap:4px;z-index:2;font-size:11.5px;font-weight:900;color:var(--txt);background:rgba(20,18,31,.88);border:1px solid rgba(var(--pt-rgb),.6);border-radius:9px;padding:2px 3px}
+.rrAdd button{width:23px;height:22px;border-radius:6px;border:0;background:rgba(var(--pt-rgb),.25);color:var(--txt);font:900 15px/1 sans-serif;cursor:pointer;padding:0;user-select:none;touch-action:none}
+#rrAddV{padding-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.rrAdd .pm2{flex:none}.rrAdd .pm2{display:flex;gap:1px}.rrAdd .pm2 button:first-child{border-radius:6px 0 0 6px}.rrAdd .pm2 button:last-child{border-radius:0 6px 6px 0}
 .rrAdd button:hover{background:var(--pt);color:var(--on-pt,#14121f)}
 .board.drawing #rrBox:hover .rrAdd.on{display:flex}
 .rr.click>div{cursor:pointer;transition:transform .12s,border-color .12s}.rr.click>div:hover{border-color:var(--acc);transform:translateY(-1px)}.rr.click>div:active{transform:scale(.97)}
@@ -203,7 +206,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
     <div class="rule" id="rule"></div>
     <div class="list" id="list"></div>
     <div class="pager" id="pager"></div>
-    <div id="rrBox"><div class="sec">리롤</div><div class="rrAdd" id="rrAdd"><button data-ra="-1" aria-label="리롤 금액 빼기">−</button><span id="rrAddV"></span><button data-ra="1" aria-label="리롤 금액 더하기">+</button></div><div class="rr" id="rr"></div></div>
+    <div id="rrBox"><div class="sec">리롤</div><div class="rrAdd" id="rrAdd"><span id="rrAddV"></span><span class="pm2"><button data-ra="-1" aria-label="리롤 금액 빼기">−</button><button data-ra="1" aria-label="리롤 금액 더하기">+</button></span></div><div class="rr" id="rr"></div></div>
     <div class="foot">
       <div class="tot"><small>총 득표</small><b id="votes">0표</b></div>
       <div class="dd" id="dday"><small id="ddayD"></small><b id="ddayN"></b></div>
@@ -330,7 +333,7 @@ function add(job,amt,silent,kind){
   const box=kind==="m"?S.meso:S.data;
   box[job]=(box[job]||0)+amt; if(box[job]<=0) delete box[job];
   S.log.push([job,amt,kind]); S.log=S.log.slice(-300); save();
-  const idx=sorted().findIndex(x=>x[0]===job); if(idx>=0){page=Math.floor(idx/opt("top")); restartTimer();}
+  const idx=ordered().findIndex(x=>x[0]===job); if(idx>=0){page=Math.floor(idx/opt("top")); restartTimer();}
   render(job);
   if(!silent&&amt>0) toast(`${disp(job)} +${kind==="m"?Math.floor(amt/MU):Math.floor(amt/unitOf(job))}표`);
 }
@@ -339,6 +342,9 @@ const cV=j=>Math.floor((S.data[j]||0)/unitOf(j)), mV=j=>MESO?Math.floor((S.meso[
 const sorted=()=>[...new Set([...Object.keys(S.data),...Object.keys(S.meso)])].filter(j=>!EX.includes(j)&&JOBS.includes(j))
   .map(j=>[j,vOf(j)]).sort((a,b)=>b[1]-a[1]||(S.data[b[0]]||0)-(S.data[a[0]]||0));
 // 핀볼(추첨) 입력 형식: 아란*6,에반*4 — 1표 이상, 투표 불가 직업 제외
+// 마우스가 판 위에 있는 동안은 순서와 순위 숫자를 고정(누르는 줄이 움직이지 않게). 마우스를 치우면 다시 정렬
+let frozen=null;
+const ordered=()=>{const a=sorted();if(!frozen)return a;const pos=j=>j in frozen?frozen[j]:1e9;return a.slice().sort((x,y)=>pos(x[0])-pos(y[0]));};
 const pinText=()=>sorted().filter(x=>x[1]>0).map(([j,v])=>`${disp(j)}*${v}`).join(",");
 const rankOf=(arr,i)=>{const v=arr[i][1];let r=i;while(r>0&&arr[r-1][1]===v)r--;return r+1;};
 const pages=()=>Math.max(1,Math.ceil(sorted().length/opt("top")))+(banPage()?1:0);
@@ -347,7 +353,7 @@ function restartTimer(){clearInterval(timer);timer=setInterval(()=>{if(pages()<2
 const HEART='<svg class="lk" width="13" height="13" viewBox="0 0 24 24" fill="#ff6fa3"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.9 1.3 5.3 3.1 1.4-1.8 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
 const BAN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4d5e" stroke-width="2.6"><circle cx="12" cy="12" r="9.5"/><path d="M5.5 5.5l13 13"/></svg>';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let picked=null,popI=-1;
+let picked=null,popI=-1,hovJ=null;
 
 function renderDday(){
   const d=CFG.dday,has=d.on&&d.date; $("dday").classList.toggle("done",S.draw);
@@ -369,7 +375,7 @@ function render(flash){
   $("rule").innerHTML=`<span class="pill"><b>${fmt(UNIT)}</b>${esc(CUR)}${MESO?` · <b>${fmt(MU)}억</b> 메소`:""} = 1표</span>`+
     SPG.filter(g=>g.unit!==UNIT).map(g=>`<span class="pill y"><b>${g.jobs.map(disp).join("·<wbr>")}</b> <b>${fmt(g.unit)}</b>${esc(CUR)}</span>`).join("")+
     (rrShow()?`<span class="pill m">리롤 <b>${RRN-used}</b>회 남음</span>`:"");
-  const arr=sorted(); if(page>=pages()) page=0;
+  const arr=ordered(); if(page>=pages()) page=0;
   const total=Object.entries(S.data).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
   const mesoTotal=Object.entries(S.meso).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
   const votes=arr.reduce((s,x)=>s+x[1],0), max=arr.length&&arr[0][1]?arr[0][1]:1;
@@ -381,10 +387,10 @@ function render(flash){
   $("list").style.setProperty("--rows",rows); $("list").style.height=Math.max(rows*42+(rows-1)*5,banPage()?30+Math.ceil(EX.length/3)*35:0)+"px";
   $("list").classList.toggle("banpage",!!isBan);
   if(isBan) $("list").innerHTML=`<div class="bhead">${BAN} 투표 불가 직업 <small>이 직업들은 투표할 수 없어요</small></div>`+EX.map(j=>`<div class="brow">${BAN}<span>${disp(j)}</span></div>`).join("");
-  else $("list").innerHTML=shown.length?shown.map(([j,vt],k)=>{const rk=rankOf(arr,off+k),pct=votes?(vt/votes*100).toFixed(1):"0.0";
-    return `<div class="row${rk===1&&vt?" first":""}${j===flash?" flash":""}"><div class="bar" style="width:${vt/max*100}%"></div>
+  else $("list").innerHTML=shown.length?shown.map(([j,vt],k)=>{const rk=frozen&&frozenR[j]?frozenR[j]:rankOf(arr,off+k),pct=votes?(vt/votes*100).toFixed(1):"0.0";
+    return `<div class="row${rk===1&&vt?" first":""}${j===flash?" flash":""}${j===hovJ?" hv":""}" data-j="${j}"><div class="bar" style="width:${vt/max*100}%"></div>
       <div class="rank">${rk}</div><div class="name">${disp(j)}${LK.includes(j)?HEART:""}${isSp(j)?`<span class="x2">${short(unitOf(j))}</span>`:""}</div>
-      <div class="val"><span class="c">${fmt(vt)}표</span><span class="p">${pct}%</span></div><span class="hb"><button data-hj="${j}" data-hd="-1" title="1표 빼기">−</button><button data-hj="${j}" data-hd="1" title="1표 더하기">+</button></span></div>`;}).join("")
+      <div class="val"><span class="c">${fmt(vt)}표</span><span class="hbw"><button class="hb" data-hj="${j}" data-hd="-1" title="1표 빼기">−</button><button class="hb" data-hj="${j}" data-hd="1" title="1표 더하기">+</button></span><span class="p">${pct}%</span></div></div>`;}).join("")
     :`<div class="empty">아직 투표가 없어요<br><b>${fmt(UNIT)}${esc(CUR)}</b>${MESO?` 또는 <b>${fmt(MU)}억 메소</b>`:""} 후원 + 원하는 직업으로 참여!<button class="eAdd" data-open="1" title="편집창 열기 (E)" aria-label="편집창 열기">+</button></div>`;
   const P=pages();
   $("pager").innerHTML=(P>1?Array.from({length:P},(_,i)=>`<i class="${i===page?"on":""}"></i>`).join(""):"")+
@@ -392,7 +398,9 @@ function render(flash){
   $("rr").style.setProperty("--rrn",RRN);
   const rrGot=S.draw&&nextI>=0?Math.max(0,+S.rrAmt||0):0,rrCost=nextI>=0?Math.max(0,+CFG.reroll.costs[nextI]||0):0;
   $("rr").innerHTML=rrA.map((u,i)=>`<div class="${u?"used":(i===nextI?"next":"")}${i===popI?" pop":""}">${i===nextI&&rrGot?`<i class="fill" style="width:${rrCost?Math.min(100,rrGot/rrCost*100):0}%"></i>`:""}<div class="n">${i+1}회${i===nextI&&rrGot?`<span class="got"> · ${fmt(rrGot)} 모임</span>`:""}</div><div class="a">${fmt(CFG.reroll.costs[i]||0)}${esc(CUR)}</div></div>`).join("");
-  $("rrAdd").classList.toggle("on",S.draw&&nextI>=0); $("rrAddV").textContent=`${fmt(rrGot)} / ${fmt(rrCost)}${CUR}`;
+  $("rrAdd").classList.toggle("on",S.draw&&nextI>=0); $("rrAddV").textContent=fmt(rrGot);
+  // 모금 버튼은 지금 모으는 회차 칸 바로 위에
+  const rc=nextI>=0&&$("rr").children[nextI]; if(rc){const a=$("rrAdd");a.style.left=rc.offsetLeft+"px";a.style.width=rc.offsetWidth+"px";a.style.top=(rc.offsetTop-30)+"px";}
   $("rr").classList.toggle("click",S.draw);
   $("rrBig").classList.toggle("hide",!(S.draw&&RR)); $("rrLeft").textContent=RRN-used;
   $("rrBox").classList.toggle("hide",!rrShow());
@@ -480,10 +488,18 @@ $("drawBtn").onclick=e=>{S.draw=!S.draw;e.target.blur();if(S.draw){S.rr=[false,f
 $("list").onclick=e=>{if(e.target.closest("[data-open]")){document.body.classList.add("edit");return;}const b=e.target.closest("[data-hj]");if(!b||S.draw)return;const j=b.dataset.hj,d=+b.dataset.hd;
   if(d>0)add(j,unitOf(j));else{if(!(S.data[j]>0))return toast(`${disp(j)}는 뺄 ${CUR} 표가 없어요`,1);add(j,-Math.min(unitOf(j),S.data[j]),true);toast(`${disp(j)} −1표`);}};
 // 마우스가 판 위에 있으면 페이지 넘김을 멈춤(누르려는 줄이 넘어가지 않게)
-let overBoard=false;$("board").addEventListener("mouseenter",()=>overBoard=true);$("board").addEventListener("mouseleave",()=>overBoard=false);
+let overBoard=false,frozenR={};
+// 마우스가 올라간 줄을 기억해 다시 그려도 −/+ 가 바로 보이게(연달아 눌러도 놓치지 않게)
+const setHov=j=>{if(j===hovJ)return;hovJ=j;document.querySelectorAll("#list .row").forEach(r=>r.classList.toggle("hv",r.dataset.j===j));};
+$("list").addEventListener("mouseover",e=>{const r=e.target.closest(".row");if(r)setHov(r.dataset.j);});
+$("list").addEventListener("mouseleave",()=>setHov(null));
+$("board").addEventListener("mouseenter",()=>{overBoard=true;const a=sorted();frozen={};frozenR={};a.forEach((x,i)=>{frozen[x[0]]=i;frozenR[x[0]]=rankOf(a,i);});});
+$("board").addEventListener("mouseleave",()=>{overBoard=false;frozen=null;frozenR={};render();});
+// 리롤 모금 한 번에 더하는 금액 = 보통의 최소 후원 단위 (원·치즈 1천, 별풍선 10개, 그 밖은 1표 금액)
+const RR_STEP=CUR==="별풍선"?10:(CUR==="원"||CUR==="치즈")?1000:UNIT;
 // 추첨 모드: 리롤 금액 모으기. 다음 회차 금액이 차면 자동으로 사용 처리(남는 금액은 다음 회차로)
 function rrBump(dir,n){const nextI=S.rr.slice(0,RRN).indexOf(false);if(!S.draw||nextI<0)return false;
-  S.rrAmt=Math.max(0,(+S.rrAmt||0)+dir*n*UNIT);const cost=+CFG.reroll.costs[nextI]||0;let done=-1;
+  S.rrAmt=Math.max(0,(+S.rrAmt||0)+dir*n*RR_STEP);const cost=+CFG.reroll.costs[nextI]||0;let done=-1;
   if(dir>0&&cost>0&&S.rrAmt>=cost){S.rr[nextI]=true;S.rrAmt-=cost;done=nextI;if(S.rr.slice(0,RRN).indexOf(false)<0)S.rrAmt=0;toast(`리롤 ${nextI+1}회 금액 다 모였어요! 사용 처리`);}
   save();popI=done;render();popI=-1;return done<0;}
 let rrHold=null;const rrHoldEnd=()=>{clearTimeout(rrHold);rrHold=null;};
