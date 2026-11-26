@@ -65,7 +65,9 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .sub-opts{margin:6px 0 0 26px}
 .sub-opts.off{display:none}
 .ava-row{display:flex;align-items:center;gap:10px}
-.ava-pv{width:44px;height:44px;border-radius:50%;background:#28243a center/cover;display:grid;place-items:center;font-family:'Black Han Sans';font-size:18px;flex:none;border:2px solid var(--acc)}
+.ava-pv{width:44px;height:44px;border-radius:50%;background:#28243a center/cover;display:grid;place-items:center;font-family:'Black Han Sans';font-size:18px;flex:none;border:2px solid var(--acc);cursor:pointer;transition:filter .15s,transform .15s}
+.ava-pv:hover{filter:brightness(1.15);transform:scale(1.05)}
+.ava-txt{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut,#a9a6bd);white-space:nowrap}
 .side{position:sticky;top:14px}
 .pv{border-radius:16px;border:1px solid var(--line);overflow:hidden;
   background:linear-gradient(rgba(12,10,20,.10),rgba(12,10,20,.10)),url(img/stage.webp) 0 100%/cover no-repeat #28323f}
@@ -213,12 +215,12 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <h3><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>기본 정보</h3>
           <div class="row"><label class="k">제목</label><input class="f" type="text" id="title" maxlength="30"></div>
           <div class="row"><label class="k">부제 <small>(비우면 숨김)</small></label><input class="f" type="text" id="sub" maxlength="40"></div>
-          <div class="row"><label class="k">프로필</label>
-            <div class="f ava-row"><div class="ava-pv" id="avaPv"></div>
-              <input type="text" id="avatarText" maxlength="2" style="width:70px" title="이미지가 없을 때 보일 글자 (1~2자)">
+          <div class="row"><label class="k">프로필 이미지</label>
+            <div class="f ava-row"><div class="ava-pv" id="avaPv" role="button" tabindex="0" title="눌러서 이미지 선택"></div>
               <label class="b s sm" style="cursor:pointer">이미지 선택<input type="file" id="avatarFile" accept="image/*" hidden></label>
-              <button class="b s sm" id="avatarDel">이미지 빼기</button></div></div>
-          <p class="hint">프로필 이미지는 정사각형으로 잘려 파일 안에 들어가요. 이미지가 없으면 왼쪽 글자가 보여요.</p>
+              <button class="b s sm" id="avatarDel">이미지 빼기</button>
+              <span class="ava-txt hide" id="avaTxtBox">대신 보일 글자<input type="text" id="avatarText" maxlength="2" style="width:56px" title="이미지가 없을 때 보일 글자 (1~2자)"></span></div></div>
+          <p class="hint">동그라미나 <b>이미지 선택</b>을 눌러 사진을 고르세요. 정사각형으로 잘려 파일 안에 들어가요. 이미지를 빼면 직접 적은 글자(1~2자)가 대신 보여요.</p>
         </div>
 
         <div class="card">
@@ -424,6 +426,7 @@ function fillSp(){
 function fill(){
   $("title").value=F.title;$("sub").value=F.sub;$("avatarText").value=F.avatarText;
   $("avaPv").style.backgroundImage=F.avatarImg?`url(${F.avatarImg})`:"";$("avaPv").textContent=F.avatarImg?"":F.avatarText;$("avaPv").style.borderColor=F.theme.acc;
+  $("avaTxtBox").classList.toggle("hide",!!F.avatarImg);$("avatarDel").classList.toggle("hide",!F.avatarImg);
   $("presets").innerHTML=PRESETS.map(([n,t],i)=>`<button type="button" data-p="${i}" class="${JSON.stringify(t)===JSON.stringify(F.theme)?"on":""}"><i style="background:linear-gradient(135deg,${t.acc} 50%,${t.bg} 50%)"></i>${n}</button>`).join("");
   ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).value=F.theme[k]); $("opacity").value=F.opacity;$("opacityV").textContent=F.opacity+"%"; document.querySelectorAll("#grad button").forEach(b=>b.classList.toggle("on",(b.dataset.g==="1")===(F.grad!==false)));
   const std=["원","치즈","별풍선"].includes(F.currency); $("curSel").value=std?F.currency:"_"; $("curTxt").value=std?"":F.currency; $("curTxt").classList.toggle("hide",std);
@@ -454,6 +457,8 @@ $("avatarFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new 
   r.onload=()=>{img.onload=()=>{const c=document.createElement("canvas");c.width=c.height=160;const x=c.getContext("2d"),s=Math.min(img.width,img.height);
     x.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,160,160);upd(()=>F.avatarImg=c.toDataURL("image/jpeg",.85),true);};img.src=r.result;};r.readAsDataURL(f);e.target.value="";};
 $("avatarDel").onclick=()=>upd(()=>F.avatarImg="",true);
+$("avaPv").onclick=()=>$("avatarFile").click();
+$("avaPv").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("avatarFile").click();}};
 $("presets").onclick=e=>{const b=e.target.closest("[data-p]");if(b)upd(()=>F.theme={...PRESETS[+b.dataset.p][1]},true);};
 ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).oninput=e=>upd(()=>{F.theme={...F.theme,[k]:e.target.value};document.querySelectorAll("#presets button").forEach(b=>b.classList.remove("on"));}));
 $("grad").onclick=e=>{const b=e.target.closest("[data-g]");if(b)upd(()=>F.grad=b.dataset.g==="1",true);};
