@@ -449,8 +449,11 @@ let SIZE={w:460,h:500};
 $("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();showSize();}catch(e){}};
 function showSize(){document.querySelector(".pv").style.setProperty("--pvh",Math.max(740,SIZE.h)+"px");document.querySelectorAll(".obsSize").forEach(e=>e.textContent=`너비 ${SIZE.w} · 높이 ${SIZE.h}`);}
 showSize();
+// 미리보기 예시 직업: 한 번이라도 직업을 고르면 "처음 설정으로" 전까지 다시 안 띄움
+const DEMO_KEY="mjrb.demoOff";let demoOff=false;try{demoOff=!!localStorage.getItem(DEMO_KEY)}catch(e){}
 let rt; function refresh(){ try{localStorage.setItem(KEY,JSON.stringify(F))}catch(e){}
-  clearTimeout(rt); rt=setTimeout(()=>{ if(!TEMPLATE) return; $("pv").srcdoc=build({...F,_preview:true,_demo:true}).replace("<body>",'<body style="background:transparent">'); },200); }
+  if(!demoOff&&(F.banned.length||(F.liked||[]).length)){demoOff=true;try{localStorage.setItem(DEMO_KEY,"1")}catch(e){}}
+  clearTimeout(rt); rt=setTimeout(()=>{ if(!TEMPLATE) return; $("pv").srcdoc=build({...F,_preview:true,_demo:true,_demoEx:!demoOff}).replace("<body>",'<body style="background:transparent">'); },200); }
 const upd=(fn,refill)=>{fn();if(refill)fill();refresh();};
 
 // listeners
@@ -512,7 +515,7 @@ $("saveBtn").onclick=async()=>{ if(!TEMPLATE) return toast("파일을 아직 불
 $("loadFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=t.match(/<script id="board-config" type="application\/json">([\s\S]*?)<\/script>/);
   if(!m) return toast("현황판 파일이 아니에요"); try{F=merge(DEFAULT(),JSON.parse(m[1]));fill();refresh();toast("설정을 불러왔어요");}catch(err){toast("설정을 읽지 못했어요");}});e.target.value="";};
 const RESET=$("resetBtn").innerHTML;let armed=false;$("resetBtn").onclick=()=>{if(!armed){armed=true;$("resetBtn").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("resetBtn").innerHTML=RESET},3000);return;}
-  armed=false;$("resetBtn").innerHTML=RESET;F=DEFAULT();fill();refresh();};
+  armed=false;$("resetBtn").innerHTML=RESET;F=DEFAULT();demoOff=false;try{localStorage.removeItem(DEMO_KEY)}catch(e){}fill();refresh();};
 
 // 건의하기: 구글 폼으로 보내고, 웹에 게시한 시트("공개" 탭 CSV: 날짜·닉네임·내용·답변)를 읽어 목록으로 보여줌
 const SUGGEST={form:"https://docs.google.com/forms/d/e/1FAIpQLSdI-HoDqe6KhqFZQgyf_pJXx3OuFVUAkTEGGIvBpJWptTs9bg/formResponse",name:"entry.87368860",text:"entry.973596111",csv:"https://docs.google.com/spreadsheets/d/e/2PACX-1vQv4nff7TxCXuAEhgQQblfyFEjQd0Aucp8QjNkL9NPtPW_0JfFswh5bRlGfH62z5c0Mw0YKf_2QqDv_/pub?gid=394649396&single=true&output=csv"};

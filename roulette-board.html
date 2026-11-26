@@ -277,7 +277,7 @@ const JOBS=GROUPS_ALL.flatMap(g=>g[1]);
 const EX0=(CFG.banned||[]).filter(j=>JOBS.includes(j));
 const LK0=[...new Set(Array.isArray(CFG.liked)?CFG.liked:[])].filter(j=>JOBS.includes(j)&&!EX0.includes(j));
 // 설정 페이지 미리보기: 아직 고른 직업이 없으면 어디에 나오는지 보이도록 예시 이름을 넣음(저장 파일에는 없음)
-const DEMO_EX=!!(CFG._preview&&CFG._demo&&!EX0.length&&!LK0.length),DEMO_LK=DEMO_EX; // 투표 불가·선호 중 하나라도 고르면 예시는 모두 사라짐
+const DEMO_EX=!!(CFG._preview&&CFG._demo&&CFG._demoEx!==false&&!EX0.length&&!LK0.length),DEMO_LK=DEMO_EX; // 투표 불가·선호 중 하나라도 고르면 예시는 모두 사라짐(설정 페이지가 "처음 설정으로" 전까지 다시 안 띄움)
 const EX=DEMO_EX?["투표 불가 직업","투표 불가 직업"]:EX0, LK=DEMO_LK?["선호 직업","선호 직업"]:LK0;
 const LKROW=DEMO_LK?["에반","카데나"]:LK; // 순위 줄의 하트(미리보기 예시는 예시 표가 있는 직업 두 개)
 // 표 금액이 다른 직업: 첫 그룹은 spJobs·spUnit, 나머지 그룹은 spMore. 한 직업이 여러 그룹에 있으면 앞 그룹
