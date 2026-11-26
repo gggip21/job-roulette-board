@@ -78,6 +78,10 @@ body{overflow:hidden}
 .rr>div.used .a{opacity:.7;text-decoration:line-through}
 .rr>div.used .n:after{content:" ✓ 사용";color:var(--pt)}
 .rr>div.next{border-color:rgba(var(--acc-rgb),.55)}
+.rr.click>div{cursor:pointer;transition:transform .12s,border-color .12s}.rr.click>div:hover{border-color:var(--acc);transform:translateY(-1px)}.rr.click>div:active{transform:scale(.97)}
+.dd.done{border-color:var(--hi);background:rgba(var(--hi-rgb),.16)}.dd.done small,.dd.done b{color:var(--hi)}.dd.done b{font-size:19px}
+.name .lk,.ban.lk span svg,.jg button .lk{flex:none;vertical-align:-1px;margin-left:3px}
+.ban.lk span{color:#ffd7e6;background:rgba(255,111,163,.1);border-color:rgba(255,111,163,.45)}
 .foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-weight:700;color:var(--sub)}
 .tot{line-height:1.1;flex:none}
 .tot small{font-size:11px;display:block;margin-bottom:2px}
@@ -137,6 +141,8 @@ body.edit .editor{display:block}
 .jl{display:flex;align-items:center;gap:5px;padding:5px 0;border-bottom:1px solid var(--line)}
 .jl span{flex:1}
 .jl button{border:0;background:#37344f;color:var(--txt);border-radius:6px;padding:3px 7px;cursor:pointer;font-weight:700}
+.draw{margin:0 0 12px;padding:10px;border:1px solid rgba(var(--hi-rgb),.5);border-radius:12px;background:rgba(var(--hi-rgb),.07)}
+.draw .btn{width:100%;padding:10px 6px;font-size:14px}.draw .amtTip{margin:7px 0 0}
 .picked{font-size:13px;margin:2px 0 8px;color:var(--sub);font-weight:700}
 .picked b{color:var(--acc);font-size:16px}
 .picked em{font-style:normal;color:var(--hi)}
@@ -169,6 +175,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
       <div class="dd" id="dday"><small id="ddayD"></small><b id="ddayN"></b></div>
       <div class="sum" id="sum"></div>
     </div>
+    <div id="lkBox"><div class="sec">선호 직업</div><div class="ban lk" id="liked"></div></div>
     <div id="exBox"><div class="sec">투표 불가 직업</div><div class="ban" id="excl"></div></div>
     <div class="credit" id="credit">Maple Job Roulette Board</div>
     <div class="toast" id="toast"></div>
@@ -177,6 +184,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 
 <div class="editor" id="editor">
   <div class="ehead"><b>현황판 편집</b><button id="closeEd">닫기 (E)</button></div>
+  <div class="draw"><button class="btn y" id="drawBtn"></button><div class="amtTip" id="drawTip"></div></div>
   <h3><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> 후원 입력</h3>
   <div class="picked">선택한 직업: <b id="pickedName">없음</b> <em id="pickedUnit"></em></div>
   <div class="jg" id="jg"></div>
@@ -190,13 +198,14 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="jlist" id="jlist"></div>
   <hr><h3><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> 추첨용 복사 (핀볼)</h3>
   <div class="line"><input id="pinTxt" readonly placeholder="표가 들어오면 여기에 나와요" style="flex:2"><button class="btn g" id="pinCopy"></button></div>
-  <div id="rrEdBox"><hr><h3><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 리롤 사용 처리</h3><div class="line" id="rrEdit"></div></div>
+  <div id="rrEdBox"><hr><h3><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 리롤 사용 처리</h3><div class="amtTip">판의 리롤 칸을 눌러도 같아요. 다시 누르면 취소돼요.</div><div class="line" id="rrEdit"></div></div>
   <hr>
   <h3><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg> 화면</h3>
   <div class="line"><label>한 페이지 개수</label><input id="sTop" type="number" min="2" max="40" step="2"><label>넘김 간격(초)</label><input id="sSec" type="number" min="2" max="60"></div>
   <div class="line"><label>크기 배율</label><input id="sScale" type="number" step="0.1" min="0.5" max="2.5" style="flex:2.4"></div>
   <div class="line op"><label for="sOp">배경 투명도</label><small>투명</small><input id="sOp" type="range" min="0" max="100" step="5"><small>진하게</small><b id="sOpV"></b></div>
   <div class="line chk" id="sBanBox"><span>투표 불가 직업</span><label><input id="sBanned" type="checkbox">판 아래에 표시</label><label><input id="sBanPage" type="checkbox">넘기는 페이지</label></div>
+  <div class="line chk" id="sLkBox"><span>선호 직업</span><label><input id="sLiked" type="checkbox">판 아래에 표시</label></div>
   <div class="amtTip" id="sizeTip"></div>
   <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
   <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
@@ -208,8 +217,8 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 <script>
 let CFG={};
 try{CFG=JSON.parse(document.getElementById("board-config").textContent)}catch(e){}
-const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"룰",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},opacity:75,grad:true,currency:"원",unit:2000,spJobs:[],spUnit:4000,spMore:[],banned:[],
-  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,credit:true},page:{top:10,sec:6}};
+const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"룰",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},opacity:75,grad:true,currency:"원",unit:2000,spJobs:[],spUnit:4000,spMore:[],banned:[],liked:[],
+  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,credit:true},page:{top:10,sec:6}};
 for(const k in DEF){ if(CFG[k]===undefined) CFG[k]=DEF[k]; else if(DEF[k]&&typeof DEF[k]==="object"&&!Array.isArray(DEF[k])) CFG[k]=Object.assign({},DEF[k],CFG[k]); }
 const PREVIEW=!!CFG._preview;
 
@@ -220,6 +229,7 @@ const GROUPS_ALL=[["전사",["히어로","팔라딘","다크나이트","소울�
  ["해적",["바이퍼","캡틴","캐논마스터","스트라이커","메카닉","은월","엔젤릭버스터","아크"]]];
 const JOBS=GROUPS_ALL.flatMap(g=>g[1]);
 const EX=(CFG.banned||[]).filter(j=>JOBS.includes(j));
+const LK=[...new Set(Array.isArray(CFG.liked)?CFG.liked:[])].filter(j=>JOBS.includes(j)&&!EX.includes(j));
 // 표 금액이 다른 직업: 첫 그룹은 spJobs·spUnit, 나머지 그룹은 spMore. 한 직업이 여러 그룹에 있으면 앞 그룹
 const SPG=[],SP_U={};
 [{jobs:CFG.spJobs,unit:CFG.spUnit},...(Array.isArray(CFG.spMore)?CFG.spMore:[])].forEach(g=>{
@@ -232,6 +242,7 @@ const CUR=CFG.currency||"원";
 const UNIT=Math.max(1,+CFG.unit||1), MU=Math.max(1,+CFG.meso.unit||1);
 const MESO=!!CFG.meso.on, RR=!!CFG.reroll.on, RRN=Math.min(3,Math.max(1,+CFG.reroll.n||3));
 const unitOf=j=>SP_U[j]||UNIT;
+const rrShow=()=>RR&&(S.draw||PREVIEW);
 const isSp=j=>unitOf(j)!==UNIT;
 const short=n=>n%1000?fmt(n):n>=10000?fmt(n/10000)+"만":fmt(n/1000)+"천";
 
@@ -252,11 +263,14 @@ document.getElementById("board").classList.toggle("solid",CFG.grad===false);
 const KEY="mapleJobRouletteBoard.v1";
 let S={data:{},meso:{},log:[],rr:[false,false,false]};
 if(!PREVIEW){try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}}
+// 추첨 모드: 편집창 맨 위 "집계 완료 · 추첨 시작"을 누르면 켜짐(리롤 칸이 판에 나오고 눌러서 사용 처리). 예전 파일에서 이미 쓴 리롤이 있으면 켜진 상태로 이어감
+if(!Array.isArray(S.rr)) S.rr=[false,false,false];
+if(typeof S.draw!=="boolean") S.draw=S.rr.some(Boolean);
 const save=()=>{if(PREVIEW)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 // 편집창에서 바꾼 투명도·투표 불가 표시. 설정 페이지에서 그 값을 바꿔 새로 저장하면(base가 달라지면) 새 파일 값을 씀
 if(S.op&&S.op.base!==OP) delete S.op;
 if(!S.show||typeof S.show!=="object") S.show={};
-for(const k of ["banned","banPage"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
+for(const k of ["banned","banPage","liked"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
 const curOp=()=>S.op&&Number.isFinite(S.op.v)?Math.min(100,Math.max(0,S.op.v)):OP;
 const curShow=k=>S.show[k]?!!S.show[k].v:!!CFG.show[k];
 const banPage=()=>EX.length>0&&curShow("banPage");
@@ -287,12 +301,16 @@ const rankOf=(arr,i)=>{const v=arr[i][1];let r=i;while(r>0&&arr[r-1][1]===v)r--;
 const pages=()=>Math.max(1,Math.ceil(sorted().length/opt("top")))+(banPage()?1:0);
 function restartTimer(){clearInterval(timer);timer=setInterval(()=>{if(pages()<2)return;
   $("list").classList.add("fade");setTimeout(()=>{page=(page+1)%pages();render();$("list").classList.remove("fade");},350);},Math.max(2,opt("sec"))*1000);}
+const HEART='<svg class="lk" width="13" height="13" viewBox="0 0 24 24" fill="#ff6fa3"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.9 1.3 5.3 3.1 1.4-1.8 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
 const BAN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4d5e" stroke-width="2.6"><circle cx="12" cy="12" r="9.5"/><path d="M5.5 5.5l13 13"/></svg>';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let picked=null;
 
 function renderDday(){
-  const d=CFG.dday; $("dday").classList.toggle("hide",!d.on||!d.date); if(!d.on||!d.date) return;
+  const d=CFG.dday,has=d.on&&d.date; $("dday").classList.toggle("done",S.draw);
+  if(S.draw){$("dday").classList.remove("hide","today");const [,m,dd]=has?d.date.split("-").map(Number):[];
+    $("ddayD").textContent=has?`${m}/${dd} ${d.label||""}`.trim():"투표 마감";$("ddayN").textContent="집계 완료";return;}
+  $("dday").classList.toggle("hide",!has); if(!has) return;
   const [y,m,dd]=d.date.split("-").map(Number),t=new Date();
   const diff=Math.round((Date.UTC(y,m-1,dd)-Date.UTC(t.getFullYear(),t.getMonth(),t.getDate()))/864e5);
   $("ddayN").textContent=diff===0?"D-DAY":diff>0?`D-${diff}`:`D+${-diff}`;
@@ -306,7 +324,7 @@ function render(flash){
   const rrA=S.rr.slice(0,RRN),used=rrA.filter(Boolean).length,nextI=rrA.indexOf(false);
   $("rule").innerHTML=`<span class="pill"><b>${fmt(UNIT)}</b>${esc(CUR)}${MESO?` · <b>${fmt(MU)}억</b> 메소`:""} = 1표</span>`+
     SPG.filter(g=>g.unit!==UNIT).map(g=>`<span class="pill y"><b>${g.jobs.map(disp).join("·<wbr>")}</b> <b>${fmt(g.unit)}</b>${esc(CUR)}</span>`).join("")+
-    (RR?`<span class="pill m">리롤 <b>${RRN-used}</b>회 남음</span>`:"");
+    (rrShow()?`<span class="pill m">리롤 <b>${RRN-used}</b>회 남음</span>`:"");
   const arr=sorted(); if(page>=pages()) page=0;
   const total=Object.entries(S.data).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
   const mesoTotal=Object.entries(S.meso).filter(([j])=>!EX.includes(j)).reduce((s,x)=>s+x[1],0);
@@ -321,7 +339,7 @@ function render(flash){
   if(isBan) $("list").innerHTML=`<div class="bhead">${BAN} 투표 불가 직업 <small>이 직업들은 투표할 수 없어요</small></div>`+EX.map(j=>`<div class="brow">${BAN}<span>${disp(j)}</span></div>`).join("");
   else $("list").innerHTML=shown.length?shown.map(([j,vt],k)=>{const rk=rankOf(arr,off+k),pct=votes?(vt/votes*100).toFixed(1):"0.0";
     return `<div class="row${rk===1&&vt?" first":""}${j===flash?" flash":""}"><div class="bar" style="width:${vt/max*100}%"></div>
-      <div class="rank">${rk}</div><div class="name">${disp(j)}${isSp(j)?`<span class="x2">${short(unitOf(j))}</span>`:""}</div>
+      <div class="rank">${rk}</div><div class="name">${disp(j)}${LK.includes(j)?HEART:""}${isSp(j)?`<span class="x2">${short(unitOf(j))}</span>`:""}</div>
       <div class="val"><span class="c">${fmt(vt)}표</span><span class="p">${pct}%</span></div></div>`;}).join("")
     :`<div class="empty">아직 투표가 없어요<br><b>${fmt(UNIT)}${esc(CUR)}</b>${MESO?` 또는 <b>${fmt(MU)}억 메소</b>`:""} 후원 + 원하는 직업으로 참여!</div>`;
   const P=pages();
@@ -329,7 +347,10 @@ function render(flash){
     `<span>${isBan?"투표 불가 직업":arr.length?`${rankOf(arr,off)}~${rankOf(arr,Math.min(off+top,arr.length)-1)}위 / ${arr.length}개 직업`:"투표 현황"}</span>`;
   $("rr").style.setProperty("--rrn",RRN);
   $("rr").innerHTML=rrA.map((u,i)=>`<div class="${u?"used":(i===nextI?"next":"")}"><div class="n">${i+1}회</div><div class="a">${fmt(CFG.reroll.costs[i]||0)}${esc(CUR)}</div></div>`).join("");
-  $("rrBox").classList.toggle("hide",!RR);
+  $("rr").classList.toggle("click",S.draw);
+  $("rrBox").classList.toggle("hide",!rrShow());
+  $("liked").innerHTML=LK.map(j=>`<span>${HEART}${disp(j)}</span>`).join("");
+  $("lkBox").classList.toggle("hide",!curShow("liked")||!LK.length);
   $("excl").innerHTML=EX.map(j=>`<span>${BAN}${disp(j)}</span>`).join("");
   $("exBox").classList.toggle("hide",!curShow("banned")||!EX.length);
   $("credit").classList.toggle("hide",!CFG.show.credit);
@@ -342,11 +363,14 @@ function render(flash){
   $("pickedName").textContent=picked?disp(picked):"없음";
   $("pickedUnit").textContent=picked?`(1표 ${fmt(unitOf(picked))}${CUR})`:"— 직업을 누른 뒤 +표 버튼";
   $("jg").innerHTML=GROUPS.map(([g,l])=>`<div class="g">${g}</div><div class="chips">${l.map(j=>{const vt=vOf(j);
-    return `<button data-pick="${j}" class="${j===picked?"on":""}">${disp(j)}${isSp(j)?`<span class="u">×${+(unitOf(j)/UNIT).toFixed(1)}</span>`:""}${vt?`<span class="v">${vt}</span>`:""}</button>`}).join("")}</div>`).join("");
-  $("rrEdBox").classList.toggle("hide",!RR);
+    return `<button data-pick="${j}" class="${j===picked?"on":""}">${disp(j)}${LK.includes(j)?HEART:""}${isSp(j)?`<span class="u">×${+(unitOf(j)/UNIT).toFixed(1)}</span>`:""}${vt?`<span class="v">${vt}</span>`:""}</button>`}).join("")}</div>`).join("");
+  $("rrEdBox").classList.toggle("hide",!RR||!S.draw);
+  $("drawBtn").textContent=S.draw?"추첨 모드 끝내기":"집계 완료 · 추첨 시작"; $("drawBtn").classList.toggle("y",!S.draw); $("drawBtn").classList.toggle("s",S.draw);
+  $("drawTip").innerHTML=S.draw?(RR?"추첨 모드예요. 리롤 후원이 오면 <b>판의 리롤 칸</b>을 누르세요. 다시 누르면 취소돼요.":"추첨 모드예요. 판에 <b>집계 완료</b>가 보여요."):
+    "투표를 다 받은 뒤 누르세요. 판에 <b>집계 완료</b>가 뜨고"+(RR?", 리롤 칸이 나와요(모든 회차 미사용으로 시작). 리롤은 판의 칸을 눌러 사용 처리해요.":" 투표가 끝났음을 알려요.");
   $("rrEdit").innerHTML=rrA.map((u,i)=>`<button class="btn ${u?"g":"s"}" data-rr="${i}">${i+1}회 ${u?"사용됨":"미사용"}</button>`).join("");
   $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");$("sOp").value=curOp();$("sOpV").textContent=curOp()+"%";
-  $("sBanBox").classList.toggle("hide",!EX.length);$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");
+  $("sBanBox").classList.toggle("hide",!EX.length);$("sLkBox").classList.toggle("hide",!LK.length);$("sLiked").checked=curShow("liked");$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");
   fitRows(); renderSize();
 }
 // 이름이 잘리지 않게: 이름 글자 줄이기 → 이 페이지 표·퍼센트 글자를 조금 줄이기 → 그래도 안 되는 줄만 두 줄
@@ -362,7 +386,10 @@ function fitRows(){
 function needSize(){
   const v=$("votes"),s=$("sum"),a=v.textContent,h=s.innerHTML,k=opt("scale"),up=n=>Math.ceil(n*k/10-1e-6)*10;
   v.textContent="99,999표"; s.querySelectorAll(".v").forEach(e=>e.textContent="99,999표"); s.querySelectorAll("span:not(.k):not(.v)").forEach(e=>{if(CFG.show.total)e.textContent="99,999,999";});
-  const H=$("board").offsetHeight; v.textContent=a; s.innerHTML=h;
+  const rb=$("rrBox"),rh=RR&&rb.classList.contains("hide"),dd=$("dday"),dh=dd.classList.contains("hide"),dT=[$("ddayD").textContent,$("ddayN").textContent];
+  if(rh) rb.classList.remove("hide"); if(dh){dd.classList.remove("hide");$("ddayD").textContent="투표 마감";$("ddayN").textContent="집계 완료";}
+  const H=$("board").offsetHeight; if(rh) rb.classList.add("hide"); if(dh){dd.classList.add("hide");$("ddayD").textContent=dT[0];$("ddayN").textContent=dT[1];}
+  v.textContent=a; s.innerHTML=h;
   return {w:up(460),h:up(Math.max(500,H+30))};
 }
 function renderSize(){const z=needSize(),bad=!PREVIEW&&(innerWidth<z.w||innerHeight<z.h);
@@ -397,6 +424,9 @@ $("jlist").onclick=e=>{const b=e.target.closest("button");if(!b)return;const j=b
   else add(j,+b.dataset.a,true);};
 $("rrEdit").onclick=e=>{const b=e.target.closest("[data-rr]");if(!b)return;const i=+b.dataset.rr;S.rr[i]=!S.rr[i];
   if(S.rr[i])toast(`리롤 ${i+1}회 사용!`);save();render();};
+$("rr").onclick=e=>{if(!S.draw)return;const c=e.target.closest(".rr>div");if(!c)return;const i=[...$("rr").children].indexOf(c);if(i<0)return;
+  S.rr[i]=!S.rr[i];toast(S.rr[i]?`리롤 ${i+1}회 사용!`:`리롤 ${i+1}회 취소`);save();render();};
+$("drawBtn").onclick=e=>{S.draw=!S.draw;if(S.draw){S.rr=[false,false,false];toast("집계 완료 · 추첨 시작!");}e.target.blur();save();render();};
 $("undo").onclick=()=>{const l=S.log.pop();if(!l)return;const box=l[2]==="m"?S.meso:S.data;box[l[0]]=(box[l[0]]||0)-l[1];if(box[l[0]]<=0)delete box[l[0]];save();render();};
 const ICO=p=>`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const PIN_COPY=ICO('<rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5V4.5A1.5 1.5 0 0 1 4.5 3H13.5A1.5 1.5 0 0 1 15 4.5V5"/>')+"복사하기";
@@ -412,7 +442,7 @@ $("pinCopy").onclick=async()=>{const t=pinText();if(!t)return;const i=$("pinTxt"
   if(ok){i.blur();pinMsg(PIN_OK)}else{i.focus();i.select();pinMsg("Ctrl+C 누르기")}};
 let armed=false;
 $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("reset").textContent="투표 전체 초기화"},3000);return;}
-  S.data={};S.meso={};S.log=[];S.rr=[false,false,false];armed=false;$("reset").textContent="투표 전체 초기화";save();render();};
+  S.data={};S.meso={};S.log=[];S.rr=[false,false,false];S.draw=false;armed=false;$("reset").textContent="투표 전체 초기화";save();render();};
 ["sTop","sSec","sScale"].forEach(id=>$(id).onchange=()=>{
   S.top=Math.max(2,Math.round(+$("sTop").value/2)*2||10);S.sec=Math.max(2,+$("sSec").value||6);S.scale=Math.min(2.5,Math.max(.5,+$("sScale").value||1));
   page=0;restartTimer();save();render();});
@@ -420,12 +450,12 @@ $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 �
 let opT;$("sOp").oninput=e=>{const v=+e.target.value;S.op={v,base:OP};setOp(v);$("sOpV").textContent=v+"%";save();
   $("editor").classList.add("peek");clearTimeout(opT);opT=setTimeout(()=>$("editor").classList.remove("peek"),900);};
 $("sOp").onchange=e=>e.target.blur();
-[["sBanned","banned"],["sBanPage","banPage"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
+[["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
 const toggle=()=>document.body.classList.toggle("edit");
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
 document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SELECT/.test(document.activeElement.tagName))toggle();});
 if(PREVIEW&&CFG._demo){const d=[["아란",6],["에반",4],["엔젤릭버스터",3],["카데나",3],["아델",2],["아크메이지(썬,콜)",2],["칼리",1]].filter(([j])=>JOBS.includes(j)&&!EX.includes(j));
-  d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; if(RR)S.rr[0]=true;}
+  d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; }
 render();restartTimer();setInterval(renderDday,60000);
 addEventListener("resize",renderSize);if(document.fonts){const refit=()=>{fitRows();renderSize();};document.fonts.ready.then(refit);document.fonts.addEventListener("loadingdone",refit);}
 </script>
