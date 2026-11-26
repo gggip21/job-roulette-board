@@ -316,7 +316,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
         <div class="save">
           <div class="obs"><svg class="i" aria-hidden="true"><use href="#i-size"/></svg> OBS 소스 크기 <b class="obsSize"></b><small>지금 설정에 맞춘 크기예요. 설정을 바꾸면 OBS 소스 속성의 높이도 이 숫자로 맞춰 주세요.</small></div>
           <button class="b" id="saveBtn"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>내 현황판 파일 저장</button>
-          <div class="two"><label class="b s sm" style="cursor:pointer"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>저장한 파일 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
+          <div class="two"><label class="b s sm" style="cursor:pointer" title="예전에 받은 현황판 파일의 설정을 불러와 이어서 고쳐요(득표수는 OBS 안에 있어 불러오지 않아요)"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>파일 설정 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
             <button class="b s sm" id="resetBtn"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg>처음 설정으로</button></div>
         </div>
         <div class="pv"><div class="cap"><span>미리보기 (예시 데이터)</span></div>
@@ -347,7 +347,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
     <details><summary>새로 받았는데 OBS 화면이 안 바뀌어요</summary><p>① 받은 파일이 <b>roulette-board (1).html</b>처럼 다른 이름으로 저장되지 않았는지 보세요. OBS에 넣은 파일과 같은 위치·같은 이름으로 덮어써야 해요. ② 덮어쓴 뒤 OBS 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르세요. 방송 중에도 되고 표는 그대로예요. 그래도 안 바뀌면 OBS를 껐다 켜세요(표는 남아요). 소스를 지우고 다시 넣을 필요는 없어요.</p></details>
     <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
     <details><summary>편집창이 방송에 보이나요?</summary><p>네, 편집창도 현황판의 일부라 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 E 키로 바로 닫아 주세요.</p></details>
-    <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "저장한 파일 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
+    <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "파일 설정 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
   </div>
 </section>
 
@@ -452,7 +452,7 @@ function fill(){
 }
 /* 미리보기 현황판에서 필요한 크기를 재서 표시 */
 let SIZE={w:460,h:500};
-$("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();const bd=w.document.getElementById("board");PVH=bd?Math.ceil(bd.getBoundingClientRect().bottom)+16:0;showSize();}catch(e){}};
+$("pv").onload=async()=>{try{const w=$("pv").contentWindow;if(!w.needSize)return;await w.document.fonts.ready;SIZE=w.needSize();const bd=w.document.getElementById("board");PVH=bd?Math.ceil(bd.getBoundingClientRect().bottom)+80:0;showSize();}catch(e){}};
 // 미리보기 칸 높이 = 판 높이에 맞춤(저장 버튼과 함께 화면 안에 들어오도록)
 let PVH=0;function showSize(){document.querySelector(".pv").style.setProperty("--pvh",Math.max(SIZE.h,PVH)+"px");document.querySelectorAll(".obsSize").forEach(e=>e.textContent=`너비 ${SIZE.w} · 높이 ${SIZE.h}`);}
 showSize();
