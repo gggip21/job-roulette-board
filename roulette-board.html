@@ -144,6 +144,15 @@ body.edit .editor{display:block}
 .chk span{flex:none;color:var(--sub);font-weight:700;margin-right:6px}.chk label{flex:none;display:inline-flex;align-items:center;gap:5px;color:var(--txt);cursor:pointer;padding:5px 4px}.editor .chk input{width:17px;height:17px;padding:0;margin:0;accent-color:var(--acc);cursor:pointer}
 .op label,.op small{flex:none}.op small{font-size:11px;color:var(--sub)}.op #sOp{flex:1;min-width:0;padding:0;accent-color:var(--acc);cursor:pointer}.op b{flex:0 0 42px;text-align:right;font-size:13px}
 #pinCopy{display:inline-flex;align-items:center;justify-content:center;gap:5px}#pinCopy svg{flex:none}
+/* 집계 완료를 누르면 뜨는 추첨용 복사 창 */
+.pinPop{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(8,6,14,.5)}
+.pbox{width:min(400px,100%);background:#1d1b2a;border:1px solid var(--line);border-radius:16px;padding:14px;font-size:13px;box-shadow:0 12px 34px rgba(0,0,0,.6)}
+.pbox h3{margin:0 0 10px;font-size:15px;font-weight:900;color:var(--acc)}
+.pbox input{font:inherit;font-size:14px;padding:8px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;width:100%;min-width:0}
+.pmsg{margin:0 0 10px;padding:9px 11px;border-radius:10px;font-weight:900;line-height:1.45;background:rgba(var(--pt-rgb),.16);border:1px solid rgba(var(--pt-rgb),.55);color:var(--txt)}
+.pmsg.bad{background:rgba(255,77,94,.12);border-color:rgba(255,77,94,.5);color:#ffb3ba}
+.pbox .pclose{width:100%;margin-top:4px}
+.draw #pinOpen{margin-top:7px;font-size:13px;padding:8px 6px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .jlist{max-height:180px;overflow:auto;margin-top:6px;border-top:1px solid var(--line)}
 .jl{display:flex;align-items:center;gap:5px;padding:5px 0;border-bottom:1px solid var(--line)}
@@ -191,9 +200,18 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   </div>
 </div>
 
+<div class="pinPop hide" id="pinPop" role="dialog" aria-modal="true" aria-labelledby="pinT">
+  <div class="pbox">
+    <h3 id="pinT"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> 추첨(핀볼)용 텍스트</h3>
+    <div class="pmsg" id="pinMsg"></div>
+    <div class="line"><input id="pinTxt" readonly style="flex:2"><button class="btn g" id="pinCopy"></button></div>
+    <button class="btn s pclose" id="pinClose">닫기</button>
+  </div>
+</div>
+
 <div class="editor" id="editor">
   <div class="ehead"><b>현황판 편집</b><button id="closeEd">닫기 (E)</button></div>
-  <div class="draw"><button class="btn y" id="drawBtn"></button><div class="amtTip" id="drawTip"></div></div>
+  <div class="draw"><button class="btn y" id="drawBtn"></button><button class="btn g hide" id="pinOpen">추첨(핀볼)용 텍스트 다시 보기</button><div class="amtTip" id="drawTip"></div></div>
   <h3><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> 후원 입력</h3>
   <div class="picked">선택한 직업: <b id="pickedName">없음</b> <em id="pickedUnit"></em></div>
   <div class="jg" id="jg"></div>
@@ -205,8 +223,6 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="line amt"><input id="amt" type="number" min="0"><div class="pm"><button class="btn s st" id="amtDec" aria-label="금액 줄이기">−</button><button class="btn s st" id="amtInc" aria-label="금액 늘리기">+</button></div><button class="btn s ic" id="amtClr" title="금액 지우기" aria-label="금액 지우기"></button><button class="btn" id="addCustom"></button></div>
   <div class="amtTip" id="amtTip"></div>
   <div class="jlist" id="jlist"></div>
-  <hr><h3><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> 추첨용 복사 (핀볼)</h3>
-  <div class="line"><input id="pinTxt" readonly placeholder="표가 들어오면 여기에 나와요" style="flex:2"><button class="btn g" id="pinCopy"></button></div>
   <div id="rrEdBox"><hr><h3><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 리롤 사용 처리</h3><div class="amtTip">판의 리롤 칸을 눌러도 같아요. 다시 누르면 취소돼요.</div><div class="line" id="rrEdit"></div></div>
   <hr>
   <h3><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg> 화면</h3>
@@ -377,6 +393,7 @@ function render(flash){
   $("jg").innerHTML=GROUPS.map(([g,l])=>`<div class="g">${g}</div><div class="chips">${l.map(j=>{const vt=vOf(j);
     return `<button data-pick="${j}" class="${j===picked?"on":""}">${disp(j)}${LK.includes(j)?HEART:""}${isSp(j)?`<span class="u">×${+(unitOf(j)/UNIT).toFixed(1)}</span>`:""}${vt?`<span class="v">${vt}</span>`:""}</button>`}).join("")}</div>`).join("");
   $("rrEdBox").classList.toggle("hide",!RR||!S.draw);
+  $("pinOpen").classList.toggle("hide",!S.draw);
   $("drawBtn").textContent=S.draw?"추첨 모드 끝내기":"집계 완료 · 추첨 시작"; $("drawBtn").classList.toggle("y",!S.draw); $("drawBtn").classList.toggle("s",S.draw);
   $("drawTip").innerHTML=S.draw?(RR?"추첨 모드예요. 리롤 후원이 오면 <b>판의 리롤 칸</b>을 누르세요. 다시 누르면 취소돼요.":"추첨 모드예요. 판에 <b>집계 완료</b>가 보여요."):
     "투표를 다 받은 뒤 누르세요. 판에 <b>집계 완료</b>가 뜨고"+(RR?", 리롤 칸이 나와요(모든 회차 미사용으로 시작). 리롤은 판의 칸을 눌러 사용 처리해요.":" 투표가 끝났음을 알려요.");
@@ -439,7 +456,7 @@ $("rrEdit").onclick=e=>{const b=e.target.closest("[data-rr]");if(!b)return;const
   if(S.rr[i])toast(`리롤 ${i+1}회 사용!`);save();render();};
 $("rr").onclick=e=>{if(!S.draw)return;const c=e.target.closest(".rr>div");if(!c)return;const i=[...$("rr").children].indexOf(c);if(i<0)return;
   S.rr[i]=!S.rr[i];toast(S.rr[i]?`리롤 ${i+1}회 사용!`:`리롤 ${i+1}회 취소`);save();popI=S.rr[i]?i:-1;render();popI=-1;};
-$("drawBtn").onclick=e=>{S.draw=!S.draw;if(S.draw){S.rr=[false,false,false];document.body.classList.remove("edit");toast("집계 완료 · 추첨 시작!");}e.target.blur();save();render();};
+$("drawBtn").onclick=e=>{S.draw=!S.draw;e.target.blur();if(S.draw){S.rr=[false,false,false];document.body.classList.remove("edit");toast("집계 완료 · 추첨 시작!");}save();render();if(S.draw)pinShow();else pinHide();};
 $("undo").onclick=()=>{const l=S.log.pop();if(!l)return;const box=l[2]==="m"?S.meso:S.data;box[l[0]]=(box[l[0]]||0)-l[1];if(box[l[0]]<=0)delete box[l[0]];save();render();};
 const ICO=p=>`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const PIN_COPY=ICO('<rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5V4.5A1.5 1.5 0 0 1 4.5 3H13.5A1.5 1.5 0 0 1 15 4.5V5"/>')+"복사하기";
@@ -449,10 +466,19 @@ $("amtClr").innerHTML=ICO('<path d="M3.5 12a8.5 8.5 0 1 0 2.7-6.2L3.5 8.300"/><p
 $("amtClr").onclick=()=>{$("amt").value="";};
 let pt;const pinMsg=h=>{$("pinCopy").innerHTML=h;clearTimeout(pt);pt=setTimeout(()=>$("pinCopy").innerHTML=PIN_COPY,2400);};
 $("pinTxt").onfocus=e=>e.target.select();
-$("pinCopy").onclick=async()=>{const t=pinText();if(!t)return;const i=$("pinTxt");i.value=t;i.focus();i.select();
-  let ok=false;try{ok=document.execCommand("copy")}catch(e){}
+const pinNote=(h,bad)=>{$("pinMsg").innerHTML=h;$("pinMsg").classList.toggle("bad",!!bad);};
+// 누른 순간(같은 클릭 안)에 복사해야 OBS·브라우저가 막지 않음
+async function pinCopy(){const t=pinText(),i=$("pinTxt");i.value=t;
+  if(!t){pinNote("1표 이상 받은 직업이 없어 복사할 내용이 없어요.",1);return;}
+  i.focus();i.select();let ok=false;try{ok=document.execCommand("copy")}catch(e){}
   if(!ok){try{await navigator.clipboard.writeText(t);ok=true}catch(e){}}
-  if(ok){i.blur();pinMsg(PIN_OK)}else{i.focus();i.select();pinMsg("Ctrl+C 누르기")}};
+  if(ok){i.blur();pinMsg(PIN_OK);pinNote("추첨(핀볼)용 텍스트가 복사되었습니다.<br>핀볼 사이트에 붙여넣기(Ctrl+V) 해주세요.");}
+  else{i.focus();i.select();pinMsg("Ctrl+C 누르기");pinNote("자동 복사가 안 됐어요. 글자가 선택된 상태에서 Ctrl+C를 눌러 주세요.",1);}}
+const pinShow=()=>{$("pinPop").classList.remove("hide");pinCopy();};
+const pinHide=()=>{$("pinPop").classList.add("hide");};
+$("pinCopy").onclick=pinCopy;$("pinClose").onclick=pinHide;$("pinOpen").onclick=()=>{document.body.classList.remove("edit");pinShow();};
+$("pinPop").onclick=e=>{if(e.target===$("pinPop"))pinHide();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("pinPop").classList.contains("hide"))pinHide();});
 let armed=false;
 $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("reset").textContent="투표 전체 초기화"},3000);return;}
   S.data={};S.meso={};S.log=[];S.rr=[false,false,false];S.draw=false;armed=false;$("reset").textContent="투표 전체 초기화";save();render();};
