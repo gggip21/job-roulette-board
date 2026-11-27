@@ -38,13 +38,13 @@ section{padding:34px 0}
 h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .desc{color:var(--sub);margin:0 0 20px}
 /* 맨 위 버전 한 줄 + 업데이트 내역 */
-.ver{margin:0 0 16px;max-width:760px;font-size:13.5px}.ver[open]{margin-bottom:26px}
+.ver{position:relative;margin:0 0 16px;max-width:760px;font-size:13.5px}
 .ver>summary{list-style:none;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;padding:5px 12px 5px 6px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:#e4e0f0;font-weight:700}
 .ver>summary::-webkit-details-marker{display:none}
 .ver>summary b{background:var(--acc);color:#1a0e00;border-radius:999px;padding:1px 9px;font-size:12.5px;font-weight:900}
 .ver>summary small{color:var(--sub);font-weight:700}
 .ver>summary .mo{color:var(--hi);font-size:12.5px}.ver>summary .mo:after{content:" ▾"}.ver[open]>summary .mo:after{content:" ▴"}
-.ver .log{margin-top:10px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(20,18,31,.7);max-height:360px;overflow:auto}
+.ver .log{position:absolute;left:0;top:calc(100% + 8px);z-index:20;width:min(760px,calc(100vw - 40px));padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#16141f;box-shadow:0 16px 40px rgba(0,0,0,.6);max-height:min(420px,70vh);overflow:auto}
 .ver .log h4{margin:0;font-size:14px;color:var(--txt)}.ver .log h4 b{color:var(--acc);margin-right:6px}.ver .log h4 small{color:var(--sub);font-weight:700;margin-left:6px}
 .ver .log ul{margin:4px 0 12px;padding-left:20px;color:#d6d2e4}.ver .log div:last-child ul{margin-bottom:0}
 .ver .log .how{margin:0 0 12px;padding:8px 11px;border-radius:10px;background:rgba(143,211,255,.08);border:1px solid rgba(143,211,255,.3);font-size:12.5px;color:#d6d2e4}.ver .log .how b{color:var(--txt)}
@@ -186,7 +186,7 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
 .maker .it{color:var(--txt);text-decoration:none;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:5px 13px}
 .maker .it small{color:var(--sub);font-size:12px;font-weight:700}
 .by{margin-top:16px;font-size:13.5px;color:var(--sub);font-weight:700}.by b{color:var(--txt)}.by{display:flex;align-items:center;gap:7px}.by i{font-style:normal}.ic{height:15px;width:auto;display:block;flex:none}.ic.lf{height:20px}
-header{position:relative;overflow:hidden}header>.in{position:relative;z-index:1}
+header{position:relative;z-index:2}header>.in{position:relative;z-index:1}
 /* 맨 위 배경: 직업 그림 띠(img/jobs.webp)가 왼쪽으로 흐름. 띠를 두 번 이어 붙이고 절반만큼 움직여 끊김 없이 반복 */
 .flow{position:absolute;inset:0;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%);mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%)}
 .flow i{position:absolute;left:0;bottom:-14%;height:112%;aspect-ratio:16704/430;background:url(img/jobs.webp) 0 0/50% 100% repeat-x;animation:flow 160s linear infinite}
@@ -544,6 +544,9 @@ fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():nul
   $("verV").textContent="v"+x.v;$("verT").textContent=x.title||"";$("verD").innerHTML=ago(x.date);
   $("verLog").innerHTML=log.map(y=>`<div><h4><b>v${e(y.v)}</b>${e(y.title)}<small>${ago(y.date)}</small></h4><ul>${(y.items||[]).map(t=>`<li>${e(t)}</li>`).join("")}</ul></div>`).join("");
   $("ver").classList.remove("hide");}).catch(()=>{});
+// 펼친 업데이트 내역은 바깥을 누르거나 Esc로 닫기
+document.addEventListener("click",e=>{const v=$("ver");if(v.open&&!v.contains(e.target))v.open=false;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("ver").open=false;});
 $("top").onchange=e=>upd(()=>F.page.top=+e.target.value);
 $("sec").onchange=e=>upd(()=>F.page.sec=Math.min(60,Math.max(2,+e.target.value||6)),true);
 
