@@ -61,6 +61,15 @@ body{overflow:hidden}
 .ttl h1{margin:1px 0 0;font-family:'Black Han Sans';font-weight:400;font-size:22px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gear{position:relative;opacity:0;background:none;border:0;color:var(--sub);font-size:18px;cursor:pointer;align-self:flex-start;transition:.2s}
 .board:hover .gear, body.edit .gear{opacity:1}
+.hbtns{display:flex;gap:5px;align-self:flex-start;opacity:0;transition:opacity .2s}
+.board:hover .hbtns,body.edit .hbtns{opacity:1}
+.hbtns .gear{opacity:1;align-self:auto}
+.hbtn{position:relative;width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(20,18,31,.7);color:#fff;cursor:pointer;transition:background .15s,color .15s}
+.hbtn .i{width:21px;height:21px;stroke-width:2.2}
+.hbtn:hover{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
+/* 마우스를 올리면 뜨는 설명 (OBS 상호작용 창은 기본 툴팁이 안 뜰 수 있어 직접 그림) */
+[data-tip]:hover:before{content:attr(data-tip);position:absolute;z-index:20;top:calc(100% + 7px);right:0;width:max-content;max-width:230px;white-space:normal;text-align:left;
+  font:700 12px/1.45 'Noto Sans KR',sans-serif;letter-spacing:0;color:#fff;background:#14121f;border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:7px 10px;box-shadow:0 6px 18px rgba(0,0,0,.55);pointer-events:none;text-shadow:none}
 .list.flip{cursor:pointer}
 .rule{font-size:0;display:flex;gap:6px;margin:12px 0 10px;flex-wrap:wrap}
 .pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--sub)}
@@ -538,6 +547,7 @@ body{overflow:hidden}
 .editor::-webkit-scrollbar{width:8px}.editor::-webkit-scrollbar-thumb{background:#3d3a5a;border-radius:8px}
 .ehead{position:sticky;top:-14px;margin:-14px -14px 10px;padding:10px 14px;background:#1d1b2a;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;z-index:1}
 .ehead b{color:var(--acc);font-size:14px}
+.ehb{display:flex;gap:6px}.ehb button{position:relative;display:inline-flex;align-items:center;gap:4px}.ehb .i{width:15px;height:15px}
 .ehead button{border:0;background:#37344f;color:var(--txt);border-radius:8px;padding:5px 10px;font-weight:900;cursor:pointer}
 body.edit .editor{display:block}
 .editor.peek{opacity:.22}
@@ -630,7 +640,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h6M16 18h4"/><circle cx="15" cy="6" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="13" cy="18" r="2.2"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 3.5l3 3-3 3M4 11V9.5a3 3 0 0 1 3-3h13M7 20.5l-3-3 3-3M20 13v1.5a3 3 0 0 1-3 3H4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 5L4 9l4 4M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h6M16 18h4"/><circle cx="15" cy="6" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="13" cy="18" r="2.2"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 3.5l3 3-3 3M4 11V9.5a3 3 0 0 1 3-3h13M7 20.5l-3-3 3-3M20 13v1.5a3 3 0 0 1-3 3H4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 5L4 9l4 4M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol></defs></svg>
 <div class="wrap" id="wrap">
   <div class="board" id="board">
     <div class="fx" id="fx"></div><div class="deco" id="deco"></div>
@@ -638,7 +648,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
       <div class="ava"><div id="ava"></div></div>
       <div class="ttl"><div class="s" id="sub"></div><h1 id="title"></h1></div>
       <div class="rrBig hide" id="rrBig"><small>리롤</small><b id="rrLeft"></b><small>회 남음</small></div>
-      <button class="gear" id="gear" title="편집 (E)"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg></button>
+      <div class="hbtns"><button class="hbtn" id="bReload" data-tip="판 새로 고침: 설정 페이지에서 받은 파일로 덮어썼다면 누르세요. 바로 적용되고 표는 그대로예요." aria-label="판 새로 고침"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg></button><button class="gear hbtn" id="gear" data-tip="편집창 열기·닫기 (E)" aria-label="편집"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg></button></div>
     </div>
     <div class="rule" id="rule"></div>
     <div class="list" id="list"></div>
@@ -666,7 +676,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 </div>
 
 <div class="editor" id="editor">
-  <div class="ehead"><b>현황판 편집</b><button id="closeEd">닫기 (E)</button></div>
+  <div class="ehead"><b>현황판 편집</b><span class="ehb"><button id="edReload" data-tip="판 새로 고침: 설정 페이지에서 받은 파일로 덮어썼다면 누르세요. 바로 적용되고 표는 그대로예요."><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> 새로 고침</button><button id="closeEd">닫기 (E)</button></span></div>
   <div class="upd hide" id="upd"></div>
   <div class="draw"><button class="btn y" id="drawBtn"></button><button class="btn g hide" id="pinOpen">추첨(핀볼)용 텍스트 다시 보기</button><div class="amtTip" id="drawTip"></div></div>
   <div class="evLine hide" id="evLine"></div>
@@ -1117,6 +1127,7 @@ $("etabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(b)showTab(b.dat
 markNewTabs();
 const toggle=()=>{if(document.body.classList.toggle("edit"))showTab("in");fitEditor();};
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
+$("bReload").onclick=()=>$("reload").onclick();$("edReload").onclick=()=>$("reload").onclick();
 // 판 새로 고침: 덮어쓴 설정 파일을 다시 읽음(표는 OBS 안에 저장돼 그대로)
 $("reload").onclick=()=>{save();try{sessionStorage.setItem("mjrb.reloaded","1")}catch(e){}(typeof HOST!=="undefined"?HOST:window).location.reload();};
 try{if(sessionStorage.getItem("mjrb.reloaded")){sessionStorage.removeItem("mjrb.reloaded");setTimeout(()=>toast("새로 고침 완료 · 표는 그대로예요"),300);}}catch(e){}
