@@ -29,6 +29,7 @@ h1 span{color:var(--acc)}
 .b{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:900;font-size:15px;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;text-decoration:none;background:var(--acc);color:#1a0e00}
 .b.s{background:#2c2840;color:var(--txt)}
 .b.sm{font-size:13px;padding:8px 12px;border-radius:9px}
+.keep.tagkey{margin-top:-8px}.keep.tagkey .ed{vertical-align:1px}
 .keep{display:flex;gap:7px;align-items:flex-start;margin:-10px 0 18px;font-size:14.5px;color:#e4e0f0;word-break:keep-all}.keep .i{color:var(--acc);flex:none;margin-top:3px}.keep b{color:var(--hi)}.keep small{display:block;font-size:12.5px;color:var(--sub)}
 .feat{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .feat span{font-size:13px;font-weight:700;color:var(--sub);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
@@ -288,12 +289,13 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
     <ol class="flowbar"><li><b>1</b><span>설정하고 <em>파일 저장</em></span></li><li><b>2</b><span><span class="pn">OBS</span>에 <em>브라우저 소스</em>로 추가</span></li><li><b>3</b><span class="po">후원 오면 소스 우클릭 → <em>상호작용</em> 창에서 <em>E</em></span><span class="pf">후원 오면 소스 더블클릭 → <em>상호작용</em> 버튼 → <em>E</em></span></li><li><b>4</b><span><em>집계 완료</em> → 핀볼에 붙여넣기</span></li><li class="more"><a href="#how">자세한 사용법 ↓</a></li></ol>
     <p class="desc">왼쪽에서 고치면 오른쪽 미리보기에 바로 반영돼요. 다 고쳤으면 <b>내 현황판 파일 저장</b>을 누르세요. 설정은 이 브라우저에 자동 저장돼요.</p>
     <p class="keep"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span><b>처음 설정을 잘못해도 괜찮아요.</b> 다시 설정해서 받은 html 파일을 기존 파일에 덮어씌우면 득표수는 그대로 유지돼요.<small>단, 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요.</small></span></p>
+    <p class="keep tagkey"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg><span><em class="ed" style="margin:0 6px 0 0"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em>태그가 붙은 칸은 받은 뒤에도 <span class="po"><b>OBS</b> 소스 우클릭 → 상호작용 창에서 <b>E</b>를 눌러 편집창에서</span><span class="pf"><b>프릭샷</b> 소스 더블클릭 → 속성 창 <b>상호작용</b>에서 <b>E</b>를 눌러 편집창에서</span> 바로 바꿀 수 있어요.<small>태그가 없는 칸은 여기서 다시 설정해 받은 파일을 같은 파일에 덮어쓰면 바뀌어요. 표는 그대로예요.</small></span></p>
     <div class="grid">
       <div class="form">
         <div class="card">
           <h3><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>기본 정보</h3>
-          <div class="row"><label class="k">제목<em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경</em></label><input class="f" type="text" id="title" maxlength="30"></div>
-          <div class="row"><label class="k">부제 <small>(비우면 숨김)</small><em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경</em></label><input class="f" type="text" id="sub" maxlength="40"></div>
+          <div class="row"><label class="k">제목<em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></label><input class="f" type="text" id="title" maxlength="30"></div>
+          <div class="row"><label class="k">부제 <small>(비우면 숨김)</small><em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></label><input class="f" type="text" id="sub" maxlength="40"></div>
           <div class="row"><label class="k">프로필 이미지</label>
             <div class="f ava-row"><div class="ava-pv" id="avaPv" role="button" tabindex="0" title="눌러서 이미지 선택"></div>
               <label class="b s sm" style="cursor:pointer">이미지 선택<input type="file" id="avatarFile" accept="image/*" hidden></label>
