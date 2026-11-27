@@ -77,6 +77,8 @@ h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .pf{display:none}body.fs .po{display:none}body.fs .pf{display:revert}
 .progRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px;font-size:14px;font-weight:700;color:var(--sub)}
 .progRow .seg2 button{font-size:13.5px;padding:6px 14px}
+.ver .log .mn{font-style:normal;font-size:11px;font-weight:900;color:#1a0e00;background:#8fd3ff;border-radius:999px;padding:1px 8px;margin-right:6px;vertical-align:1px}
+.ver .log .mnote{margin:-6px 0 12px;font-size:12px;color:var(--sub)}
 /* 설정 위 한 줄 4단계 */
 .flowbar{list-style:none;margin:4px 0 14px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;font-size:14px;font-weight:700;color:#e4e0f0}
 .flowbar li{display:flex;align-items:center;gap:7px;white-space:nowrap}
@@ -609,8 +611,8 @@ $("skins").onclick=e=>{const b=e.target.closest("[data-skin]");if(!b)return;cons
 // 날짜 + 며칠 전 (HTML). 오늘·어제·n일 전을 주황 테두리로 강조
 const ago=d=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");if(!m)return esc(d||"");const t=new Date(),n=Math.round((Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())-Date.UTC(+m[1],m[2]-1,+m[3]))/864e5);return d+" · "+'<em class="today">'+(n<=0?"오늘":n===1?"어제":n+"일 전")+'</em>';};
 fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{const log=j&&Array.isArray(j.log)?j.log:[];if(!log.length)return;const x=log[0],e=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  $("verV").textContent="v"+x.v;$("verT").textContent=x.title||"";$("verD").innerHTML=ago(x.date);
-  $("verLog").innerHTML=log.map(y=>`<div><h4><b>v${e(y.v)}</b>${e(y.title)}<small>${ago(y.date)}</small></h4><ul>${(y.items||[]).map(t=>`<li>${e(t)}</li>`).join("")}</ul></div>`).join("");
+  $("verV").textContent="v"+x.v+(x.minor?" 마이너 패치":"");$("verT").textContent=(x.minor?"마이너 패치 · ":"")+(x.title||"");$("verD").innerHTML=ago(x.date);
+  $("verLog").innerHTML=log.map(y=>`<div><h4><b>v${e(y.v)}</b>${y.minor?`<em class="mn">마이너 패치</em>`:""}${e(y.title)}<small>${ago(y.date)}</small></h4><ul>${(y.items||[]).map(t=>`<li>${e(t)}</li>`).join("")}</ul>${y.minor?`<p class="mnote">다음 정식 업데이트 때 판에 자동으로 들어가요. 바로 받으려면 현황판의 <b>새로 고침</b>을 누르거나(2.0.2부터), 여기서 다시 받아 덮어쓰세요.</p>`:""}</div>`).join("");
   $("ver").classList.remove("hide");}).catch(()=>{});
 // 방송 프로그램(OBS / 프릭샷)에 맞춰 안내 글을 바꿈. 고른 값은 이 브라우저에 기억
 function setProg(p){p=p==="fs"?"fs":"obs";try{localStorage.setItem("mjrb.prog",p)}catch(e){}document.body.classList.toggle("fs",p==="fs");

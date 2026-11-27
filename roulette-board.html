@@ -13,19 +13,20 @@
 /* 버튼 업데이트: 업데이트 창의 "지금 업데이트"로 받아 둔 새 버전이 이 파일보다 새 버전이면 그걸로 실행.
    설정은 이 파일 것, 표는 그대로(같은 저장소). 새 버전이 다 읽혔는데 실행 신호가 없으면(또는 15초가 지나면)
    그 버전은 막고 원래 파일로 다시 띄움 */
-var BOARD_VER="2.0.1";
+var BOARD_VER="2.0.2",BOARD_BUILD=1;
 (function(){
-  var K="mapleJobRouletteBoard.code",KB="mapleJobRouletteBoard.codeBad",ME=BOARD_VER;
+  var K="mapleJobRouletteBoard.code",KB="mapleJobRouletteBoard.codeBad",ME=BOARD_VER,MB=BOARD_BUILD;
   try{
     var el=document.getElementById("board-config"),cfg={};try{cfg=JSON.parse(el.textContent)}catch(e){}
     if(cfg._preview||String(window.name).indexOf("mjrb-live:")===0) return;
     var c=JSON.parse(localStorage.getItem(K)||"null"); if(!c||!c.v||!c.html) return;
     var gt=function(a,b){a=String(a).split(".").map(Number);b=String(b).split(".").map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var d=(a[i]||0)-(b[i]||0);if(d)return d>0;}return false;};
-    if(!gt(c.v,ME)){localStorage.removeItem(K);return;} // 파일이 같거나 더 새 버전이면 받아 둔 것은 버림
-    if(localStorage.getItem(KB)===c.v) return;            // 전에 실행이 안 됐던 버전
+    if(!(gt(c.v,ME)||(c.v===ME&&(+c.b||0)>MB))){localStorage.removeItem(K);return;} // 파일이 같거나 더 새 버전·수정이면 받아 둔 것은 버림
+    var cid=c.v+"#"+(+c.b||0);
+    if(localStorage.getItem(KB)===cid) return;            // 전에 실행이 안 됐던 버전
     var m=/(<script id="board-config" type="application\/json">)([\s\S]*?)(<\/script>)/.exec(c.html); if(!m) return;
     var html=c.html.slice(0,m.index)+m[1]+el.textContent+m[3]+c.html.slice(m.index+m[0].length);
-    var okd=false,fail=function(){if(okd)return;okd=true;try{localStorage.setItem(KB,c.v);sessionStorage.setItem("mjrb.fellback",c.v)}catch(e){}location.reload();};
+    var okd=false,fail=function(){if(okd)return;okd=true;try{localStorage.setItem(KB,cid);sessionStorage.setItem("mjrb.fellback",c.v)}catch(e){}location.reload();};
     var t=setTimeout(fail,15000);
     window.__mjrbLive={file:ME,ok:function(){okd=true;clearTimeout(t);}};
     document.write('<plaintext style="display:none">'); // 이 파일의 나머지는 실행하지 않음
@@ -626,6 +627,7 @@ body.edit .editor{display:block}
 .upd.mini .ub{display:none}
 .today{font-style:normal;font-weight:900;color:#ff8a1f;border:1.5px solid #ff8a1f;border-radius:999px;padding:0 7px;margin-left:1px;background:rgba(255,138,31,.12);white-space:nowrap}
 .btn.go{background:#ff8a1f;color:#1a0e00;font-size:15px;padding:11px 6px;margin:0 0 8px;width:100%}.btn.go:hover{background:#ff9d40}
+.mnTag{display:inline-block;font-size:11px;font-weight:900;color:#1a0e00;background:var(--pt);border-radius:999px;padding:1px 8px;margin-right:4px}
 .updPop{z-index:6;background:rgba(8,6,14,.7)}
 .updPop .pbox{max-height:100%;display:flex;flex-direction:column;overflow:hidden;border-color:rgba(var(--pt-rgb),.7);box-shadow:0 0 0 3px rgba(var(--pt-rgb),.18),0 12px 34px rgba(0,0,0,.6)}
 .updPop .big{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:21px;font-weight:900;color:var(--pt)}.updPop .big .i{width:22px;height:22px}
@@ -1130,7 +1132,7 @@ $("gear").onclick=toggle;$("closeEd").onclick=toggle;
 $("bReload").onclick=()=>$("reload").onclick();$("edReload").onclick=()=>$("reload").onclick();
 // 판 새로 고침: 덮어쓴 설정 파일을 다시 읽음(표는 OBS 안에 저장돼 그대로)
 $("reload").onclick=()=>{save();try{sessionStorage.setItem("mjrb.reloaded","1")}catch(e){}(typeof HOST!=="undefined"?HOST:window).location.reload();};
-try{if(sessionStorage.getItem("mjrb.reloaded")){sessionStorage.removeItem("mjrb.reloaded");setTimeout(()=>toast("새로 고침 완료 · 표는 그대로예요"),300);}}catch(e){}
+let RELOADED=false;try{if(sessionStorage.getItem("mjrb.reloaded")){sessionStorage.removeItem("mjrb.reloaded");RELOADED=true;setTimeout(()=>{if(RELOADED){RELOADED=false;toast("새로 고침 완료 · 표는 그대로예요");}},3000);}}catch(e){}
 document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SELECT/.test(document.activeElement.tagName))toggle();});
 if(PREVIEW&&CFG._demo){const d=[["아란",6],["에반",4],["엔젤릭버스터",3],["카데나",3],["아델",2],["아크메이지(썬,콜)",2],["칼리",1]].filter(([j])=>JOBS.includes(j)&&!EX.includes(j));
   d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; }
@@ -1143,21 +1145,22 @@ const LIVE=String(window.name).indexOf("mjrb-live:")===0?window.name.slice(10):"
 const CODE_K="mapleJobRouletteBoard.code",CODE_BAD="mapleJobRouletteBoard.codeBad";
 try{if(LIVE&&parent.__mjrbLive)parent.__mjrbLive.ok();}catch(e){}
 try{const fb=sessionStorage.getItem("mjrb.fellback");if(fb&&!LIVE){sessionStorage.removeItem("mjrb.fellback");setTimeout(()=>toast(`v${fb}가 제대로 안 열려서 원래 파일 버전으로 돌아왔어요`,1),400);}}catch(e){}
-$("verNow").textContent="v"+VER+(LIVE?` (버튼 업데이트로 실행 중, 파일은 v${LIVE})`:"");
+$("verNow").textContent="v"+VER+" · 수정 "+BOARD_BUILD+(LIVE?` (버튼 업데이트로 실행 중, 파일은 v${LIVE})`:"");
 $("liveBack").classList.toggle("hide",!LIVE);$("liveBack").textContent=`원래 파일 버전(v${LIVE})으로 되돌리기`;
 $("liveBack").onclick=()=>{try{localStorage.removeItem(CODE_K)}catch(e){}HOST.location.reload();};
 // 지금 업데이트: 사이트의 최신 현황판을 받아 OBS 안에 저장 → 다시 띄우면 그 버전으로 실행(설정·표 그대로)
 async function liveUpdate(b){const t0=b.textContent;b.disabled=true;b.textContent="받는 중...";
   try{const r=await fetch(SITE+"roulette-board.html?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;const h=await r.text();
-    const v=(/var BOARD_VER="([\d.]+)"/.exec(h)||[])[1];if(!v||h.indexOf('id="board-config"')<0)throw 0;
-    if(!verGt(v,VER)){toast("이미 최신 버전이에요");b.disabled=false;b.textContent=t0;return;}
-    localStorage.setItem(CODE_K,JSON.stringify({v,html:h,at:Date.now()}));localStorage.removeItem(CODE_BAD);
-    b.textContent=`v${v} 적용 중...`;toast(`v${v}로 업데이트할게요 · 표는 그대로예요`);setTimeout(()=>HOST.location.reload(),900);}
+    const v=(/var BOARD_VER="([\d.]+)"/.exec(h)||[])[1],bb=+((/BOARD_BUILD=(\d+)/.exec(h)||[])[1]||0);if(!v||h.indexOf('id="board-config"')<0)throw 0;
+    const minor=v===VER&&bb>BOARD_BUILD;
+    if(!verGt(v,VER)&&!minor){toast("이미 최신 버전이에요");b.disabled=false;b.textContent=t0;return;}
+    localStorage.setItem(CODE_K,JSON.stringify({v,b:bb,html:h,at:Date.now()}));localStorage.removeItem(CODE_BAD);
+    const lb=minor?`작은 수정(수정 ${bb})`:`v${v}`;b.textContent=`${lb} 적용 중...`;toast(`${lb}을 적용할게요 · 표는 그대로예요`);setTimeout(()=>HOST.location.reload(),900);}
   catch(e){b.disabled=false;b.textContent=t0;toast("업데이트를 못 받았어요. 인터넷 연결을 확인하거나 설정 페이지에서 다시 받아 주세요",1);}}
 const verGt=(a,b)=>{a=String(a).split(".").map(Number);b=String(b).split(".").map(Number);for(let i=0;i<Math.max(a.length,b.length);i++){const d=(a[i]||0)-(b[i]||0);if(d)return d>0;}return false;};
 // 날짜 + 며칠 전 (HTML). 오늘·어제·n일 전을 주황 테두리로 강조
 const ago=d=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");if(!m)return esc(d||"");const t=new Date(),n=Math.round((Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())-Date.UTC(+m[1],m[2]-1,+m[3]))/864e5);return d+" · "+'<em class="today">'+(n<=0?"오늘":n===1?"어제":n+"일 전")+'</em>';};
-function showUpd(log){const nw=log.filter(x=>x&&verGt(x.v,VER));if(!nw.length)return;const L=nw[0].v,u=$("upd");
+function showUpd(log,force){const nw=log.filter(x=>x&&!x.minor&&verGt(x.v,VER));if(!nw.length)return false;const L=nw[0].v,u=$("upd");
   u.innerHTML=`<div class="uh"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span>새 버전 v${esc(L)}이 나왔어요 <small style="color:var(--sub);font-weight:700">(지금 v${VER})</small></span><button id="updT"></button></div>
   <div class="ub">${nw.map(x=>`<div class="uv"><b>v${esc(x.v)} ${esc(x.title||"")}</b><small>${ago(x.date)}</small><ul>${(x.items||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`).join("")}
   <button class="btn go" id="updGo" style="width:100%;margin-top:8px">지금 업데이트 (표·설정 그대로)</button>
@@ -1175,12 +1178,23 @@ function showUpd(log){const nw=log.filter(x=>x&&verGt(x.v,VER));if(!nw.length)re
     <div class="how">버튼으로 안 되면: 설정 페이지 → <b>파일 설정 불러오기</b> → <b>내 현황판 파일 저장</b>으로 덮어쓰기 → 편집창(E) <b>판 새로 고침</b></div>
     <div class="line"><input id="updUrl2" readonly value="${SITE}" style="flex:2"><button class="btn s" id="updCopy2">주소 복사</button></div>
     <button class="btn s pclose" id="updClose">닫기 (다음 버전까지 안 떠요)</button></div>`;
-  pop.classList.toggle("hide",S.updBar===L);
+  pop.classList.toggle("hide",!force&&S.updBar===L);
   $("updClose").onclick=()=>{S.updBar=L;save();pop.classList.add("hide");toast("업데이트 내용은 편집창(E) 맨 위에서 다시 볼 수 있어요");};
   pop.onclick=e=>{if(e.target===pop)$("updClose").click();};
   const cp=(id)=>{const i=$(id);i.focus();i.select();let ok=false;try{ok=document.execCommand("copy")}catch(e){}i.blur();toast(ok?"설정 페이지 주소를 복사했어요":"Ctrl+C로 복사해 주세요",!ok);};
-  $("updCopy").onclick=()=>cp("updUrl");$("updCopy2").onclick=()=>cp("updUrl2");$("updGo").onclick=e=>liveUpdate(e.currentTarget);$("updGo2").onclick=e=>liveUpdate(e.currentTarget);}
-if(!PREVIEW&&window.fetch) fetch(SITE+"version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&Array.isArray(j.log))showUpd(j.log);}).catch(()=>{});
+  $("updCopy").onclick=()=>cp("updUrl");$("updCopy2").onclick=()=>cp("updUrl2");$("updGo").onclick=e=>liveUpdate(e.currentTarget);$("updGo2").onclick=e=>liveUpdate(e.currentTarget);return true;}
+// 마이너 패치 창: 새로 고침으로 확인했을 때만 (OBS를 켤 때는 안 뜸)
+function showMinor(list){const pop=$("updPop"),li=a=>(a||[]).map(t=>`<li>${esc(t)}</li>`).join(""),last=list[0];
+  $("updBox").innerHTML=`<div class="big" style="font-size:18px"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg>작은 수정이 있어요</div>
+    <div class="dt"><span class="mnTag">마이너 패치</span> v${VER} · 수정 ${+last.build||0} · ${ago(last.date)}</div><div class="ubody">${list.map(x=>`<div class="nm" style="font-size:14px">${esc(x.title||"")}</div><ul>${li(x.items)}</ul>`).join("")}</div><div class="foot2">
+    <button class="btn go" id="updGo2">받기 (표·설정 그대로)</button>
+    <button class="btn s pclose" id="updClose">닫기</button></div>`;
+  pop.classList.remove("hide");$("updClose").onclick=()=>pop.classList.add("hide");pop.onclick=e=>{if(e.target===pop)pop.classList.add("hide");};$("updGo2").onclick=e=>liveUpdate(e.currentTarget);}
+// 새 버전 확인: OBS를 켤 때는 정식 패치만 알림. 판 새로 고침을 누른 뒤에는 정식 → 마이너 → 최신 순으로 알려 줌
+if(!PREVIEW&&window.fetch) fetch(SITE+"version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!Array.isArray(j.log))return;
+  const asked=RELOADED;RELOADED=false;const shown=showUpd(j.log,asked);if(!asked||shown)return;
+  const mi=j.log.filter(x=>x&&x.minor&&x.v===VER&&(+x.build||0)>BOARD_BUILD);
+  if(mi.length)showMinor(mi);else toast(`새로 고침 완료 · 최신 버전이에요 (v${VER})`);}).catch(()=>{});
 addEventListener("resize",()=>{renderSize();fitEditor();});if(document.fonts){const refit=()=>{fitRows();renderSize();};document.fonts.ready.then(refit);document.fonts.addEventListener("loadingdone",refit);}
 </script>
 </body>
