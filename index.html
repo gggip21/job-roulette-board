@@ -49,6 +49,10 @@ h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .ver .log ul{margin:4px 0 12px;padding-left:20px;color:#d6d2e4}.ver .log div:last-child ul{margin-bottom:0}
 .ver .log .how{margin:0 0 12px;padding:8px 11px;border-radius:10px;background:rgba(143,211,255,.08);border:1px solid rgba(143,211,255,.3);font-size:12.5px;color:#d6d2e4}.ver .log .how b{color:var(--txt)}
 .today{font-style:normal;font-weight:900;color:#ff8a1f;border:1.5px solid #ff8a1f;border-radius:999px;padding:0 7px;margin-left:1px;background:rgba(255,138,31,.12);white-space:nowrap}
+/* OBS / 프릭샷 구분: .pn = 프로그램 이름, .po = OBS 때만, .pf = 프릭샷 때만 */
+.pf{display:none}body.fs .po{display:none}body.fs .pf{display:revert}
+.progRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px;font-size:14px;font-weight:700;color:var(--sub)}
+.progRow .seg2 button{font-size:13.5px;padding:6px 14px}
 /* 설정 위 한 줄 4단계 */
 .flowbar{list-style:none;margin:4px 0 14px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;font-size:14px;font-weight:700;color:#e4e0f0}
 .flowbar li{display:flex;align-items:center;gap:7px;white-space:nowrap}
@@ -223,9 +227,9 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 <header><div class="flow" aria-hidden="true"><i></i></div>
   <div class="in">
     <details class="ver hide" id="ver"><summary><b id="verV"></b><span id="verT"></span><small id="verD"></small><span class="mo">업데이트 내역</span></summary>
-      <div class="log"><p class="how"><b>이미 쓰고 있다면:</b> 아래 <b>파일 설정 불러오기</b>로 지금 쓰는 파일을 고르고 <b>내 현황판 파일 저장</b>으로 같은 파일에 덮어쓴 뒤, OBS 편집창(E)에서 <b>판 새로 고침</b>을 누르세요. 표는 그대로 남아요. v1.6부터는 현황판에 뜨는 업데이트 창의 <b>지금 업데이트</b> 버튼 하나로 바뀌어요.</p><div id="verLog"></div></div></details>
+      <div class="log"><p class="how"><b>이미 쓰고 있다면:</b> 아래 <b>파일 설정 불러오기</b>로 지금 쓰는 파일을 고르고 <b>내 현황판 파일 저장</b>으로 같은 파일에 덮어쓴 뒤, 현황판 편집창(E)에서 <b>판 새로 고침</b>을 누르세요. 표는 그대로 남아요. v1.6부터는 현황판에 뜨는 업데이트 창의 <b>지금 업데이트</b> 버튼 하나로 바뀌어요.</p><div id="verLog"></div></div></details>
     <h1>메이플 <span>직업 룰렛</span> 현황판</h1>
-    <p class="lead">시청자가 후원하며 고른 직업의 표와 확률을 방송 화면에 실시간으로 보여주는 현황판이에요. 내 방송에 맞게 설정하고, 파일 하나를 OBS에 넣으면 끝.</p>
+    <p class="lead">시청자가 후원하며 고른 직업의 표와 확률을 방송 화면에 실시간으로 보여주는 현황판이에요. 내 방송에 맞게 설정하고, 파일 하나를 OBS나 프릭샷에 넣으면 끝.</p>
     <div class="cta">
       <a class="b" href="#setup"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg>내 방송에 맞게 설정하고 다운받기</a>
       <a class="b s" href="download/job-roulette-board.zip" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>기본 설정 그대로 받기 (.zip)</a>
@@ -239,7 +243,8 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 <section id="setup">
   <div class="in">
     <h2>내 현황판 설정</h2>
-    <ol class="flowbar"><li><b>1</b><span>설정하고 <em>파일 저장</em></span></li><li><b>2</b><span>OBS에 <em>브라우저 소스</em>로 추가</span></li><li><b>3</b><span>후원 오면 소스 우클릭 → <em>상호작용</em> 창에서 <em>E</em></span></li><li><b>4</b><span><em>집계 완료</em> → 핀볼에 붙여넣기</span></li><li class="more"><a href="#how">자세한 사용법 ↓</a></li></ol>
+    <div class="progRow"><span>방송 프로그램</span><div class="seg2 progSw"><button type="button" data-p="obs">OBS를 사용해요</button><button type="button" data-p="fs">프릭샷을 사용해요</button></div></div>
+    <ol class="flowbar"><li><b>1</b><span>설정하고 <em>파일 저장</em></span></li><li><b>2</b><span><span class="pn">OBS</span>에 <em>브라우저 소스</em>로 추가</span></li><li><b>3</b><span class="po">후원 오면 소스 우클릭 → <em>상호작용</em> 창에서 <em>E</em></span><span class="pf">후원 오면 소스 더블클릭 → <em>상호작용</em> 버튼 → <em>E</em></span></li><li><b>4</b><span><em>집계 완료</em> → 핀볼에 붙여넣기</span></li><li class="more"><a href="#how">자세한 사용법 ↓</a></li></ol>
     <p class="desc">왼쪽에서 고치면 오른쪽 미리보기에 바로 반영돼요. 다 고쳤으면 <b>내 현황판 파일 저장</b>을 누르세요. 설정은 이 브라우저에 자동 저장돼요.</p>
     <p class="keep"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg><span><b>처음 설정을 잘못해도 괜찮아요.</b> 다시 설정해서 받은 html 파일을 기존 파일에 덮어씌우면 득표수는 그대로 유지돼요.<small>단, 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요.</small></span></p>
     <div class="grid">
@@ -270,7 +275,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
         </div>
 
         <div class="card">
-          <h3><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg>표시<em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg>표시<em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></h3>
           <label class="tg"><input type="checkbox" id="showTotal"> 총 후원 금액 표시</label>
           <label class="tg"><input type="checkbox" id="showBanned"> <span>판 아래에 투표 불가 직업 표시</span></label>
           <label class="tg"><input type="checkbox" id="showBanPage"> <span>투표 불가 직업 페이지 표시 <small style="color:var(--sub)">(<span id="secE"></span>초 간격으로 넘어가며 보여요)</small></span></label>
@@ -280,7 +285,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select></div>
           <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초</div>
           <div class="row"><label class="k" for="opacity">배경 투명도</label><span class="hint" style="margin:0">투명</span><input type="range" id="opacity" min="0" max="100" step="5" style="flex:1;min-width:120px;accent-color:var(--acc)"><span class="hint" style="margin:0">진하게</span><b id="opacityV" style="width:46px;text-align:right"></b></div>
-          <p class="hint">표를 받은 직업이 한 페이지보다 많으면 자동으로 다음 페이지로 넘어가요. 크기는 OBS에서 조절해요.<br>이 칸의 설정은 다시 받지 않아도 OBS 편집창(E)에서 바로 바꿀 수 있어요.</p>
+          <p class="hint">표를 받은 직업이 한 페이지보다 많으면 자동으로 다음 페이지로 넘어가요. 크기는 <span class="pn">OBS</span>에서 조절해요.<br>이 칸의 설정은 다시 받지 않아도 현황판 편집창(E)에서 바로 바꿀 수 있어요.</p>
         </div>
 
         <div class="card">
@@ -319,7 +324,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <div class="sub-opts" id="rrOpts">
             <div class="row"><label class="k">횟수</label><select id="rrN" style="max-width:120px"><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option></select></div>
             <div id="rrCosts"></div>
-            <label class="tg" style="margin-top:8px"><input type="checkbox" id="rrShowE"> <span>투표 중에도 판에 리롤 표시 <small style="color:var(--sub)">(끄면 집계 완료 뒤에만 나와요)</small><em class="ed" title="파일을 받은 뒤에도 OBS 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></span></label>
+            <label class="tg" style="margin-top:8px"><input type="checkbox" id="rrShowE"> <span>투표 중에도 판에 리롤 표시 <small style="color:var(--sub)">(끄면 집계 완료 뒤에만 나와요)</small><em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></span></label>
             <p class="hint">위를 끄면 리롤은 처음엔 판에 안 보여요. 투표를 다 받은 뒤 편집창(E) 맨 위 <b>집계 완료 · 추첨 시작</b>을 누르면 판에 리롤 칸이 나오고 모든 회차가 미사용으로 시작해요. 리롤 후원이 오면 <b>판의 리롤 칸을 눌러</b> 사용 처리해요. 이 설정은 받은 뒤 편집창(E) "화면"에서도 바꿀 수 있어요.</p>
           </div>
         </div>
@@ -335,8 +340,8 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 
         <div class="card notes">
           <h3><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>저장할 때 알아 둘 것</h3>
-          <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 저장 창에서 <b>OBS에 넣어 둔 그 파일을 골라 덮어쓰세요.</b> 그다음 OBS 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 쌓인 표도 그대로예요. 소스를 다시 넣을 필요는 없어요.</p>
-          <p class="note">다운로드 폴더에 <b>roulette-board (1).html</b>처럼 새 파일이 생겼다면 OBS는 아직 예전 파일을 보고 있어요. 그 파일 이름을 원래대로 바꿔 기존 파일에 덮어쓰세요.</p>
+          <p class="note">저장되는 파일 이름은 <b>roulette-board.html</b>이에요. 설정을 바꿀 때는 저장 창에서 <b><span class="pn">OBS</span>에 넣어 둔 그 파일을 골라 덮어쓰세요.</b> 그다음 <span class="pn">OBS</span> 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 쌓인 표도 그대로예요. 소스를 다시 넣을 필요는 없어요.</p>
+          <p class="note">다운로드 폴더에 <b>roulette-board (1).html</b>처럼 새 파일이 생겼다면 <span class="po">OBS는</span><span class="pf">프릭샷은</span> 아직 예전 파일을 보고 있어요. 그 파일 이름을 원래대로 바꿔 기존 파일에 덮어쓰세요.</p>
         </div>
 
       </div>
@@ -344,9 +349,9 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
       <div class="side">
        <div class="follow"><div class="stick">
         <div class="save">
-          <div class="obs"><svg class="i" aria-hidden="true"><use href="#i-size"/></svg> OBS 소스 크기 <b class="obsSize"></b><small>지금 설정에 맞춘 크기예요. 설정을 바꾸면 OBS 소스 속성의 높이도 이 숫자로 맞춰 주세요.</small></div>
+          <div class="obs"><svg class="i" aria-hidden="true"><use href="#i-size"/></svg> <span class="pn">OBS</span> 소스 크기 <b class="obsSize"></b><small>지금 설정에 맞춘 크기예요. 설정을 바꾸면 <span class="pn">OBS</span> 소스 속성의 높이도 이 숫자로 맞춰 주세요.</small></div>
           <button class="b" id="saveBtn"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>내 현황판 파일 저장</button>
-          <div class="two"><label class="b s sm" style="cursor:pointer" title="예전에 받은 현황판 파일의 설정을 불러와 이어서 고쳐요(득표수는 OBS 안에 있어 불러오지 않아요)"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>파일 설정 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
+          <div class="two"><label class="b s sm" style="cursor:pointer" title="예전에 받은 현황판 파일의 설정을 불러와 이어서 고쳐요(득표수는 방송 프로그램 안에 있어 불러오지 않아요)"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>파일 설정 불러오기<input type="file" id="loadFile" accept=".html,text/html" hidden></label>
             <button class="b s sm" id="resetBtn"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg>처음 설정으로</button></div>
         </div>
         <div class="pv"><div class="cap"><span>미리보기 (예시 데이터)</span></div>
@@ -361,10 +366,11 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
   <div class="in">
     <h2>사용법</h2>
     <p class="desc">자세한 화면 설명은 <a href="GUIDE.pdf" target="_blank">사용 가이드(PDF)</a>에 있어요.</p>
+    <div class="progRow"><span>방송 프로그램</span><div class="seg2 progSw"><button type="button" data-p="obs">OBS를 사용해요</button><button type="button" data-p="fs">프릭샷을 사용해요</button></div></div>
     <div class="steps">
       <div class="card"><h3>파일 저장</h3><p>위에서 설정하고 <b>내 현황판 파일 저장</b>. 파일은 지우지 않을 폴더(예: 문서\방송)에 두세요.</p></div>
-      <div class="card"><h3>OBS에 추가</h3><p>소스 + → <b>브라우저</b> → <b>로컬 파일</b> 체크 후 파일 선택. 크기는 <b class="obsSize"></b>.</p></div>
-      <div class="card"><h3>후원 입력</h3><p>소스 우클릭 → <b>상호작용</b> → <b>E</b> 키로 편집창. 직업 버튼 누르고 +1표. 입력 끝나면 E로 닫기.</p></div>
+      <div class="card"><h3><span><span class="pn">OBS</span>에 추가</span></h3><p><span class="po">소스 + → <b>브라우저</b> → <b>로컬 파일</b> 체크 후 파일 선택.</span><span class="pf">장면 소스 리스트 + → <b>브라우저</b> 추가 → 속성 창에서 <b>로컬 파일</b> 체크 후 파일 선택.</span> 크기는 <b class="obsSize"></b>.</p></div>
+      <div class="card"><h3>후원 입력</h3><p><span class="po">소스 우클릭 → <b>상호작용</b></span><span class="pf">소스 더블클릭 → 속성 창 맨 위 <b>상호작용</b></span> → <b>E</b> 키로 편집창. 직업 버튼 누르고 +1표. 입력 끝나면 E로 닫기.</p></div>
       <div class="card"><h3>핀볼 추첨</h3><p>종료 후 편집창에서 <b>집계 완료</b>를 누르면 자동으로 복사돼요. 핀볼 추첨 사이트에 붙여넣으면 직업과 표 수가 그대로 들어가요.</p></div>
     </div>
   </div>
@@ -373,9 +379,9 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 <section class="faq">
   <div class="in">
     <h2>자주 묻는 질문</h2>
-    <details><summary>후원이 자동으로 집계되나요?</summary><p>아직은 아니에요. 후원이 오면 OBS 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요. 많이 써 주시면 자동 집계도 개발해 볼 생각이에요.</p></details>
-    <details><summary>새로 받았는데 OBS 화면이 안 바뀌어요</summary><p>① 받은 파일이 <b>roulette-board (1).html</b>처럼 다른 이름으로 저장되지 않았는지 보세요. OBS에 넣은 파일과 같은 위치·같은 이름으로 덮어써야 해요. ② 덮어쓴 뒤 OBS 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르세요. 방송 중에도 되고 표는 그대로예요. 그래도 안 바뀌면 OBS를 껐다 켜세요(표는 남아요). 소스를 지우고 다시 넣을 필요는 없어요.</p></details>
-    <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. OBS 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
+    <details><summary>후원이 자동으로 집계되나요?</summary><p>아직은 아니에요. 후원이 오면 <span class="pn">OBS</span> 상호작용 창에서 직접 입력해요. 직업 버튼과 +1표 버튼이라 한 건에 몇 초면 돼요. 많이 써 주시면 자동 집계도 개발해 볼 생각이에요.</p></details>
+    <details><summary>새로 받았는데 방송 화면이 안 바뀌어요</summary><p>① 받은 파일이 <b>roulette-board (1).html</b>처럼 다른 이름으로 저장되지 않았는지 보세요. <span class="pn">OBS</span>에 넣은 파일과 같은 위치·같은 이름으로 덮어써야 해요. ② 덮어쓴 뒤 <span class="pn">OBS</span> 상호작용 창에서 <b>E → 판 새로 고침</b>을 누르세요. 방송 중에도 되고 표는 그대로예요. 그래도 안 바뀌면 <span class="po">OBS를</span><span class="pf">프릭샷을</span> 껐다 켜세요(표는 남아요). 소스를 지우고 다시 넣을 필요는 없어요.</p></details>
+    <details><summary>설정을 바꾸면 쌓인 표가 사라지나요?</summary><p>새로 저장한 파일로 같은 이름 그대로 덮어쓰면 표는 남아요. 표 금액을 바꾸면 쌓인 금액 기준으로 표 수가 다시 계산돼요. 브라우저 소스 속성의 "캐시 새로 고침"은 표를 지울 수 있으니 누르지 마세요.</p></details>
     <details><summary>편집창이 방송에 보이나요?</summary><p>네, 편집창도 현황판의 일부라 열려 있는 동안 시청자 화면에도 보여요. 입력이 끝나면 E 키로 바로 닫아 주세요.</p></details>
     <details><summary>새 직업이 나오면요?</summary><p>이 페이지가 업데이트되면 다시 설정·저장해서 덮어쓰면 돼요. "파일 설정 불러오기"로 예전 설정을 그대로 가져올 수 있어요.</p></details>
   </div>
@@ -544,6 +550,11 @@ fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():nul
   $("verV").textContent="v"+x.v;$("verT").textContent=x.title||"";$("verD").innerHTML=ago(x.date);
   $("verLog").innerHTML=log.map(y=>`<div><h4><b>v${e(y.v)}</b>${e(y.title)}<small>${ago(y.date)}</small></h4><ul>${(y.items||[]).map(t=>`<li>${e(t)}</li>`).join("")}</ul></div>`).join("");
   $("ver").classList.remove("hide");}).catch(()=>{});
+// 방송 프로그램(OBS / 프릭샷)에 맞춰 안내 글을 바꿈. 고른 값은 이 브라우저에 기억
+function setProg(p){p=p==="fs"?"fs":"obs";try{localStorage.setItem("mjrb.prog",p)}catch(e){}document.body.classList.toggle("fs",p==="fs");
+  document.querySelectorAll(".pn").forEach(e=>e.textContent=p==="fs"?"프릭샷":"OBS");document.querySelectorAll(".progSw button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));}
+document.querySelectorAll(".progSw").forEach(s=>s.onclick=e=>{const b=e.target.closest("[data-p]");if(b)setProg(b.dataset.p);});
+setProg((()=>{try{return localStorage.getItem("mjrb.prog")}catch(e){return null}})());
 // 펼친 업데이트 내역은 바깥을 누르거나 Esc로 닫기
 document.addEventListener("click",e=>{const v=$("ver");if(v.open&&!v.contains(e.target))v.open=false;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("ver").open=false;});
@@ -556,11 +567,11 @@ $("saveBtn").onclick=async()=>{ if(!TEMPLATE) return toast("파일을 아직 불
   // 크롬·엣지·웨일: 저장 위치를 직접 골라 OBS에 넣은 기존 파일에 바로 덮어쓰기(다운로드 폴더에 "(1)" 붙은 새 파일이 생기지 않게)
   if(window.showSaveFilePicker){try{const h=await showSaveFilePicker({id:"mjrb",suggestedName:"roulette-board.html",types:[{description:"현황판 파일",accept:{"text/html":[".html"]}}]});
       const w=await h.createWritable();await w.write(blob);await w.close();
-      toast(`저장됨 · OBS 편집창(E)에서 판 새로 고침 · 소스 크기 ${SIZE.w} × ${SIZE.h}`,5000);return;}
+      toast(`저장됨 · 현황판 편집창(E)에서 판 새로 고침 · 소스 크기 ${SIZE.w} × ${SIZE.h}`,5000);return;}
     catch(err){if(err&&err.name==="AbortError")return;}}
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);a.download="roulette-board.html";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-  toast(`저장됨 · OBS 소스 크기 ${SIZE.w} × ${SIZE.h}`); };
+  toast(`저장됨 · ${document.body.classList.contains("fs")?"프릭샷":"OBS"} 소스 크기 ${SIZE.w} × ${SIZE.h}`); };
 $("loadFile").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=t.match(/<script id="board-config" type="application\/json">([\s\S]*?)<\/script>/);
   if(!m) return toast("현황판 파일이 아니에요"); try{F=merge(DEFAULT(),JSON.parse(m[1]));fill();refresh();toast("설정을 불러왔어요");}catch(err){toast("설정을 읽지 못했어요");}});e.target.value="";};
 const RESET=$("resetBtn").innerHTML;let armed=false;$("resetBtn").onclick=()=>{if(!armed){armed=true;$("resetBtn").textContent="한 번 더 누르면 초기화";setTimeout(()=>{armed=false;$("resetBtn").innerHTML=RESET},3000);return;}
