@@ -37,7 +37,7 @@
 - **판 새로 고침**: 설정을 바꿔 받은 파일로 덮어쓴 뒤 편집창에서 누르면 방송 중에도 바로 적용
 - **추첨용 복사**: 집계 완료를 누르면 핀볼 추첨 사이트에 바로 붙여넣는 형식(`아란*6,에반*4`)으로 자동 복사
 - 표가 많으면 페이지 자동 넘김 (판을 클릭하거나 휠을 굴리면 바로 넘김, 마우스가 판 위에 있는 동안은 멈춤), 후원 입력 시 해당 줄 반짝임 + 알림
-- **새 버전 알림**: 새 버전이 나오면 판 위에 업데이트 창이 크게 뜸(바뀐 내용·받는 법, 한 번 닫으면 다음 버전까지 안 뜸). 편집창 맨 위에서도 볼 수 있고, 업데이트 내역은 설정 페이지 맨 위
+- **새 버전 알림·버튼 업데이트**: 새 버전이 나오면 판 위에 업데이트 창이 크게 뜨고, **지금 업데이트**를 누르면 파일을 다시 받지 않아도 최신 버전으로 바뀜(표·설정 그대로, 안 열리면 원래 파일 버전으로 자동 복귀). 업데이트 내역은 설정 페이지 맨 위
 - 설정을 바꿔 새로 저장한 파일로 **덮어써도 쌓인 표는 유지**
 
 <p align="center"><img src="docs/setup.png" width="720" alt="설정 페이지"></p>
@@ -56,7 +56,8 @@ tools/guide-source.html  GUIDE.pdf 원본 (브라우저 PDF 인쇄로 생성)
 
 - 현황판 설정은 `roulette-board.html` 안의 `<script id="board-config" type="application/json">` 한 곳에 들어 있어요. 설정 페이지는 이 부분만 바꿔서 새 파일을 만들어요.
 - 투표 데이터는 OBS 브라우저 소스의 `localStorage` (`mapleJobRouletteBoard.v1`)에 저장돼요. 서버나 외부 전송은 없어요. 새 버전 확인을 위해 `version.json`만 읽어 와요(보내는 데이터 없음).
-- 버전을 올릴 때는 `roulette-board.html`의 `VER`와 `version.json` 맨 앞 항목을 같이 고쳐요.
+- 버전을 올릴 때는 `roulette-board.html`의 `BOARD_VER`와 `version.json` 맨 앞 항목을 같이 고쳐요.
+- 버튼 업데이트는 사이트의 `roulette-board.html`을 OBS 안(`mapleJobRouletteBoard.code`)에 저장해 두고, 받은 파일보다 새 버전이면 그 코드에 파일의 설정을 넣어 실행해요. 실행 신호가 없으면 그 버전을 막고(`mapleJobRouletteBoard.codeBad`) 파일 버전으로 돌아가요.
 - 빌드 도구 없이 html·css·js만 써요.
 
 ---
