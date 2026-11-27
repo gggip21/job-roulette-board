@@ -717,6 +717,8 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 <script>
 let CFG={};
 try{CFG=JSON.parse(document.getElementById("board-config").textContent)}catch(e){}
+// 2.0 전에 받은 파일에는 skin 설정이 없음 → 크리스마스 이벤트는 이런 예전 파일(업데이트한 판)에만 씌움
+const OLD_FILE=!Object.prototype.hasOwnProperty.call(CFG,"skin");
 const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"룰",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},opacity:75,grad:true,currency:"원",unit:2000,spJobs:[],spUnit:4000,spMore:[],banned:[],liked:[],
   meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,reroll:true,credit:true,abbr:true,fx:true},page:{top:10,sec:6},skin:""};
 for(const k in DEF){ if(CFG[k]===undefined) CFG[k]=DEF[k]; else if(DEF[k]&&typeof DEF[k]==="object"&&!Array.isArray(DEF[k])) CFG[k]=Object.assign({},DEF[k],CFG[k]); }
@@ -851,7 +853,7 @@ if(S.skin&&S.skin.base!==(CFG.skin||"")) delete S.skin;
 // ===== 크리스마스 이벤트: 기간 동안 스킨을 고르지 않은(기본) 판에 크리스마스 장식을 씌움. 색은 그대로, 끝나면 자동으로 원래대로 =====
 const EVENT={id:"xmas2026",skin:"xmas",n:"크리스마스 이벤트"}; // 끝내려면 이 줄을 지우거나 on:false 처리
 const todayStr=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};
-const evActive=()=>!(S.skin&&S.skin.base===(CFG.skin||""))&&!((CFG.skin||"") in SKINS&&CFG.skin)&&S.evOff!==EVENT.id;
+const evActive=()=>OLD_FILE&&!PREVIEW&&!(S.skin&&S.skin.base===(CFG.skin||""))&&!((CFG.skin||"") in SKINS&&CFG.skin)&&S.evOff!==EVENT.id;
 // 편집창 색: 준비된 7가지 (설정 페이지 PRESETS와 같은 색)
 const PRESETS=[["메이플 오렌지",{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"}],["코랄",{acc:"#ff6153",hi:"#fff09a",pt:"#5ce6b0",bg:"#18162c"}],["민트",{acc:"#00e6a0",hi:"#b9b0ff",pt:"#7b6cff",bg:"#141518"}],
   ["라벤더",{acc:"#a78bfa",hi:"#ffd6f5",pt:"#67e8f9",bg:"#16142a"}],["스카이",{acc:"#4cc3ff",hi:"#fff3a6",pt:"#ff8fb0",bg:"#121a26"}],["핑크",{acc:"#ff7aa8",hi:"#fff0a8",pt:"#7ee8c6",bg:"#221424"}],["모노",{acc:"#e8e8ee",hi:"#ffd166",pt:"#9be7a6",bg:"#141416"}]];

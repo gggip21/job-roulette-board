@@ -221,7 +221,7 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:12.5px;border-top:1px soli
 header{position:relative;z-index:2}header>.in{position:relative;z-index:1}
 /* 맨 위 배경: 직업 그림 띠(img/jobs.webp)가 왼쪽으로 흐름. 띠를 두 번 이어 붙이고 절반만큼 움직여 끊김 없이 반복 */
 .flow{position:absolute;inset:0;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%);mask-image:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,.22) 34%,#000 66%)}
-.flow i{position:absolute;left:0;bottom:-14%;height:112%;aspect-ratio:16704/430;background:url(img/jobs.webp) 0 0/50% 100% repeat-x;animation:flow 160s linear infinite}
+.flow i{position:absolute;left:0;bottom:-86px;height:690px;aspect-ratio:16704/430;background:url(img/jobs.webp) 0 0/50% 100% repeat-x;animation:flow 160s linear infinite}
 .flow i:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/96 - 1px),rgba(255,255,255,.13) 0 calc(100%/96));-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
 @keyframes flow{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.flow i{animation:none}}
@@ -257,7 +257,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
     <div class="v2box" id="v2box">
       <div class="v2l">
         <div class="v2t"><b class="v2b">2.0 업데이트</b><strong>스킨 12종</strong></div>
-        <p>생각보다 훨씬 많은 분들이 써 주셔서 정말 감사해요. 방송마다 다른 판을 쓸 수 있도록 스킨을 처음부터 새로 만들었어요. 크리스마스·겨울 눈·레트로 픽셀부터 종이·유리까지, 글꼴과 막대 모양, 후원 효과까지 스킨마다 달라요. 지금은 크리스마스 이벤트로 기본 판에 크리스마스 장식이 씌워져요.</p>
+        <p>생각보다 훨씬 많은 분들이 써 주셔서 정말 감사해요. 방송마다 다른 판을 쓸 수 있도록 스킨을 처음부터 새로 만들었어요. 크리스마스·겨울 눈·레트로 픽셀부터 종이·유리까지, 글꼴과 막대 모양, 후원 효과까지 스킨마다 달라요. 이미 쓰고 있던 판은 업데이트하면 크리스마스 이벤트 장식이 씌워져요.</p>
         <div class="v2btn"><a class="b sm" href="#skins" id="v2skins">스킨 구경하기</a><button type="button" class="b s sm" id="v2howBtn" aria-expanded="false">업데이트 방법</button>
         <details class="ver hide" id="ver"><summary><b id="verV"></b><span id="verT"></span><small id="verD"></small><span class="mo">업데이트 내역</span></summary>
       <div class="log"><p class="how"><b>이미 쓰고 있다면:</b> 아래 <b>파일 설정 불러오기</b>로 지금 쓰는 파일을 고르고 <b>내 현황판 파일 저장</b>으로 같은 파일에 덮어쓴 뒤, 현황판 편집창(E)에서 <b>판 새로 고침</b>을 누르세요. 표는 그대로 남아요. v1.6부터는 현황판에 뜨는 업데이트 창의 <b>지금 업데이트</b> 버튼 하나로 바뀌어요.</p><div id="verLog"></div></div></details>
@@ -306,7 +306,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <h3><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>테마</h3>
           <div class="skinsLbl">스킨<em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></div>
           <div class="skins" id="skins"></div>
-          <p class="hint" style="margin:0 0 14px">판 구성은 그대로, 꾸밈과 색이 바뀌어요. 스킨마다 색이 정해져 있고, 색을 직접 고르려면 <b>기본</b>을 쓰세요.<span id="evHint"><br><b style="color:#ffd166">크리스마스 이벤트 중:</b> 기본 스킨을 쓰는 판에는 색은 그대로 두고 크리스마스 장식이 씌워져요. 원하지 않으면 편집창(E) 꾸미기 탭에서 스킨을 바꾸면 돼요.</span></p>
+          <p class="hint" style="margin:0 0 14px">판 구성은 그대로, 꾸밈과 색이 바뀌어요. 스킨마다 색이 정해져 있고, 색을 직접 고르려면 <b>기본</b>을 쓰세요.<span id="evHint"><br><b style="color:#ffd166">크리스마스 이벤트:</b> 2.0 전에 받은 판을 업데이트하면 색은 그대로 두고 크리스마스 장식이 씌워져요. 원하지 않으면 편집창(E) 꾸미기 탭에서 스킨을 바꾸면 돼요.</span></p>
           <div id="colorBox"><div class="skinsLbl">색<em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></div>
           <div class="sw" id="presets"></div>
           <div class="colors">
