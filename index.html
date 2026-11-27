@@ -37,6 +37,29 @@ h1 span{color:var(--acc)}
 section{padding:34px 0}
 h2{font-family:'Black Han Sans';font-weight:400;font-size:28px;margin:0 0 6px}
 .desc{color:var(--sub);margin:0 0 20px}
+/* 2.0 소개 띠 */
+.v2box{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;align-items:center;margin:0 0 22px;padding:16px 18px;border-radius:18px;
+  background:linear-gradient(120deg,rgba(255,138,31,.16),rgba(143,211,255,.1) 60%,rgba(20,18,31,.75));border:1px solid rgba(255,138,31,.45);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.v2t{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.v2b{background:var(--acc);color:#1a0e00;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
+.v2t strong{font-family:'Black Han Sans';font-weight:400;font-size:26px;line-height:1.1;color:#fff}
+.v2l p{margin:0 0 10px;font-size:14px;color:#e4e0f0;line-height:1.6;word-break:keep-all}
+.v2btn{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.v2btn .ver{margin:0}
+.v2box .ver #verT{display:none}
+.v2how{margin-top:10px;padding:10px 13px;border-radius:12px;background:rgba(143,211,255,.08);border:1px solid rgba(143,211,255,.3);font-size:13px;color:#d6d2e4}
+.v2how p{margin:5px 0 0}.v2how em{font-style:normal;font-weight:900;color:#1a0e00;background:var(--hi);border-radius:6px;padding:0 6px;margin-right:6px}.v2how b{color:#fff}.v2how .v2s{color:var(--sub);font-size:12px}
+.v2r{display:block;height:140px;border-radius:14px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.v2r i{display:block;height:100%;width:100%;background:url(img/skins.webp) 0 50%/auto 140px repeat-x;animation:v2s 55s linear infinite}
+@keyframes v2s{to{background-position:-2083px 50%}}
+.v2r:hover i{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.v2r i{animation:none}}
+@media(max-width:860px){.v2box{grid-template-columns:1fr}.v2r{height:110px}.v2r i{background-size:auto 110px;animation-name:v2sm}}
+@keyframes v2sm{to{background-position:-1637px 50%}}
+.new2{display:inline-block;vertical-align:middle;margin:-6px 0 0 12px;font-family:'Noto Sans KR',sans-serif;font-style:normal;font-weight:900;font-size:13px;letter-spacing:.5px;color:#1a0e00;padding:4px 10px;border-radius:999px;
+  background:linear-gradient(100deg,var(--acc) 30%,#ffe08a 50%,var(--acc) 70%) 0 0/250% 100%;box-shadow:0 0 14px rgba(255,138,31,.55);animation:new2 3s linear infinite}
+@keyframes new2{to{background-position:-250% 0}}
+@keyframes skPick{0%,100%{transform:none}40%{transform:translateY(-4px);border-color:var(--hi)}}
+.skins.wow button{animation:skPick .55s ease both}
 /* 맨 위 버전 한 줄 + 업데이트 내역 */
 .ver{position:relative;margin:0 0 16px;max-width:760px;font-size:13.5px}
 .ver>summary{list-style:none;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;padding:5px 12px 5px 6px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:#e4e0f0;font-weight:700}
@@ -75,6 +98,11 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .sw button{font:inherit;font-size:13px;font-weight:700;color:var(--txt);background:#28243a;border:2px solid transparent;border-radius:10px;padding:6px 10px 6px 6px;cursor:pointer;display:flex;align-items:center;gap:7px}
 .sw button i{width:22px;height:22px;border-radius:6px;display:inline-block}
 .sw button.on{border-color:var(--hi)}
+.skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:7px;margin:0 0 6px}
+.skins button{font:inherit;font-size:13px;white-space:nowrap;font-weight:700;color:var(--txt);background:#28243a;border:2px solid transparent;border-radius:10px;padding:6px 8px 6px 6px;cursor:pointer;display:flex;align-items:center;gap:7px;text-align:left;line-height:1.25}
+.skins button .skIc{flex:none;width:30px;height:30px;padding:3px;border-radius:8px;background:#1a1729;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.skins button.on{border-color:var(--hi);background:#332d4a}
+.skinsLbl{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--sub);margin:0 0 8px}
 .seg2{display:inline-flex;background:#28243a;border:1px solid #3b3652;border-radius:10px;padding:3px}.seg2 button{font:inherit;font-size:13px;font-weight:700;color:var(--sub);background:none;border:0;border-radius:7px;padding:5px 14px;cursor:pointer}.seg2 button.on{background:var(--acc);color:#1a0e00}
 .colors{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .colors label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);font-weight:700}
@@ -94,7 +122,7 @@ input[type=color]{width:42px;height:34px;padding:0;border:1px solid #3b3652;bord
 .hint{font-size:12.5px;color:var(--sub);margin:4px 0 0}
 /* 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있는 설정 표시 */
 .ed{display:inline-flex;align-items:center;gap:3px;flex:none;margin-left:6px;padding:1px 7px 1px 5px;border-radius:999px;font-style:normal;font-size:11px;font-weight:700;line-height:1.6;color:var(--acc);background:rgba(255,138,31,.12);border:1px solid rgba(255,138,31,.4);white-space:nowrap;vertical-align:middle}
-.ed .i{width:12px;height:12px}
+.ed .i{width:12px;height:12px}.ed.sm{display:flex;width:max-content;margin:3px 0 0;font-size:10.5px;padding:0 7px 0 4px}
 .sub-opts{margin:6px 0 0 26px}
 .sub-opts.off{display:none}
 .ava-row{display:flex;align-items:center;gap:10px}
@@ -226,9 +254,22 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
 </div></section>
 <header><div class="flow" aria-hidden="true"><i></i></div>
   <div class="in">
-    <details class="ver hide" id="ver"><summary><b id="verV"></b><span id="verT"></span><small id="verD"></small><span class="mo">업데이트 내역</span></summary>
+    <div class="v2box" id="v2box">
+      <div class="v2l">
+        <div class="v2t"><b class="v2b">2.0 업데이트</b><strong>스킨 12종</strong></div>
+        <p>생각보다 훨씬 많은 분들이 써 주셔서 정말 감사해요. 방송마다 다른 판을 쓸 수 있도록 스킨을 처음부터 새로 만들었어요. 크리스마스·겨울 눈·레트로 픽셀부터 종이·유리까지, 글꼴과 막대 모양, 후원 효과까지 스킨마다 달라요. 지금은 크리스마스 이벤트로 기본 판에 크리스마스 장식이 씌워져요.</p>
+        <div class="v2btn"><a class="b sm" href="#skins" id="v2skins">스킨 구경하기</a><button type="button" class="b s sm" id="v2howBtn" aria-expanded="false">업데이트 방법</button>
+        <details class="ver hide" id="ver"><summary><b id="verV"></b><span id="verT"></span><small id="verD"></small><span class="mo">업데이트 내역</span></summary>
       <div class="log"><p class="how"><b>이미 쓰고 있다면:</b> 아래 <b>파일 설정 불러오기</b>로 지금 쓰는 파일을 고르고 <b>내 현황판 파일 저장</b>으로 같은 파일에 덮어쓴 뒤, 현황판 편집창(E)에서 <b>판 새로 고침</b>을 누르세요. 표는 그대로 남아요. v1.6부터는 현황판에 뜨는 업데이트 창의 <b>지금 업데이트</b> 버튼 하나로 바뀌어요.</p><div id="verLog"></div></div></details>
-    <h1>메이플 <span>직업 룰렛</span> 현황판</h1>
+        </div>
+        <div class="v2how hide" id="v2how"><b>이미 쓰고 계신가요?</b>
+          <p><em>v1.6 이상</em> 다음 방송 때 판 위에 뜨는 업데이트 창에서 <b>지금 업데이트</b>를 누르면 끝이에요. 표와 설정은 그대로예요.</p>
+          <p><em>v1.5 이하</em> 아래 <b>파일 설정 불러오기</b>로 지금 쓰는 파일을 고르고 → <b>내 현황판 파일 저장</b>으로 같은 파일에 덮어쓰기 → 현황판 편집창(E)에서 <b>판 새로 고침</b>. 한 번만 하면 다음부터는 버튼 하나로 업데이트돼요.</p>
+          <p class="v2s">내 버전은 현황판 편집창(E) 화면 탭 맨 아래에서 볼 수 있어요. 버전이 안 보이면 v1.5 이하예요.</p></div>
+      </div>
+      <a class="v2r" href="#skins" aria-label="스킨 구경하기"><i></i></a>
+    </div>
+    <h1>메이플 <span>직업 룰렛</span> 현황판<em class="new2">NEW 2.0</em></h1>
     <p class="lead">시청자가 후원하며 고른 직업의 표와 확률을 방송 화면에 실시간으로 보여주는 현황판이에요. 내 방송에 맞게 설정하고, 파일 하나를 OBS나 프릭샷에 넣으면 끝.</p>
     <div class="cta">
       <a class="b" href="#setup"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg>내 방송에 맞게 설정하고 다운받기</a>
@@ -251,8 +292,8 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
       <div class="form">
         <div class="card">
           <h3><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>기본 정보</h3>
-          <div class="row"><label class="k">제목</label><input class="f" type="text" id="title" maxlength="30"></div>
-          <div class="row"><label class="k">부제 <small>(비우면 숨김)</small></label><input class="f" type="text" id="sub" maxlength="40"></div>
+          <div class="row"><label class="k">제목<em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경</em></label><input class="f" type="text" id="title" maxlength="30"></div>
+          <div class="row"><label class="k">부제 <small>(비우면 숨김)</small><em class="ed sm" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경</em></label><input class="f" type="text" id="sub" maxlength="40"></div>
           <div class="row"><label class="k">프로필 이미지</label>
             <div class="f ava-row"><div class="ava-pv" id="avaPv" role="button" tabindex="0" title="눌러서 이미지 선택"></div>
               <label class="b s sm" style="cursor:pointer">이미지 선택<input type="file" id="avatarFile" accept="image/*" hidden></label>
@@ -262,7 +303,11 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
         </div>
 
         <div class="card">
-          <h3><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>테마 색</h3>
+          <h3><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>테마</h3>
+          <div class="skinsLbl">스킨<em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></div>
+          <div class="skins" id="skins"></div>
+          <p class="hint" style="margin:0 0 14px">판 구성은 그대로, 꾸밈과 색이 바뀌어요. 스킨마다 색이 정해져 있고, 색을 직접 고르려면 <b>기본</b>을 쓰세요.<span id="evHint"><br><b style="color:#ffd166">크리스마스 이벤트 중:</b> 기본 스킨을 쓰는 판에는 색은 그대로 두고 크리스마스 장식이 씌워져요. 원하지 않으면 편집창(E) 꾸미기 탭에서 스킨을 바꾸면 돼요.</span></p>
+          <div id="colorBox"><div class="skinsLbl">색<em class="ed" title="파일을 받은 뒤에도 현황판 편집창(E)에서 바꿀 수 있어요"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>다운 후 변경 가능</em></div>
           <div class="sw" id="presets"></div>
           <div class="colors">
             <label><input type="color" id="c_acc"> 메인</label>
@@ -271,7 +316,8 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
             <label><input type="color" id="c_bg"> 배경</label>
           </div>
           <p class="hint">메인: 1위 줄·버튼·디데이 / 강조: 확률·부제 / 포인트: 리롤 사용 표시 / 배경: 판 바탕</p>
-          <div class="row" style="margin:10px 0 0"><label class="k">줄·테두리 색</label><div class="seg2" id="grad"><button type="button" data-g="1">그라데이션</button><button type="button" data-g="0">단색</button></div></div>
+          <div class="row" style="margin:10px 0 0"><label class="k">줄·테두리 색</label><div class="seg2" id="grad"><button type="button" data-g="1">그라데이션</button><button type="button" data-g="0">단색</button></div></div></div>
+          <p class="hint hide" id="colorLock" style="margin:0">이 스킨은 색이 정해져 있어요. 색을 직접 고르려면 스킨을 <b>기본</b>으로 바꾸세요.</p>
         </div>
 
         <div class="card">
@@ -281,6 +327,7 @@ header .lead{color:#f1eef8}header .feat span{background:rgba(20,18,28,.72);color
           <label class="tg"><input type="checkbox" id="showBanPage"> <span>투표 불가 직업 페이지 표시 <small style="color:var(--sub)">(<span id="secE"></span>초 간격으로 넘어가며 보여요)</small></span></label>
           <label class="tg"><input type="checkbox" id="showLiked"> <span>판 아래에 선호 직업 표시</span></label>
           <label class="tg"><input type="checkbox" id="showCredit"> 오른쪽 아래 작은 제작 표시 (Maple Job Roulette Board)</label>
+          <label class="tg"><input type="checkbox" id="showFx"> <span>스킨의 움직이는 장식 <small style="color:var(--sub)">(눈·꽃잎·단풍·별·전구 깜빡임)</small></span></label>
           <label class="tg"><input type="checkbox" id="showAbbr"> <span>직업 이름 줄여 쓰기 <small style="color:var(--sub)">(데슬·엔버·나로처럼 짧아진 만큼 판 글씨가 커져요. 추첨용 텍스트는 원래 이름)</small></span></label>
           <div class="row" style="margin-top:10px"><label class="k">한 페이지 개수</label><select id="top" style="max-width:120px"><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option></select></div>
           <div class="row"><label class="k">넘김 간격</label><input type="number" id="sec" min="2" max="60" style="max-width:120px"> 초</div>
@@ -425,12 +472,21 @@ const PRESETS=[["메이플 오렌지",{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",b
  ["민트",{acc:"#00e6a0",hi:"#b9b0ff",pt:"#7b6cff",bg:"#141518"}],["라벤더",{acc:"#a78bfa",hi:"#ffd6f5",pt:"#67e8f9",bg:"#16142a"}],
  ["스카이",{acc:"#4cc3ff",hi:"#fff3a6",pt:"#ff8fb0",bg:"#121a26"}],["핑크",{acc:"#ff7aa8",hi:"#fff0a8",pt:"#7ee8c6",bg:"#221424"}],
  ["모노",{acc:"#e8e8ee",hi:"#ffd166",pt:"#9be7a6",bg:"#141416"}]];
+// 스킨 목록: 현황판 roulette-board.html의 SKINS와 같은 이름·색으로 맞출 것. SKIN_IC = 고르기 버튼 아이콘(24×24 SVG)
+const SKIN_IC={"":'<rect x="3" y="4" width="18" height="16" rx="3" fill="#2c2840" stroke="#ff8a1f" stroke-width="1.5"/><rect x="6" y="8" width="10" height="2.6" rx="1.3" fill="#ff8a1f"/><rect x="6" y="12" width="7" height="2.6" rx="1.3" fill="#ffe08a"/><rect x="6" y="16" width="4" height="2.2" rx="1.1" fill="#8fd3ff"/>',"xmas":'<path d="M12 3.5l2.2 3.6H13l3 4.2h-1.6l3.6 5H6l3.6-5H8l3-4.2H9.8z" fill="#2ec27e"/><rect x="10.8" y="16.3" width="2.4" height="3.6" rx=".5" fill="#9a5b34"/><path d="M12 1.2l.75 1.55 1.7.25-1.23 1.2.29 1.7L12 5.1l-1.51.8.29-1.7-1.23-1.2 1.7-.25z" fill="#ffd166"/><circle cx="10" cy="10.8" r=".95" fill="#e5383b"/><circle cx="14.2" cy="13.6" r=".95" fill="#ffd166"/><circle cx="9.3" cy="15" r=".95" fill="#4dd4ff"/>',"snow":'<g stroke="#bfe6ff" stroke-width="1.7" stroke-linecap="round" fill="none"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/><path d="M9.6 4.3L12 6.6l2.4-2.3M9.6 19.7L12 17.4l2.4 2.3M4.5 10.7l3.3-.9-.9-3.2M19.5 13.3l-3.3.9.9 3.2M4.5 13.3l3.3.9-.9 3.2M19.5 10.7l-3.3-.9.9-3.2"/></g>',"retro":'<rect x="5" y="4" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="4" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="4" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="4" width="2" height="2" fill="#ff4f9a"/><rect x="3" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="5" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="17" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="19" y="6" width="2" height="2" fill="#ff4f9a"/><rect x="3" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="5" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="17" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="19" y="8" width="2" height="2" fill="#ff4f9a"/><rect x="3" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="5" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="17" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="19" y="10" width="2" height="2" fill="#ff4f9a"/><rect x="5" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="17" y="12" width="2" height="2" fill="#ff4f9a"/><rect x="7" y="14" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="14" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="14" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="14" width="2" height="2" fill="#ff4f9a"/><rect x="15" y="14" width="2" height="2" fill="#ff4f9a"/><rect x="9" y="16" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="16" width="2" height="2" fill="#ff4f9a"/><rect x="13" y="16" width="2" height="2" fill="#ff4f9a"/><rect x="11" y="18" width="2" height="2" fill="#ff4f9a"/><rect x="5" y="6" width="2" height="2" fill="#fff"/>',"newyear":'<path d="M8.2 8.2c-3.6 2.4-4.6 6.3-3.3 9.4 1 2.4 3.9 3.4 7.1 3.4s6.1-1 7.1-3.4c1.3-3.1.3-7-3.3-9.4z" fill="#d7263d"/><path d="M8.6 8.4h6.8" stroke="#f2c14e" stroke-width="1.6" stroke-linecap="round"/><path d="M9 8c-1-1.6-1.4-3.6-.3-4.4 1-.7 2 .4 3.3 1.6 1.3-1.2 2.3-2.3 3.3-1.6 1.1.8.7 2.8-.3 4.4" fill="#d7263d"/><circle cx="12" cy="14.6" r="2.6" fill="none" stroke="#f2c14e" stroke-width="1.3"/><path d="M12 12.6v4M10 14.6h4" stroke="#f2c14e" stroke-width="1"/>',"sakura":'<ellipse cx="12" cy="7" rx="3.3" ry="4.6" fill="#ffb7cf" transform="rotate(0 12 12)"/><ellipse cx="12" cy="7" rx="3.3" ry="4.6" fill="#ffb7cf" transform="rotate(72 12 12)"/><ellipse cx="12" cy="7" rx="3.3" ry="4.6" fill="#ffb7cf" transform="rotate(144 12 12)"/><ellipse cx="12" cy="7" rx="3.3" ry="4.6" fill="#ffb7cf" transform="rotate(216 12 12)"/><ellipse cx="12" cy="7" rx="3.3" ry="4.6" fill="#ffb7cf" transform="rotate(288 12 12)"/><circle cx="12" cy="12" r="2.1" fill="#ff6f9e"/><g stroke="#ffe3ec" stroke-width=".8"><path d="M12 12l0-3M12 12l2.8-.9M12 12l-2.8-.9"/></g>',"summer":'<circle cx="16.5" cy="7" r="3.6" fill="#ffe066"/><g stroke="#ffe066" stroke-width="1.3" stroke-linecap="round"><path d="M16.5 1.2v1.3M21.8 7h1.3M20.3 3.2l.9-.9M12.8 3.2l-.9-.9"/></g><path d="M2 15.5c2 0 2-1.6 4-1.6s2 1.6 4 1.6 2-1.6 4-1.6 2 1.6 4 1.6 2-1.6 4-1.6" fill="none" stroke="#19b8e6" stroke-width="2" stroke-linecap="round"/><path d="M2 19.8c2 0 2-1.6 4-1.6s2 1.6 4 1.6 2-1.6 4-1.6 2 1.6 4 1.6 2-1.6 4-1.6" fill="none" stroke="#3ee0c5" stroke-width="2" stroke-linecap="round"/>',"halloween":'<ellipse cx="12" cy="14" rx="8.6" ry="7" fill="#ff7a1a"/><path d="M12 7.2c-1.6 0-2.4 3-2.4 6.8s.8 6.8 2.4 6.8 2.4-3 2.4-6.8-.8-6.8-2.4-6.8z" fill="#ff9a45"/><path d="M11.4 7.6c0-2 .6-3.4 2.4-4.4" stroke="#3fa34d" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M7 12.4l2.4-1.8.8 2.6zM17 12.4l-2.4-1.8-.8 2.6z" fill="#2a1238"/><path d="M7.6 16c1.4 1.6 2.8 2.2 4.4 2.2s3-.6 4.4-2.2l-1.3.4-.8-.9-1 1-1.3-1-1.3 1-1-1-.8.9z" fill="#2a1238"/>',"autumn":'<path d="M12 1.5l1.6 4.6 3.6-1.6-1 4 4.6-.6-2.7 3.4 3.6 2-4.7 1 .8 4.2-3.9-2.3-.9 6.3h-.8l-.9-6.3-3.9 2.3.8-4.2-4.7-1 3.6-2-2.7-3.4 4.6.6-1-4 3.6 1.6z" fill="#e8673a"/><path d="M12 7v14" stroke="#a23e2a" stroke-width="1"/>',"neon":'<path d="M13.5 2L5 13.4h5.6L9.4 22 19 9.8h-5.8z" fill="none" stroke="#00e5ff" stroke-width="1.8" stroke-linejoin="round" style="filter:drop-shadow(0 0 2px #00e5ff)"/><path d="M13.5 2L5 13.4h5.6L9.4 22 19 9.8h-5.8z" fill="#ff3df2" opacity=".28"/>',"night":'<path d="M15.6 3.2a8.6 8.6 0 1 0 5.2 13.6A7 7 0 0 1 15.6 3.2z" fill="#ffe9a8"/><path d="M19 3.5l.55 1.15 1.25.18-.9.88.21 1.24-1.11-.59-1.11.59.21-1.24-.9-.88 1.25-.18z" fill="#fff"/><circle cx="21" cy="10" r=".8" fill="#9b8cff"/>',"paper":'<rect x="4.5" y="3" width="15" height="18" rx="1.6" fill="#fbf6ea"/><path d="M7 3v18" stroke="#e15a5a" stroke-width="1"/><g stroke="#8fb0d8" stroke-width=".9"><path d="M8.5 7.5h8.5M8.5 10.5h8.5M8.5 13.5h8.5M8.5 16.5h6"/></g><rect x="9" y="1.6" width="6" height="3" rx=".5" fill="#f3d36b" opacity=".9" transform="rotate(-6 12 3)"/>',"glass":'<rect x="4" y="3.5" width="16" height="17" rx="3.5" fill="rgba(143,211,255,.22)" stroke="#dff3ff" stroke-width="1.4"/><path d="M7.5 15.5L15.5 6.5M10 17.5l7-8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>'};
+const SKINS=[["","기본",null],["xmas","크리스마스",{acc:"#e5383b",hi:"#ffd166",pt:"#2ec27e",bg:"#1b1f2a"}],["snow","겨울 눈",{acc:"#7cc6ff",hi:"#ffffff",pt:"#b8e1ff",bg:"#16202e"}],
+ ["retro","레트로 픽셀",{acc:"#ff4f9a",hi:"#ffe14f",pt:"#4ff0c8",bg:"#141026"}],["newyear","새해·설날",{acc:"#d7263d",hi:"#f2c14e",pt:"#3fa34d",bg:"#2a1416"}],
+ ["sakura","봄 벚꽃",{acc:"#ff8fb3",hi:"#fff0f5",pt:"#9be08a",bg:"#2a1c26"}],["summer","여름 바다",{acc:"#19b8e6",hi:"#ffe066",pt:"#3ee0c5",bg:"#0f2335"}],
+ ["halloween","할로윈",{acc:"#ff7a1a",hi:"#c77dff",pt:"#7cff6b",bg:"#1a1024"}],["autumn","가을 단풍",{acc:"#e8673a",hi:"#ffc857",pt:"#c9a227",bg:"#24170f"}],
+ ["neon","네온 사이버",{acc:"#00e5ff",hi:"#ff3df2",pt:"#b6ff3d",bg:"#0a0a16"}],["night","별밤·우주",{acc:"#9b8cff",hi:"#ffe9a8",pt:"#6fd3ff",bg:"#0d1030"}],
+ ["paper","종이·다이어리",{acc:"#e9a03b",hi:"#c8553d",pt:"#2a9d8f",bg:"#fbf6ea"}],["glass","유리",{acc:"#8fd3ff",hi:"#ffffff",pt:"#a5ffd6",bg:"#2a3550"}]];
+// 크리스마스 이벤트 안내(#evHint): 현황판 EVENT를 끝낼 때 같이 지울 것
 const todayPlus=n=>{const d=new Date(Date.now()+n*864e5);return d.toISOString().slice(0,10)};
 /* 기본 프로필(단풍잎) */
 const LEAF="data:image/png;base64,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";
 const DEFAULT=()=>({v:1,title:"직업 룰렛 현황",sub:"원하는 직업에 투표!",avatarText:"룰",avatarImg:LEAF,theme:{...PRESETS[0][1]},opacity:75,grad:true,currency:"원",unit:2000,
   spJobs:[],spUnit:4000,spMore:[],banned:[],liked:[],meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},
-  dday:{on:false,date:todayPlus(14),label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,reroll:true,credit:true,abbr:true},page:{top:10,sec:6}});
+  dday:{on:false,date:todayPlus(14),label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,reroll:true,credit:true,abbr:true,fx:true},page:{top:10,sec:6},skin:""});
 const KEY="mjrb.setup.v1";
 const merge=(base,o)=>{for(const k in o){if(o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k])&&base[k]&&typeof base[k]==="object")merge(base[k],o[k]);else if(k in base)base[k]=o[k];}return base;};
 let F=DEFAULT(); try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s){ if(s.avatarText==="🍁"){ if(!("opacity" in s)&&!s.avatarImg) s.avatarImg=LEAF; if(s.avatarImg===LEAF) s.avatarText="룰"; } F=merge(DEFAULT(),s);} }catch(e){}
@@ -473,6 +529,8 @@ function fill(){
   $("title").value=F.title;$("sub").value=F.sub;$("avatarText").value=F.avatarText;
   $("avaPv").style.backgroundImage=F.avatarImg?`url(${F.avatarImg})`:"";$("avaPv").textContent=F.avatarImg?"":F.avatarText;$("avaPv").style.borderColor=F.theme.acc;
   $("avaTxtBox").classList.toggle("hide",!!F.avatarImg);$("avatarDel").classList.toggle("hide",!F.avatarImg);
+  $("skins").innerHTML=SKINS.map(([id,n,t])=>{const c=t||PRESETS[0][1];return `<button type="button" data-skin="${id}" class="${(F.skin||"")===id?"on":""}"><svg class="skIc" viewBox="0 0 24 24" aria-hidden="true">${SKIN_IC[id]||""}</svg>${n}</button>`;}).join("");
+  $("colorBox").classList.toggle("hide",!!F.skin);$("colorLock").classList.toggle("hide",!F.skin);
   $("presets").innerHTML=PRESETS.map(([n,t],i)=>`<button type="button" data-p="${i}" class="${JSON.stringify(t)===JSON.stringify(F.theme)?"on":""}"><i style="background:linear-gradient(135deg,${t.acc} 50%,${t.bg} 50%)"></i>${n}</button>`).join("");
   ["acc","hi","pt","bg"].forEach(k=>$("c_"+k).value=F.theme[k]); $("opacity").value=F.opacity;$("opacityV").textContent=F.opacity+"%"; document.querySelectorAll("#grad button").forEach(b=>b.classList.toggle("on",(b.dataset.g==="1")===(F.grad!==false)));
   const std=["원","치즈","별풍선"].includes(F.currency); $("curSel").value=std?F.currency:"_"; $("curTxt").value=std?"":F.currency; $("curTxt").classList.toggle("hide",std);
@@ -483,7 +541,7 @@ function fill(){
   $("rrOn").checked=F.reroll.on;$("rrOpts").classList.toggle("off",!F.reroll.on);$("rrN").value=F.reroll.n;
   $("rrCosts").innerHTML=Array.from({length:F.reroll.n},(_,i)=>`<div class="row"><label class="k">${i+1}회 금액</label><input type="number" data-rc="${i}" min="0" value="${F.reroll.costs[i]||0}" style="max-width:160px"> <span class="curE">${F.currency}</span></div>`).join("");
   $("ddOn").checked=F.dday.on;$("ddOpts").classList.toggle("off",!F.dday.on);$("ddDate").value=F.dday.date;$("ddLabel").value=F.dday.label;
-  $("showTotal").checked=F.show.total;$("showBanned").checked=F.show.banned;$("showLiked").checked=F.show.liked;$("rrShowE").checked=F.show.reroll;$("showBanPage").checked=F.show.banPage;$("showCredit").checked=F.show.credit;$("showAbbr").checked=F.show.abbr!==false;
+  $("showTotal").checked=F.show.total;$("showBanned").checked=F.show.banned;$("showLiked").checked=F.show.liked;$("rrShowE").checked=F.show.reroll;$("showBanPage").checked=F.show.banPage;$("showCredit").checked=F.show.credit;$("showAbbr").checked=F.show.abbr!==false;$("showFx").checked=F.show.fx!==false;
   $("top").value=F.page.top;$("sec").value=F.page.sec;$("secE").textContent=F.page.sec;
 }
 /* 미리보기 현황판에서 필요한 크기를 재서 표시 */
@@ -543,6 +601,8 @@ $("showLiked").onchange=e=>upd(()=>F.show.liked=e.target.checked);
 $("rrShowE").onchange=e=>upd(()=>F.show.reroll=e.target.checked);
 $("showCredit").onchange=e=>upd(()=>F.show.credit=e.target.checked);
 $("showAbbr").onchange=e=>upd(()=>F.show.abbr=e.target.checked);
+$("showFx").onchange=e=>upd(()=>F.show.fx=e.target.checked);
+$("skins").onclick=e=>{const b=e.target.closest("[data-skin]");if(!b)return;const s=SKINS.find(x=>x[0]===b.dataset.skin);upd(()=>{F.skin=s[0];F.theme={...(s[2]||PRESETS[0][1])};},true);};
 // 맨 위 버전 한 줄 + 펼치면 이전 버전까지 (version.json, 현황판도 같은 파일로 새 버전을 확인함)
 // 날짜 + 며칠 전 (HTML). 오늘·어제·n일 전을 주황 테두리로 강조
 const ago=d=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");if(!m)return esc(d||"");const t=new Date(),n=Math.round((Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())-Date.UTC(+m[1],m[2]-1,+m[3]))/864e5);return d+" · "+'<em class="today">'+(n<=0?"오늘":n===1?"어제":n+"일 전")+'</em>';};
@@ -555,6 +615,10 @@ function setProg(p){p=p==="fs"?"fs":"obs";try{localStorage.setItem("mjrb.prog",p
   document.querySelectorAll(".pn").forEach(e=>e.textContent=p==="fs"?"프릭샷":"OBS");document.querySelectorAll(".progSw button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));}
 document.querySelectorAll(".progSw").forEach(s=>s.onclick=e=>{const b=e.target.closest("[data-p]");if(b)setProg(b.dataset.p);});
 setProg((()=>{try{return localStorage.getItem("mjrb.prog")}catch(e){return null}})());
+// 2.0 소개 띠: 업데이트 방법 펼치기, 스킨 구경하기(스킨 칸으로 가서 하나씩 반짝)
+$("v2howBtn").onclick=e=>{const h=$("v2how"),o=h.classList.toggle("hide");e.currentTarget.setAttribute("aria-expanded",String(!o));};
+const skinWow=()=>{const g=$("skins");g.scrollIntoView({behavior:"smooth",block:"center"});g.classList.remove("wow");[...g.children].forEach((b,i)=>b.style.animationDelay=(.25+i*.07)+"s");void g.offsetWidth;g.classList.add("wow");setTimeout(()=>g.classList.remove("wow"),2200);};
+document.querySelectorAll('a[href="#skins"]').forEach(a=>a.onclick=e=>{e.preventDefault();skinWow();});
 // 펼친 업데이트 내역은 바깥을 누르거나 Esc로 닫기
 document.addEventListener("click",e=>{const v=$("ver");if(v.open&&!v.contains(e.target))v.open=false;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("ver").open=false;});

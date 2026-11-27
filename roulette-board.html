@@ -8,14 +8,12 @@
   메이플 직업 룰렛 현황판 (OBS 브라우저 소스용)
   설정은 아래 board-config 안에 들어 있습니다. 직접 고치기보다 설정 페이지에서 새 파일을 만드는 걸 추천합니다.
 -->
-<script id="board-config" type="application/json">
-{"v":1,"title":"직업 룰렛 현황","sub":"원하는 직업에 투표!","avatarText":"룰","avatarImg":"data:image/png;base64,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","theme":{"acc":"#ff8a1f","hi":"#ffe08a","pt":"#8fd3ff","bg":"#22180f"},"opacity":75,"grad":true,"currency":"원","unit":2000,"spJobs":[],"spUnit":4000,"spMore":[],"banned":[],"meso":{"on":false,"unit":1},"reroll":{"on":false,"n":3,"costs":[50000,100000,200000]},"dday":{"on":false,"date":"","label":"마감"},"show":{"total":false,"banned":true,"banPage":true,"liked":true,"reroll":true,"credit":true,"abbr":true},"page":{"top":10,"sec":6}}
-</script>
+<script id="board-config" type="application/json">{"v":1,"title":"직업 룰렛 현황","sub":"원하는 직업에 투표!","avatarText":"룰","avatarImg":"data:image/png;base64,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","theme":{"acc":"#ff8a1f","hi":"#ffe08a","pt":"#8fd3ff","bg":"#22180f"},"opacity":75,"grad":true,"currency":"원","unit":2000,"spJobs":[],"spUnit":4000,"spMore":[],"banned":[],"meso":{"on":false,"unit":1},"reroll":{"on":false,"n":3,"costs":[50000,100000,200000]},"dday":{"on":false,"date":"","label":"마감"},"show":{"total":false,"banned":true,"banPage":true,"liked":true,"reroll":true,"credit":true,"abbr":true,"fx":true},"page":{"top":10,"sec":6},"skin":""}</script>
 <script>
 /* 버튼 업데이트: 업데이트 창의 "지금 업데이트"로 받아 둔 새 버전이 이 파일보다 새 버전이면 그걸로 실행.
    설정은 이 파일 것, 표는 그대로(같은 저장소). 새 버전이 다 읽혔는데 실행 신호가 없으면(또는 15초가 지나면)
    그 버전은 막고 원래 파일로 다시 띄움 */
-var BOARD_VER="1.7";
+var BOARD_VER="2.0";
 (function(){
   var K="mapleJobRouletteBoard.code",KB="mapleJobRouletteBoard.codeBad",ME=BOARD_VER;
   try{
@@ -153,6 +151,375 @@ body{overflow:hidden}
 .ban span{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#d0cdde;background:rgba(255,77,94,.08);
   border:1px solid rgba(255,77,94,.35);border-radius:8px;padding:3px 8px 3px 5px}
 .ban span svg,.brow svg{flex:none}
+/* ===== 스킨: 판 구성은 그대로, 꾸밈만 바뀜. .fx = 판 뒤(내용 아래) 움직이는 장식·배경 그림, .deco = 판 위 장식(누를 수 없음) ===== */
+.board{isolation:isolate}
+.fx{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.deco{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.fx i,.deco i{position:absolute;display:block}.fx i svg,.deco i svg{display:block;width:100%;height:100%}
+.board.nofx .deco *,.board.nofx .fx *{animation:none!important}
+@keyframes fxFall{to{transform:translate(var(--dx),580px)}}
+@keyframes fxFallR{to{transform:translate(var(--dx),580px) rotate(600deg)}}
+@keyframes fxRise{to{transform:translate(var(--dx),-580px)}}
+@keyframes fxTw{from{opacity:.12}to{opacity:.95}}
+@keyframes fxWave{to{transform:translateX(-50%)}}
+@keyframes fxBlink{0%,100%{opacity:1}50%{opacity:.35}}
+.fx-snow i.p{top:-10px;width:calc(5px*var(--s));height:calc(5px*var(--s));border-radius:50%;background:#fff;opacity:.75;animation:fxFall var(--d) linear var(--dl) infinite}
+.fx-petal i.p{top:-12px;width:calc(10px*var(--s));height:calc(7px*var(--s));border-radius:80% 0 80% 0;background:linear-gradient(135deg,#ffd1e0,#ff9ec0);opacity:.85;animation:fxFallR calc(var(--d)*1.3) linear var(--dl) infinite}
+.fx-leaf i.p{top:-16px;width:calc(15px*var(--s));height:calc(15px*var(--s));background:var(--leaf) center/contain no-repeat;opacity:.8;animation:fxFallR calc(var(--d)*1.4) linear var(--dl) infinite}
+.fx-leaf i.p:nth-child(3n){filter:hue-rotate(28deg) saturate(1.2)}.fx-leaf i.p:nth-child(3n+1){filter:hue-rotate(-12deg)}
+.fx-bubble i.p{bottom:-14px;width:calc(9px*var(--s));height:calc(9px*var(--s));border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.5),transparent 60%);animation:fxRise calc(var(--d)*1.2) linear var(--dl) infinite}
+.fx-star i.p{top:var(--t);width:calc(2.6px*var(--s));height:calc(2.6px*var(--s));border-radius:50%;background:#fff;box-shadow:0 0 4px #fff;animation:fxTw calc(var(--d)/3) ease-in-out var(--dl) infinite alternate}
+.fx-spark i.p{top:var(--t);width:calc(5px*var(--s));height:calc(5px*var(--s));background:#f2c14e;transform:rotate(45deg);animation:fxTw calc(var(--d)/3) ease-in-out var(--dl) infinite alternate}
+
+/* 크리스마스 */
+.sk-xmas:before{height:5px;background:repeating-linear-gradient(135deg,#e5383b 0 9px,#fff 9px 18px,#2ec27e 18px 27px,#fff 27px 36px)}
+.sk-xmas .ava{background:repeating-conic-gradient(#e5383b 0 30deg,#fff 30deg 60deg)}
+.sk-xmas .row.first{border-color:#ffd166;box-shadow:0 0 16px rgba(255,209,102,.35)}
+.sk-xmas .lights{left:0;top:0;width:100%;height:19px}.sk-xmas .lights .b{animation:fxBlink 2.4s ease-in-out infinite}
+/* 겨울 눈 */
+.sk-snow:before{height:5px;background:linear-gradient(90deg,#e8f6ff,#9fd6ff 50%,#e8f6ff)}
+.sk-snow{border-color:rgba(200,235,255,.35)}
+.sk-snow .row{border-color:rgba(200,235,255,.14)}
+.sk-snow .cap{left:0;bottom:0;width:100%;height:16px}
+.sk-snow .ice{left:0;top:4px;width:100%;height:10px}
+/* 레트로 픽셀 */
+.sk-retro,.sk-retro *{font-family:Galmuri11,'Noto Sans KR',sans-serif!important}
+.sk-retro{border-radius:0;border:3px solid var(--acc);box-shadow:6px 6px 0 rgba(0,0,0,.55)}
+.sk-retro:before{height:6px;background:repeating-linear-gradient(90deg,var(--acc) 0 12px,var(--hi) 12px 24px,var(--pt) 24px 36px)}
+.sk-retro .row,.sk-retro .pill,.sk-retro .rr>div,.sk-retro .dd,.sk-retro .tot,.sk-retro .brow{border-radius:0}
+.sk-retro .row{border:2px solid rgba(255,255,255,.12)}.sk-retro .row.first{border-color:var(--hi);box-shadow:3px 3px 0 rgba(0,0,0,.5)}
+.sk-retro .row .bar{background:repeating-linear-gradient(90deg,rgba(var(--acc-rgb),.75) 0 8px,rgba(var(--acc-rgb),.35) 8px 10px)}
+.sk-retro .ava{border-radius:0;background:var(--acc)}.sk-retro .ava div{border-radius:0}
+.sk-retro .ttl h1{font-size:20px;letter-spacing:0}.sk-retro .name{font-weight:700}
+.sk-retro .pager i{border-radius:0}
+.sk-retro .scan{inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.13) 0 1px,transparent 1px 3px)}
+/* 새해·설날 */
+.sk-newyear:before{height:6px;background:repeating-linear-gradient(90deg,#d7263d 0 12px,#f2c14e 12px 15px,#3fa34d 15px 27px,#f2c14e 27px 30px)}
+.sk-newyear{border:1.5px solid rgba(242,193,78,.55);background-image:radial-gradient(rgba(242,193,78,.08) 1.2px,transparent 1.4px);background-size:16px 16px}
+.sk-newyear .cn{width:22px;height:22px;border:2.5px solid #f2c14e;opacity:.85}
+.sk-newyear .cn.tl{left:6px;top:12px;border-right:0;border-bottom:0}.sk-newyear .cn.tr{right:6px;top:12px;border-left:0;border-bottom:0}
+.sk-newyear .cn.bl{left:6px;bottom:6px;border-right:0;border-top:0}.sk-newyear .cn.br{right:6px;bottom:6px;border-left:0;border-top:0}
+.sk-newyear .row.first{border-color:#f2c14e;box-shadow:0 0 16px rgba(242,193,78,.35)}
+/* 봄 벚꽃 */
+.sk-sakura:before{height:5px;background:linear-gradient(90deg,#ffd1e0,#ff8fb3 50%,#9be08a)}
+.sk-sakura{border-color:rgba(255,170,200,.35)}
+.sk-sakura .row.first{border-color:#ffb7cf}
+.sk-sakura .bloom{right:4px;top:6px;width:64px;height:40px;opacity:.75}
+/* 여름 바다 */
+.sk-summer:before{height:5px;background:linear-gradient(90deg,#ffe066,#19b8e6 45%,#3ee0c5)}
+.sk-summer .row .bar{background:linear-gradient(90deg,rgba(62,224,197,.1),rgba(25,184,230,.4) 55%,rgba(25,184,230,.8))}
+.sk-summer .wave{left:0;bottom:0;width:200%;height:22px;animation:fxWave 9s linear infinite}.sk-summer .wave.w2{height:16px;opacity:.55;animation-duration:14s}
+.sk-summer .sun{right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(255,224,102,.35),transparent 65%)}
+/* 할로윈 */
+.sk-halloween:before{height:6px;background:repeating-linear-gradient(135deg,#ff7a1a 0 10px,#2a1238 10px 20px)}
+.sk-halloween{border-color:rgba(199,125,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 24px rgba(199,125,255,.18)}
+.sk-halloween .web{width:74px;height:74px;opacity:.5}.sk-halloween .web.tr{right:0;top:0}.sk-halloween .web.bl{left:0;bottom:0;transform:rotate(180deg)}
+.sk-halloween .row.first{border-color:#ff7a1a;box-shadow:0 0 16px rgba(255,122,26,.35)}
+/* 가을 단풍 */
+.sk-autumn:before{height:5px;background:linear-gradient(90deg,#c9a227,#e8673a 50%,#a23e2a)}
+.sk-autumn{--leaf:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e8673a' d='M12 1.5l1.6 4.6 3.6-1.6-1 4 4.6-.6-2.7 3.4 3.6 2-4.7 1 .8 4.2-3.9-2.3-.9 6.3h-.8l-.9-6.3-3.9 2.3.8-4.2-4.7-1 3.6-2-2.7-3.4 4.6.6-1-4 3.6 1.6z'/%3E%3C/svg%3E")}
+.sk-autumn .row.first{border-color:#ffc857}
+/* 네온 사이버 */
+.sk-neon{border:1.5px solid var(--acc);box-shadow:0 0 18px rgba(var(--acc-rgb),.55),inset 0 0 18px rgba(var(--acc-rgb),.18);
+  background-image:linear-gradient(rgba(var(--pt-rgb),.06) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--pt-rgb),.06) 1px,transparent 1px);background-size:22px 22px}
+.sk-neon:before{height:3px;background:linear-gradient(90deg,var(--acc),var(--hi));box-shadow:0 0 12px var(--hi)}
+.sk-neon .ttl h1{text-shadow:0 0 8px rgba(var(--hi-rgb),.9),0 0 18px rgba(var(--hi-rgb),.5)}
+.sk-neon .row{border-color:rgba(var(--acc-rgb),.3)}.sk-neon .row.first{border-color:var(--hi);box-shadow:0 0 14px rgba(var(--hi-rgb),.55)}
+.sk-neon .val .p{text-shadow:0 0 8px rgba(var(--hi-rgb),.8)}
+/* 별밤·우주 */
+.sk-night{background-image:radial-gradient(260px 160px at 85% 0,rgba(155,140,255,.22),transparent),radial-gradient(240px 180px at 0 100%,rgba(111,211,255,.14),transparent)}
+.sk-night:before{height:4px;background:linear-gradient(90deg,#6fd3ff,#9b8cff 50%,#ffe9a8)}
+.sk-night .moon{right:46px;top:12px;width:28px;height:28px;border-radius:50%;box-shadow:-8px 4px 0 0 #ffe9a8;opacity:.75}
+.sk-night .row.first{border-color:#ffe9a8;box-shadow:0 0 16px rgba(255,233,168,.3)}
+/* 종이·다이어리 (밝은 바탕) */
+.board.sk-paper{--txt:#3b3027;--sub:#7d6c5b;--panel:rgba(120,90,60,.07);--line:rgba(120,90,60,.18);color:var(--txt);text-shadow:none!important;border-radius:6px;background-color:rgba(var(--bg-rgb),max(var(--bg-a,.75),.92));
+  background-image:linear-gradient(90deg,transparent 30px,rgba(225,90,90,.35) 30px 31px,transparent 31px),repeating-linear-gradient(transparent 0 25px,rgba(90,130,190,.18) 25px 26px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.sk-paper:before{display:none}
+.sk-paper .ttl h1,.sk-paper .name,.sk-paper .sec,.sk-paper .ttl .s{font-family:Gaegu,'Noto Sans KR',sans-serif!important;font-weight:700}
+.sk-paper .ttl h1{font-size:28px}.sk-paper .name{letter-spacing:-.2px}
+.sk-paper .row .val,.sk-paper .val{text-shadow:none}.sk-paper .row.first .val .p{color:var(--hi)}
+.sk-paper .row .bar{background:linear-gradient(90deg,rgba(255,226,80,.45),rgba(255,206,30,.85))}
+.sk-paper .row.first{border:1.5px dashed var(--acc);box-shadow:none}.sk-paper .row.first .bar{background:linear-gradient(90deg,rgba(255,180,90,.5),rgba(255,150,60,.85))}
+.sk-paper .pager i{background:rgba(0,0,0,.15)}.sk-paper .credit{opacity:.6}
+.sk-paper .tape{left:50%;top:-5px;width:88px;height:20px;transform:translateX(-50%) rotate(-3deg);background:rgba(255,232,150,.75);box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.sk-paper .hb{background:#fff8ea;color:#3b3027}
+/* 유리 */
+.sk-glass{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)),rgba(var(--bg-rgb),calc(var(--bg-a,.75)*.7));border:1px solid rgba(255,255,255,.35);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(12px)}
+.sk-glass:before{height:1px;background:rgba(255,255,255,.7)}
+.sk-glass .row{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}.sk-glass .row.first{border-color:rgba(255,255,255,.6)}
+.sk-glass .pill{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+
+/* ===== 스킨별 글꼴·순위 배지·1위 장식·막대 무늬 ===== */
+:where(.board[class*=" sk-"]) .row{grid-template-columns:26px minmax(0,1fr) auto}
+:where(.board[class*=" sk-"]) .rank{z-index:0;display:grid;place-items:center;width:26px;height:26px;font-size:13.5px!important;line-height:1}
+:where(.board[class*=" sk-"]) .rank:before{content:"";position:absolute;inset:0;z-index:-1;background-position:center;background-size:contain;background-repeat:no-repeat}
+:where(.board[class*=" sk-"]) .row.first .rank:after{content:"";position:absolute;width:18px;height:18px;left:-6px;top:-11px;background-position:center;background-size:contain;background-repeat:no-repeat;transform:rotate(-18deg)}
+.board.sk-glass .row.first .rank:after,.board.sk-neon .row.first .rank:after,.board.sk-paper .row.first .rank:after{left:4px;top:-12px;transform:none}
+/* 크리스마스 */
+.sk-xmas .ttl h1,.sk-xmas .name,.sk-xmas .sec,.sk-xmas .ttl .s{font-family:Jua,'Noto Sans KR',sans-serif!important;font-weight:400}.sk-xmas .ttl h1{font-size:24px}
+.sk-xmas .rank{color:#fff!important}.sk-xmas .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='10' y='1.5' width='4' height='3.5' rx='.8' fill='%23e6c35c'/%3E%3Ccircle cx='12' cy='14' r='9.3' fill='%23e5383b'/%3E%3Ccircle cx='8.6' cy='10.6' r='2.2' fill='%23fff' opacity='.45'/%3E%3C/svg%3E")}.sk-xmas .row:nth-child(2n) .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='10' y='1.5' width='4' height='3.5' rx='.8' fill='%23e6c35c'/%3E%3Ccircle cx='12' cy='14' r='9.3' fill='%232ec27e'/%3E%3Ccircle cx='8.6' cy='10.6' r='2.2' fill='%23fff' opacity='.45'/%3E%3C/svg%3E")}
+.sk-xmas .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 19c2-8 7-14 15-13.5 1.6.1 2.6 1.4 2 3l-1.4 3.6' fill='%23e5383b'/%3E%3Cpath d='M2 18.6c5-2 13-2.4 19.5-.4l-.6 3.2C14.6 19.8 8 20 2.7 21.6z' fill='%23fff'/%3E%3Ccircle cx='19.2' cy='12.6' r='2.6' fill='%23fff'/%3E%3C/svg%3E");width:22px;height:22px;left:-4px;top:-13px}
+.sk-xmas .row .bar{background:repeating-linear-gradient(135deg,rgba(229,56,59,.72) 0 9px,rgba(255,255,255,.2) 9px 15px)}
+.sk-xmas .row.first .bar{background:repeating-linear-gradient(135deg,rgba(229,56,59,.85) 0 9px,rgba(255,255,255,.3) 9px 15px)}
+/* 겨울 눈 */
+.sk-snow .ttl h1,.sk-snow .name,.sk-snow .sec,.sk-snow .ttl .s{font-family:'Gowun Dodum','Noto Sans KR',sans-serif!important;font-weight:700}
+.sk-snow .rank{color:#e8f6ff!important}.sk-snow .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='%23cfeeff' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M12 1v22M2.5 6.5l19 11M2.5 17.5l19-11'/%3E%3Cpath d='M9.5 2.8 12 5l2.5-2.2M9.5 21.2 12 19l2.5 2.2M3.2 10.3l3.2-.8-.9-3.1M20.8 13.7l-3.2.8.9 3.1M3.2 13.7l3.2.8-.9 3.1M20.8 10.3l-3.2-.8.9-3.1'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='6.2' fill='%2316202e' opacity='.85'/%3E%3C/svg%3E");inset:-3px}
+.sk-snow .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23dff3ff' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23dff3ff'/%3E%3C/svg%3E")}
+.sk-snow .row .bar{background:repeating-linear-gradient(60deg,rgba(255,255,255,.16) 0 2px,transparent 2px 9px),linear-gradient(90deg,rgba(124,198,255,.12),rgba(160,215,255,.45) 55%,rgba(220,242,255,.8))}
+/* 레트로 */
+.sk-retro .rank{color:var(--hi)!important}.sk-retro .rank:before{border:2px solid var(--hi);background:rgba(0,0,0,.35);inset:2px}
+.sk-retro .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='8' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='6' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='19' y='8' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='3' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='5' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='8' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='9' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='13' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='19' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='17' y='10' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='3' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='5' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='7' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='9' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='13' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='15' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='17' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='19' y='12' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='3' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='5' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='7' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='9' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='13' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='15' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='17' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='19' y='14' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='3' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='5' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='7' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='9' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='13' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='15' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='17' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='19' y='16' width='2' height='2' fill='%23ffe14f'/%3E%3Crect x='11' y='13' width='2' height='2' fill='%23ff4f9a'/%3E%3C/svg%3E");transform:none;left:3px;top:-12px}
+/* 새해·설날 */
+.sk-newyear .ttl h1,.sk-newyear .name,.sk-newyear .sec,.sk-newyear .ttl .s{font-family:'Song Myung',serif!important;font-weight:400}.sk-newyear .ttl h1{font-size:24px}
+.sk-newyear .rank{color:#5a3a06!important}.sk-newyear .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10.5' fill='%23f2c14e' stroke='%23b8862a' stroke-width='1.2'/%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%23b8862a' stroke-width='.8'/%3E%3C/svg%3E")}
+.sk-newyear .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.2 9c-3.6 2.4-4.6 6.3-3.3 9.4 1 2.4 3.9 3.4 7.1 3.4s6.1-1 7.1-3.4c1.3-3.1.3-7-3.3-9.4z' fill='%23d7263d'/%3E%3Cpath d='M8.6 9.2h6.8' stroke='%23f2c14e' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M9 8.8c-1-1.6-1.4-3.6-.3-4.4 1-.7 2 .4 3.3 1.6 1.3-1.2 2.3-2.3 3.3-1.6 1.1.8.7 2.8-.3 4.4' fill='%23d7263d'/%3E%3C/svg%3E");width:20px;height:20px}
+.sk-newyear .row .bar{background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(242,193,78,.25) 10px 11px),linear-gradient(90deg,rgba(215,38,61,.12),rgba(215,38,61,.45) 55%,rgba(242,193,78,.75))}
+/* 봄 벚꽃 */
+.sk-sakura .ttl h1,.sk-sakura .name,.sk-sakura .sec,.sk-sakura .ttl .s{font-family:'Yeon Sung','Noto Sans KR',sans-serif!important;font-weight:400}.sk-sakura .ttl h1{font-size:25px}.sk-sakura .name{text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.sk-sakura .rank{color:#fff!important}.sk-sakura .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='6.2' rx='4.4' ry='5.6' fill='%23ff9ec0' transform='rotate%280 12 12%29'/%3E%3Cellipse cx='12' cy='6.2' rx='4.4' ry='5.6' fill='%23ff9ec0' transform='rotate%2872 12 12%29'/%3E%3Cellipse cx='12' cy='6.2' rx='4.4' ry='5.6' fill='%23ff9ec0' transform='rotate%28144 12 12%29'/%3E%3Cellipse cx='12' cy='6.2' rx='4.4' ry='5.6' fill='%23ff9ec0' transform='rotate%28216 12 12%29'/%3E%3Cellipse cx='12' cy='6.2' rx='4.4' ry='5.6' fill='%23ff9ec0' transform='rotate%28288 12 12%29'/%3E%3Ccircle cx='12' cy='12' r='5.6' fill='%23ff7fa8'/%3E%3C/svg%3E");inset:-2px}
+.sk-sakura .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ffc4d6' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ffc4d6'/%3E%3C/svg%3E")}
+.sk-sakura .row .bar{background:radial-gradient(circle at 6px 6px,rgba(255,255,255,.35) 1.6px,transparent 2px) 0 0/14px 14px,linear-gradient(90deg,rgba(255,143,179,.1),rgba(255,143,179,.45) 55%,rgba(255,190,215,.8))}
+/* 여름 바다 */
+.sk-summer .ttl h1,.sk-summer .name,.sk-summer .sec,.sk-summer .ttl .s{font-family:'Do Hyeon','Noto Sans KR',sans-serif!important;font-weight:400}.sk-summer .ttl h1{font-size:25px}
+.sk-summer .rank{color:#fff!important}.sk-summer .rank:before{background:conic-gradient(#ff5a5a 0 25%,#fff 0 50%,#ff5a5a 0 75%,#fff 0);border-radius:50%;-webkit-mask:radial-gradient(circle,transparent 7.5px,#000 8px);mask:radial-gradient(circle,transparent 7.5px,#000 8px);inset:-2px}
+.sk-summer .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ffe066' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ffe066'/%3E%3C/svg%3E")}
+@keyframes shimmer{to{background-position:-200% 0,0 0}}
+.sk-summer .row .bar{background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%) 0 0/200% 100%,linear-gradient(90deg,rgba(62,224,197,.18),rgba(25,184,230,.5) 55%,rgba(25,184,230,.85));animation:shimmer 3.5s linear infinite}
+.board.nofx .row .bar{animation:none}
+/* 할로윈 */
+.sk-halloween .ttl h1{font-family:'East Sea Dokdo',serif!important;font-weight:400;font-size:32px;line-height:1;letter-spacing:.5px}
+.sk-halloween .name,.sk-halloween .sec,.sk-halloween .ttl .s{font-family:'Gamja Flower','Noto Sans KR',sans-serif!important;font-weight:400}.sk-halloween .name{text-shadow:0 1px 2px #000,0 0 6px rgba(0,0,0,.8)}
+.sk-halloween .rank{color:#2a1238!important}.sk-halloween .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 4.5c0-1.6.8-2.8 2.3-3.4' stroke='%233fa34d' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='12' cy='14' rx='10.6' ry='8.6' fill='%23ff7a1a'/%3E%3Cpath d='M12 5.6c-2 0-3 3.6-3 8.4s1 8.4 3 8.4 3-3.6 3-8.4-1-8.4-3-8.4z' fill='%23ff9440'/%3E%3C/svg%3E");inset:-2px}
+.sk-halloween .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5 7 16h10z' fill='%232a1238'/%3E%3Cpath d='M2 16.5c3-1.6 17-1.6 20 0-3 2.4-17 2.4-20 0z' fill='%232a1238'/%3E%3Crect x='7.6' y='12.6' width='8.8' height='2.2' fill='%23c77dff'/%3E%3C/svg%3E");width:22px;height:22px;left:-3px;top:-15px}
+.sk-halloween .row .bar{background:repeating-linear-gradient(135deg,rgba(42,18,56,.2) 0 6px,transparent 6px 12px),linear-gradient(90deg,rgba(199,125,255,.15),rgba(255,122,26,.45) 55%,rgba(255,122,26,.85))}
+/* 가을 단풍 */
+.sk-autumn .ttl h1,.sk-autumn .name,.sk-autumn .sec,.sk-autumn .ttl .s{font-family:'Gowun Batang',serif!important;font-weight:700}
+.sk-autumn .rank{color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.6)}.sk-autumn .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l1.7 4.8 3.8-1.7-1.1 4.2 4.8-.6-2.8 3.6 3.8 2.1-4.9 1 .8 4.4-4.1-2.4-.9 6.6h-.9l-.9-6.6-4.1 2.4.8-4.4-4.9-1 3.8-2.1-2.8-3.6 4.8.6-1.1-4.2 3.8 1.7z' fill='%23e8673a'/%3E%3C/svg%3E");inset:-3px}
+.sk-autumn .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ffd166' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ffd166'/%3E%3C/svg%3E")}
+.sk-autumn .row .bar{background:repeating-linear-gradient(90deg,rgba(60,30,10,.18) 0 1px,transparent 1px 7px,rgba(255,220,160,.12) 7px 8px,transparent 8px 13px),linear-gradient(90deg,rgba(201,162,39,.12),rgba(232,103,58,.45) 55%,rgba(232,103,58,.85))}
+/* 네온 */
+.sk-neon .val .p,.sk-neon .rank,.sk-neon .tot b,.sk-neon .dd b{font-family:Orbitron,'Black Han Sans',sans-serif!important;font-weight:900;letter-spacing:.5px}
+.sk-neon .rank{color:var(--acc)!important;text-shadow:0 0 6px var(--acc)}.sk-neon .rank:before{border:1.5px solid var(--acc);border-radius:50%;box-shadow:0 0 8px rgba(var(--acc-rgb),.8),inset 0 0 6px rgba(var(--acc-rgb),.5);inset:1px}
+.sk-neon .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ff3df2' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ff3df2'/%3E%3C/svg%3E");filter:drop-shadow(0 0 3px #ff3df2)}
+.sk-neon .row .bar{background:linear-gradient(90deg,transparent,rgba(var(--acc-rgb),.18) 70%,rgba(var(--acc-rgb),.35));box-shadow:inset -3px 0 0 var(--hi),6px 0 14px -4px var(--hi)}
+/* 별밤 */
+.sk-night .ttl h1,.sk-night .name,.sk-night .sec,.sk-night .ttl .s{font-family:'Nanum Myeongjo',serif!important;font-weight:800}
+.sk-night .rank{color:#1a1640!important}.sk-night .rank:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l3.3 7 7.6.9-5.6 5.2 1.5 7.5L12 17.6l-6.8 3.8 1.5-7.5L1.1 8.7l7.6-.9z' fill='%23ffe9a8'/%3E%3C/svg%3E");inset:-3px}
+.sk-night .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ffd166' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ffd166'/%3E%3C/svg%3E")}
+.sk-night .row .bar{background:radial-gradient(circle at 4px 5px,rgba(255,255,255,.7) .8px,transparent 1.2px) 0 0/11px 13px,radial-gradient(circle at 9px 10px,rgba(255,255,255,.45) .6px,transparent 1px) 0 0/17px 15px,linear-gradient(90deg,rgba(111,211,255,.1),rgba(155,140,255,.45) 55%,rgba(155,140,255,.85))}
+/* 종이 */
+.sk-paper .rank{color:var(--hi)!important;font-family:Gaegu,sans-serif!important;font-weight:700;font-size:17px!important}.sk-paper .rank:before{border:1.6px solid var(--hi);border-radius:50% 44% 56% 47%;transform:rotate(-8deg);inset:1px}
+.sk-paper .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23e9a03b' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23e9a03b'/%3E%3C/svg%3E");transform:rotate(-10deg)}
+/* 유리 */
+.sk-glass .name,.sk-glass .ttl h1{font-weight:700!important;letter-spacing:.2px}.sk-glass .ttl h1{font-family:'Noto Sans KR',sans-serif!important;font-weight:900!important}
+.sk-glass .rank{color:#fff!important}.sk-glass .rank:before{border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);inset:1px}
+.sk-glass .row.first .rank:after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2.5 18 4 7.5l5 4.5L12 4l3 8 5-4.5L21.5 18z' fill='%23ffffff' stroke='rgba%280,0,0,.35%29' stroke-width='.8'/%3E%3Crect x='3' y='18.4' width='18' height='2.6' rx='.8' fill='%23ffffff'/%3E%3C/svg%3E")}
+.sk-glass .row .bar{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 55%,transparent),linear-gradient(90deg,rgba(143,211,255,.08),rgba(143,211,255,.35) 60%,rgba(200,235,255,.6))}
+
+/* ===== 표가 들어올 때 효과 (그 줄에서 잠깐) ===== */
+.burst{position:absolute;z-index:4;pointer-events:none}
+.burst i{position:absolute;left:50%;top:50%;display:block;animation:bFly 1.15s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes bFly{0%{transform:translate(-50%,-50%) scale(1);opacity:1}60%{opacity:1}100%{transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(.55) rotate(var(--br));opacity:0}}
+.bk-xmas i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.bk-flake i{width:9px;height:9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.bk-coin i{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe59a,#f2c14e 60%,#b8862a)}
+.bk-petal i{width:10px;height:7px;border-radius:80% 0 80% 0;background:#ffb7cf}
+.bk-bubble i{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.8)}
+.bk-bat i{width:16px;height:9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 4 24 10'%3E%3Cpath d='M12 9c-1.2-2.4-3-3.2-5-2.6.6 1 .5 1.8-.4 2.2-1.2-1.4-3.3-1.5-5.1-.4 1.6.4 2.6 1.6 2.8 3.3 1.8-.8 3.6-.5 4.8.8.9-.8 2-1.1 2.9-1.1s2 .3 2.9 1.1c1.2-1.3 3-1.6 4.8-.8.2-1.7 1.2-2.9 2.8-3.3-1.8-1.1-3.9-1-5.1.4-.9-.4-1-1.2-.4-2.2-2-.6-3.8.2-5 2.6z' fill='%232a1238' stroke='%23c77dff' stroke-width='.6'/%3E%3C/svg%3E") center/contain no-repeat}
+.bk-leaf i{width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l1.7 4.8 3.8-1.7-1.1 4.2 4.8-.6-2.8 3.6 3.8 2.1-4.9 1 .8 4.4-4.1-2.4-.9 6.6h-.9l-.9-6.6-4.1 2.4.8-4.4-4.9-1 3.8-2.1-2.8-3.6 4.8.6-1.1-4.2 3.8 1.7z' fill='%23e8673a'/%3E%3C/svg%3E") center/contain no-repeat}
+.bk-star i{width:10px;height:10px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l3.3 7 7.6.9-5.6 5.2 1.5 7.5L12 17.6l-6.8 3.8 1.5-7.5L1.1 8.7l7.6-.9z' fill='%23ffe9a8'/%3E%3C/svg%3E") center/contain no-repeat}
+.bk-neon i{width:3px;height:10px;border-radius:2px;background:var(--hi);box-shadow:0 0 6px var(--hi)}
+.burst .txt{position:absolute;right:58px;top:50%;font-size:20px;font-weight:900;color:var(--hi);text-shadow:0 2px 0 rgba(0,0,0,.6);animation:bTxt 1s ease-out forwards}
+.bk-pixel .txt{font-family:Galmuri11,monospace;animation-timing-function:steps(6)}
+.bk-ink .txt{font-family:Gaegu,sans-serif;font-size:26px;color:#c8553d;text-shadow:none;transform:rotate(-10deg)}
+@keyframes bTxt{0%{transform:translateY(-30%) scale(.6);opacity:0}25%{transform:translateY(-50%) scale(1.15);opacity:1}100%{transform:translateY(-160%) scale(1);opacity:0}}
+.burst .sweep{position:absolute;inset:0;border-radius:12px;overflow:hidden}
+.burst .sweep:after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:bSweep .8s ease-out forwards}
+@keyframes bSweep{from{left:-45%}to{left:110%}}
+.row.nhit{animation:nHit .7s ease-out}
+@keyframes nHit{0%,40%{box-shadow:0 0 22px var(--hi),inset 0 0 12px var(--hi);border-color:var(--hi)}100%{}}
+
+/* ===== 스킨별 줄·막대 모양 ===== */
+.row .bar:before,.row .bar:after{content:none;position:absolute;pointer-events:none}
+/* 크리스마스: 사탕처럼 둥근 줄, 막대 끝 금색 포장끈과 리본 */
+.sk-xmas .row{border-radius:999px}
+.sk-xmas .row .bar:after{content:"";right:0;top:0;bottom:0;width:3px;background:linear-gradient(#ffe08a,#e6b04a)}
+.sk-xmas .row .bar:before{content:"";right:-7px;top:-1px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 11c-3-4-8-5-9-2s3 5 9 2zM12 11c3-4 8-5 9-2s-3 5-9 2z' fill='%23ffd166' stroke='%23c99a2e' stroke-width='.8'/%3E%3Ccircle cx='12' cy='11' r='2' fill='%23e6b04a'/%3E%3Cpath d='M11 12l-3 9M13 12l3 9' stroke='%23ffd166' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.9}
+/* 겨울: 모서리 깎은 얼음 결정 줄, 막대 위에 쌓인 눈 */
+.sk-snow .row{border-radius:2px;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px)}
+.sk-snow .row .bar:before{content:"";left:0;right:0;top:0;height:7px;background:radial-gradient(circle at 5px 0,#fff 4.5px,transparent 5px) 0 0/10px 7px repeat-x;opacity:.9}
+/* 레트로: 3D 버튼 그림자, 빈 칸까지 보이는 블록 게이지 */
+.sk-retro .row{background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 8px,transparent 8px 10px);box-shadow:3px 3px 0 rgba(0,0,0,.55)}
+/* 설날: 모서리 꺾인 창살 모양 + 이중선, 막대 끝 매듭 술 */
+.sk-newyear .row{border-radius:0;clip-path:polygon(6px 0,calc(100% - 6px) 0,calc(100% - 6px) 3px,100% 3px,100% calc(100% - 3px),calc(100% - 6px) calc(100% - 3px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 3px),0 calc(100% - 3px),0 3px,6px 3px);
+  box-shadow:inset 0 0 0 1px rgba(242,193,78,.55),inset 0 0 0 3px transparent,inset 0 0 0 4px rgba(242,193,78,.25)}
+.sk-newyear .row .bar:after{content:"";right:-6px;top:-2px;width:12px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0v7' stroke='%23f2c14e' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='8.5' r='2.4' fill='%23d7263d' stroke='%23f2c14e' stroke-width='.8'/%3E%3Cpath d='M9.5 11h5l1 11h-7z' fill='%23d7263d'/%3E%3Cpath d='M10 13v8M12 13v9M14 13v8' stroke='%23f2c14e' stroke-width='.7'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.9}
+/* 벚꽃: 둥근 줄, 막대 끝 꽃 한 송이 */
+.sk-sakura .row{border-radius:999px}
+.sk-sakura .row .bar:after{content:"";right:-9px;top:50%;width:18px;height:18px;margin-top:-9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='6.4' rx='4.2' ry='5.4' fill='%23ffc4d6' transform='rotate%280 12 12%29'/%3E%3Cellipse cx='12' cy='6.4' rx='4.2' ry='5.4' fill='%23ffc4d6' transform='rotate%2872 12 12%29'/%3E%3Cellipse cx='12' cy='6.4' rx='4.2' ry='5.4' fill='%23ffc4d6' transform='rotate%28144 12 12%29'/%3E%3Cellipse cx='12' cy='6.4' rx='4.2' ry='5.4' fill='%23ffc4d6' transform='rotate%28216 12 12%29'/%3E%3Cellipse cx='12' cy='6.4' rx='4.2' ry='5.4' fill='%23ffc4d6' transform='rotate%28288 12 12%29'/%3E%3Ccircle cx='12' cy='12' r='3.4' fill='%23ff7fa8'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.9}
+/* 여름: 둥근 줄, 막대 끝이 물결로 출렁임 */
+@keyframes waveV{to{background-position:0 -30px}}
+.sk-summer .row{border-radius:999px}
+.sk-summer .row .bar:after{content:"";right:-6px;top:0;bottom:0;width:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 30' preserveAspectRatio='none'%3E%3Cpath d='M6 0C1 5 11 10 6 15S1 25 6 30V30H12V0Z' fill='rgba%28255,255,255,.55%29'/%3E%3C/svg%3E") 0 0/12px 30px repeat-y;animation:waveV 1.6s linear infinite}
+/* 할로윈: 아래가 삐죽한 줄, 막대 끝이 녹아 흘러내림 */
+.sk-halloween .row{border-radius:8px 8px 0 0;clip-path:polygon(0 0,100% 0,100% 82%,95% 100%,90% 82%,85% 100%,80% 82%,75% 100%,70% 82%,65% 100%,60% 82%,55% 100%,50% 82%,45% 100%,40% 82%,35% 100%,30% 82%,25% 100%,20% 82%,15% 100%,10% 82%,5% 100%,0 82%)}
+.sk-halloween .row .bar:after{content:"";right:-7px;top:0;width:14px;height:100%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 24' preserveAspectRatio='none'%3E%3Cpath d='M0 0H14V13C14 15 12 15 12 13V9C12 7 10 7 10 9V19C10 22 7 22 7 19V11C7 9 5 9 5 11V15C5 17 3 17 3 15V0Z' fill='%23ff7a1a'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+/* 단풍: 나무판 줄, 잎 끝처럼 뾰족한 막대 */
+.sk-autumn .row{background:repeating-linear-gradient(0deg,rgba(120,70,30,.10) 0 2px,transparent 2px 6px),rgba(110,60,25,.22);border-radius:6px}
+.sk-autumn .row .bar{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%)}
+/* 네온: 바탕 없이 빛나는 테두리, 얇은 빛 선 막대 + 끝 빛 점 */
+.sk-neon .row{background:transparent;border:1px solid rgba(var(--acc-rgb),.5);box-shadow:0 0 8px rgba(var(--acc-rgb),.3),inset 0 0 8px rgba(var(--acc-rgb),.15)}
+.sk-neon .row .bar{top:auto;bottom:5px;height:3px;border-radius:3px;background:linear-gradient(90deg,rgba(var(--acc-rgb),.1),var(--acc));box-shadow:0 0 8px var(--acc)}
+.sk-neon .row.first .bar{background:linear-gradient(90deg,rgba(var(--hi-rgb),.1),var(--hi));box-shadow:0 0 10px var(--hi)}
+.sk-neon .row .bar:after{content:"";right:-4px;top:-3px;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px var(--hi)}
+/* 별밤: 둥근 줄, 막대 끝 혜성 머리 */
+.sk-night .row{border-radius:999px}
+.sk-night .row .bar{border-radius:999px}
+.sk-night .row .bar:after{content:"";right:3px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:radial-gradient(circle,#fff 30%,rgba(255,233,168,.7) 55%,transparent 75%);box-shadow:0 0 6px 1px rgba(255,233,168,.45);opacity:.85}
+/* 종이: 줄마다 살짝 기울고 손그림 점선, 삐뚤빼뚤 형광펜 막대 */
+.sk-paper .row{border:1.5px dashed rgba(120,90,60,.35);border-radius:10px 14px 9px 13px/12px 9px 14px 10px}
+.sk-paper .row:nth-child(odd){transform:rotate(-.7deg)}.sk-paper .row:nth-child(even){transform:rotate(.6deg)}
+.sk-paper .row .bar{top:5px;bottom:5px;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 3 L7 1.5 L15 3.2 L24 1.2 L33 2.8 L41 1 L52 3.1 L61 1.6 L70 3.4 L80 1.3 L89 2.9 L100 2 L100 18.2 L92 19.3 L83 17.4 L74 19.1 L64 17.6 L55 19.4 L45 17.2 L36 19 L26 17.5 L17 19.2 L8 17.6 L0 18.6 Z' fill='%23000'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 3 L7 1.5 L15 3.2 L24 1.2 L33 2.8 L41 1 L52 3.1 L61 1.6 L70 3.4 L80 1.3 L89 2.9 L100 2 L100 18.2 L92 19.3 L83 17.4 L74 19.1 L64 17.6 L55 19.4 L45 17.2 L36 19 L26 17.5 L17 19.2 L8 17.6 L0 18.6 Z' fill='%23000'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+/* 유리: 빛이 반사되는 유리관 막대 */
+.sk-glass .row .bar{top:7px;bottom:7px;left:4px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(143,211,255,.35) 42%,rgba(143,211,255,.6));box-shadow:inset 0 -2px 3px rgba(255,255,255,.35),0 0 8px rgba(143,211,255,.35)}
+
+/* ===== 프로필 테두리 ===== */
+:where(.board[class*=" sk-"]) .ava{position:relative}
+:where(.board[class*=" sk-"]) .ava:after{content:"";position:absolute;pointer-events:none;background-position:center;background-size:contain;background-repeat:no-repeat}
+.sk-xmas .ava{background:#1f8a4c}.sk-xmas .ava:after{inset:-8px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='none' stroke='%231f8a4c' stroke-width='7'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%280 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%2820 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%2840 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%2860 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%2880 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28100 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28120 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28140 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28160 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28180 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28200 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28220 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28240 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28260 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28280 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28300 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%23167a43' transform='rotate%28320 32 32%29'/%3E%3Cellipse cx='32' cy='5' rx='3.2' ry='5.2' fill='%232ec27e' transform='rotate%28340 32 32%29'/%3E%3Ccircle cx='10' cy='22' r='2.4' fill='%23e5383b'/%3E%3Ccircle cx='54' cy='22' r='2.4' fill='%23e5383b'/%3E%3Ccircle cx='14' cy='48' r='2.4' fill='%23e5383b'/%3E%3Ccircle cx='50' cy='48' r='2.4' fill='%23e5383b'/%3E%3Ccircle cx='32' cy='4' r='2.4' fill='%23e5383b'/%3E%3Cpath d='M32 58c-5-5-12-5-12-1s7 4 12 1zM32 58c5-5 12-5 12-1s-7 4-12 1z' fill='%23e5383b'/%3E%3Ccircle cx='32' cy='58' r='2.4' fill='%23c0262b'/%3E%3C/svg%3E")}
+.sk-snow .ava{background:#dff3ff;box-shadow:0 0 12px rgba(200,235,255,.6)}.sk-snow .ava:after{width:18px;height:18px;right:-5px;top:-5px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='%23e8f6ff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10'/%3E%3C/g%3E%3C/svg%3E")}
+.sk-retro .ava{box-shadow:0 0 0 3px var(--hi),5px 5px 0 3px rgba(0,0,0,.6)}
+.sk-newyear .ava{background:#f2c14e;box-shadow:0 0 0 2px #d7263d,0 0 0 4px #f2c14e}
+.sk-sakura .ava{background:#ffc4d6}.sk-sakura .ava:after{inset:-10px -10px 0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg transform='rotate%28-62 32 32%29'%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%280 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%2872 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28144 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28216 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28288 32 6%29'/%3E%3Ccircle cx='32' cy='6' r='1.6' fill='%23ff7fa8'/%3E%3C/g%3E%3Cg transform='rotate%28-31 32 32%29'%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%280 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%2872 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28144 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28216 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28288 32 6%29'/%3E%3Ccircle cx='32' cy='6' r='1.6' fill='%23ff7fa8'/%3E%3C/g%3E%3Cg transform='rotate%280 32 32%29'%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%280 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%2872 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28144 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28216 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28288 32 6%29'/%3E%3Ccircle cx='32' cy='6' r='1.6' fill='%23ff7fa8'/%3E%3C/g%3E%3Cg transform='rotate%2831 32 32%29'%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%280 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%2872 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28144 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28216 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28288 32 6%29'/%3E%3Ccircle cx='32' cy='6' r='1.6' fill='%23ff7fa8'/%3E%3C/g%3E%3Cg transform='rotate%2862 32 32%29'%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%280 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%2872 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28144 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28216 32 6%29'/%3E%3Cellipse cx='32' cy='3.2' rx='2.3' ry='3' fill='%23ffc4d6' transform='rotate%28288 32 6%29'/%3E%3Ccircle cx='32' cy='6' r='1.6' fill='%23ff7fa8'/%3E%3C/g%3E%3C/svg%3E");background-position:top}
+.sk-summer .ava{background:conic-gradient(#ff5a5a 0 25%,#fff 0 50%,#ff5a5a 0 75%,#fff 0)}
+.sk-halloween .ava{background:#2a1238;box-shadow:0 0 12px rgba(199,125,255,.5)}.sk-halloween .ava:after{width:26px;height:12px;right:-12px;top:-4px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 4 24 10'%3E%3Cpath d='M12 9c-1.2-2.4-3-3.2-5-2.6.6 1 .5 1.8-.4 2.2-1.2-1.4-3.3-1.5-5.1-.4 1.6.4 2.6 1.6 2.8 3.3 1.8-.8 3.6-.5 4.8.8.9-.8 2-1.1 2.9-1.1s2 .3 2.9 1.1c1.2-1.3 3-1.6 4.8-.8.2-1.7 1.2-2.9 2.8-3.3-1.8-1.1-3.9-1-5.1.4-.9-.4-1-1.2-.4-2.2-2-.6-3.8.2-5 2.6z' fill='%232a1238' stroke='%23c77dff' stroke-width='.7'/%3E%3C/svg%3E");transform:rotate(14deg)}
+.sk-autumn .ava{background:#c9452a}.sk-autumn .ava:after{inset:-12px -12px 0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 1l1.3 3.6 2.9-1.3-.8 3.3 3.7-.5-2.2 2.8 3 1.7-3.8.8.6 3.4-3.2-1.9-.7 5.2h-.7l-.7-5.2-3.2 1.9.6-3.4-3.8-.8 3-1.7-2.2-2.8 3.7.5-.8-3.3 2.9 1.3z' fill='%23e8673a' transform='rotate%28-55 32 32%29'/%3E%3Cpath d='M32 1l1.3 3.6 2.9-1.3-.8 3.3 3.7-.5-2.2 2.8 3 1.7-3.8.8.6 3.4-3.2-1.9-.7 5.2h-.7l-.7-5.2-3.2 1.9.6-3.4-3.8-.8 3-1.7-2.2-2.8 3.7.5-.8-3.3 2.9 1.3z' fill='%23ffc857' transform='rotate%28-20 32 32%29'/%3E%3Cpath d='M32 1l1.3 3.6 2.9-1.3-.8 3.3 3.7-.5-2.2 2.8 3 1.7-3.8.8.6 3.4-3.2-1.9-.7 5.2h-.7l-.7-5.2-3.2 1.9.6-3.4-3.8-.8 3-1.7-2.2-2.8 3.7.5-.8-3.3 2.9 1.3z' fill='%23c9452a' transform='rotate%2820 32 32%29'/%3E%3C/svg%3E");background-position:top}
+.sk-neon .ava{background:var(--acc);box-shadow:0 0 12px var(--acc),0 0 24px rgba(var(--acc-rgb),.5)}
+.sk-night .ava{background:#9b8cff}.sk-night .ava:after{inset:-10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='31' ry='12' fill='none' stroke='%23ffe9a8' stroke-width='1.4' opacity='.8' transform='rotate%28-24 32 32%29'/%3E%3Ccircle cx='58' cy='21' r='3.6' fill='%236fd3ff'/%3E%3C/svg%3E")}
+.sk-paper .ava{border-radius:3px;padding:4px 4px 9px;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3);transform:rotate(-4deg)}.sk-paper .ava div{border-radius:1px}
+.sk-glass .ava{background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.7),inset 0 0 6px rgba(255,255,255,.6)}
+
+/* ===== 리롤 칸 모양 (사용 전 칸만, 사용한 칸은 공통 표시) ===== */
+.sk-xmas .rr>div:not(.used){background:linear-gradient(90deg,transparent 46%,rgba(255,209,102,.65) 46% 54%,transparent 54%),linear-gradient(0deg,transparent 40%,rgba(255,209,102,.5) 40% 50%,transparent 50%),rgba(229,56,59,.28);border-color:rgba(255,209,102,.6)}
+.sk-snow .rr>div{border-radius:999px}.sk-snow .rr>div:not(.used){background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.3),rgba(255,255,255,.08) 60%);border-color:rgba(220,242,255,.5)}
+.sk-retro .rr>div:not(.used){border:2px solid rgba(255,255,255,.25);box-shadow:inset 3px 3px 0 rgba(0,0,0,.4),inset -2px -2px 0 rgba(255,255,255,.08)}
+.sk-newyear .rr>div{border-radius:999px}.sk-newyear .rr>div:not(.used){background:rgba(242,193,78,.12);border:1.5px solid #f2c14e;box-shadow:inset 0 0 0 3px rgba(242,193,78,.2)}
+.sk-sakura .rr>div{border-radius:999px}.sk-sakura .rr>div:not(.used){border-color:rgba(255,170,200,.55)}
+.sk-summer .rr>div:not(.used){background:linear-gradient(transparent 70%,rgba(25,184,230,.35) 70%),rgba(255,255,255,.04)}
+.sk-halloween .rr>div:not(.used){background:rgba(42,18,56,.6);border:1.5px dashed #ff7a1a}
+.sk-autumn .rr>div:not(.used){background:repeating-linear-gradient(90deg,rgba(120,70,30,.15) 0 2px,transparent 2px 9px),rgba(110,60,25,.25)}
+.sk-neon .rr>div:not(.used){background:transparent;border-color:var(--acc);box-shadow:0 0 8px rgba(var(--acc-rgb),.4)}
+.sk-night .rr>div{border-radius:999px}.sk-night .rr>div:not(.used){background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.6) .8px,transparent 1.3px) 0 0/16px 14px,rgba(155,140,255,.12)}
+.sk-paper .rr>div:not(.used){background:#fff3a8;border:0;box-shadow:0 2px 4px rgba(0,0,0,.18);transform:rotate(-1.2deg)}.sk-paper .rr>div:nth-child(2):not(.used){transform:rotate(1deg);background:#ffd9e6}.sk-paper .rr>div:nth-child(3):not(.used){background:#d4f0ff}
+.sk-paper .rr .n,.sk-paper .rr .a{color:#3b3027}
+.sk-glass .rr>div:not(.used){background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+
+/* ===== 페이지 넘김 효과 ===== */
+:where(.board[class*=" sk-"]) .list{transition:opacity .35s,transform .35s,filter .35s}
+.sk-xmas .list.fade,.sk-snow .list.fade{transform:translateY(12px);filter:blur(4px)}
+.sk-retro .list{transition:opacity .35s steps(4),transform .35s steps(4)}.sk-retro .list.fade{transform:translateX(-12px)}
+.sk-newyear .list.fade,.sk-autumn .list.fade{transform:translateX(18px)}
+.sk-sakura .list.fade{transform:scale(.96) rotate(-1deg);filter:blur(2px)}
+.sk-summer .list.fade{transform:translateX(-22px) skewX(-6deg)}
+.sk-halloween .list.fade{transform:translateY(-8px) scale(.97);filter:blur(3px) brightness(.4)}
+.sk-neon .list{transition:opacity .35s steps(3),filter .35s}.sk-neon .list.fade{filter:brightness(2.2) blur(1px)}
+.sk-night .list.fade{transform:scale(.94);filter:blur(5px)}
+.sk-paper .list{transform-origin:left center}.sk-paper .list.fade{transform:perspective(700px) rotateY(-28deg)}
+.sk-glass .list.fade{filter:blur(6px)}
+/* ===== 판 바탕 무늬 ===== */
+.sk-xmas{background-image:repeating-linear-gradient(90deg,rgba(46,194,126,.06) 0 14px,transparent 14px 28px),repeating-linear-gradient(0deg,rgba(229,56,59,.06) 0 14px,transparent 14px 28px)}
+.sk-snow{background-image:radial-gradient(rgba(255,255,255,.10) 1.2px,transparent 1.6px),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.4px);background-size:22px 22px,13px 13px;background-position:0 0,6px 9px}
+.sk-sakura{background-image:radial-gradient(240px 140px at 100% 0,rgba(255,170,200,.2),transparent),radial-gradient(200px 160px at 0 100%,rgba(155,224,138,.1),transparent)}
+.sk-summer{background-image:linear-gradient(180deg,rgba(25,184,230,.12),transparent 40%,transparent 82%,rgba(255,224,102,.14))}
+.sk-halloween{background-image:radial-gradient(260px 120px at 50% 105%,rgba(199,125,255,.22),transparent),radial-gradient(160px 90px at 0 0,rgba(255,122,26,.12),transparent)}
+.sk-autumn{background-image:radial-gradient(300px 200px at 50% 0,rgba(255,200,87,.12),transparent),repeating-linear-gradient(0deg,rgba(120,70,30,.05) 0 2px,transparent 2px 9px)}
+
+/* ===== 아래쪽·작은 부분까지 스킨별 (크기는 그대로: 테두리 굵기·안쪽 여백은 안 바꿈) ===== */
+.sk-xmas .pill,.sk-xmas .tot small,.sk-xmas .dd small,.sk-xmas .sum,.sk-xmas .ban span,.sk-xmas .pager span,.sk-xmas .rr .n{font-family:Jua,'Noto Sans KR',sans-serif!important}
+.sk-snow .pill,.sk-snow .tot small,.sk-snow .dd small,.sk-snow .sum,.sk-snow .ban span,.sk-snow .pager span,.sk-snow .rr .n{font-family:'Gowun Dodum','Noto Sans KR',sans-serif!important}
+.sk-newyear .pill,.sk-newyear .tot small,.sk-newyear .dd small,.sk-newyear .sum,.sk-newyear .ban span,.sk-newyear .pager span,.sk-newyear .rr .n{font-family:'Song Myung',serif!important}
+.sk-summer .pill,.sk-summer .tot small,.sk-summer .dd small,.sk-summer .sum,.sk-summer .ban span,.sk-summer .pager span,.sk-summer .rr .n{font-family:'Do Hyeon','Noto Sans KR',sans-serif!important}
+.sk-autumn .pill,.sk-autumn .tot small,.sk-autumn .dd small,.sk-autumn .sum,.sk-autumn .ban span,.sk-autumn .pager span,.sk-autumn .rr .n{font-family:'Gowun Batang',serif!important}
+.sk-night .pill,.sk-night .tot small,.sk-night .dd small,.sk-night .sum,.sk-night .ban span,.sk-night .pager span,.sk-night .rr .n{font-family:'Nanum Myeongjo',serif!important}
+.sk-paper .pill,.sk-paper .tot small,.sk-paper .dd small,.sk-paper .sum,.sk-paper .ban span,.sk-paper .pager span,.sk-paper .rr .n{font-family:Gaegu,'Noto Sans KR',sans-serif!important}
+.sk-paper .pill,.sk-paper .ban span,.sk-paper .pager span,.sk-paper .sum,.sk-paper .tot small,.sk-paper .dd small{font-weight:700;font-size:13.5px}
+
+/* 페이지 점 */
+.sk-xmas .pager i{background:#2ec27e}.sk-xmas .pager i:nth-child(2n){background:#e5383b}.sk-xmas .pager i.on{background:repeating-linear-gradient(135deg,#e5383b 0 4px,#fff 4px 7px)}
+.sk-snow .pager i{width:9px;height:9px;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='rgba%28220,242,255,.5%29' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}.sk-snow .pager i.on{width:13px;height:13px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10'/%3E%3C/g%3E%3C/svg%3E")}
+.sk-retro .pager i{border-radius:0;width:8px;height:8px;background:rgba(255,255,255,.2)}.sk-retro .pager i.on{width:8px;background:var(--hi);box-shadow:10px 0 0 var(--hi)}.sk-retro .pager i.on{margin-right:10px}
+.sk-newyear .pager i{border-radius:1px;transform:rotate(45deg);background:rgba(242,193,78,.35)}.sk-newyear .pager i.on{width:9px;height:9px;background:#f2c14e}
+.sk-sakura .pager i{border-radius:80% 0 80% 0;background:rgba(255,183,207,.4)}.sk-sakura .pager i.on{width:11px;height:9px;border-radius:80% 0 80% 0;background:#ff8fb3}
+.sk-summer .pager i{background:none;border:1.5px solid rgba(255,255,255,.45)}.sk-summer .pager i.on{width:18px;border-color:#3ee0c5;background:rgba(62,224,197,.4)}
+.sk-halloween .pager i{background:rgba(199,125,255,.35)}.sk-halloween .pager i.on{width:11px;height:10px;border-radius:50%;background:#ff7a1a;box-shadow:0 -3px 0 -2px #3fa34d}
+.sk-autumn .pager i{width:9px;height:9px;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l1.7 4.8 3.8-1.7-1.1 4.2 4.8-.6-2.8 3.6 3.8 2.1-4.9 1 .8 4.4-4.1-2.4-.9 6.6h-.9l-.9-6.6-4.1 2.4.8-4.4-4.9-1 3.8-2.1-2.8-3.6 4.8.6-1.1-4.2 3.8 1.7z' fill='rgba%28232,103,58,.45%29'/%3E%3C/svg%3E") center/contain no-repeat}.sk-autumn .pager i.on{width:13px;height:13px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l1.7 4.8 3.8-1.7-1.1 4.2 4.8-.6-2.8 3.6 3.8 2.1-4.9 1 .8 4.4-4.1-2.4-.9 6.6h-.9l-.9-6.6-4.1 2.4.8-4.4-4.9-1 3.8-2.1-2.8-3.6 4.8.6-1.1-4.2 3.8 1.7z' fill='%23e8673a'/%3E%3C/svg%3E")}
+.sk-neon .pager i{background:rgba(var(--acc-rgb),.3)}.sk-neon .pager i.on{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.sk-night .pager i{width:9px;height:9px;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l3.3 7 7.6.9-5.6 5.2 1.5 7.5L12 17.6l-6.8 3.8 1.5-7.5L1.1 8.7l7.6-.9z' fill='rgba%28255,233,168,.4%29'/%3E%3C/svg%3E") center/contain no-repeat}.sk-night .pager i.on{width:13px;height:13px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .8l3.3 7 7.6.9-5.6 5.2 1.5 7.5L12 17.6l-6.8 3.8 1.5-7.5L1.1 8.7l7.6-.9z' fill='%23ffe9a8'/%3E%3C/svg%3E")}
+.sk-paper .pager i{background:none;border:1.5px solid rgba(120,90,60,.4)}.sk-paper .pager i.on{width:18px;border-color:var(--hi);background:rgba(200,85,61,.25);border-radius:6px 9px 7px 8px}
+.sk-glass .pager i{background:rgba(255,255,255,.3)}.sk-glass .pager i.on{background:#fff;box-shadow:0 0 6px rgba(255,255,255,.8)}
+
+/* 아래 구분선 */
+.sk-xmas .foot{border-top:1px dashed rgba(229,56,59,.6)}
+.sk-snow .foot{border-top:1px dotted rgba(220,242,255,.6)}
+.sk-retro .foot{border-top:1px dashed var(--acc)}
+.sk-newyear .foot{border-top-color:rgba(242,193,78,.55)}
+.sk-sakura .foot{border-top:1px dotted rgba(255,170,200,.6)}
+.sk-summer .foot{border-top-color:rgba(62,224,197,.45)}
+.sk-halloween .foot{border-top:1px dashed rgba(255,122,26,.55)}
+.sk-autumn .foot{border-top-color:rgba(255,200,87,.35)}
+.sk-neon .foot{border-top-color:var(--acc);box-shadow:0 -1px 8px -2px rgba(var(--acc-rgb),.8)}
+.sk-night .foot{border-top:1px dotted rgba(255,233,168,.45)}
+.sk-paper .foot{border-top:1.5px dashed rgba(120,90,60,.35);margin-top:11.5px}
+.sk-glass .foot{border-top-color:rgba(255,255,255,.35)}
+/* 구역 제목 옆 선 */
+.sk-xmas .sec:after{background:repeating-linear-gradient(90deg,#e5383b 0 6px,transparent 6px 9px,#2ec27e 9px 15px,transparent 15px 18px)}
+.sk-snow .sec:after{background:repeating-linear-gradient(90deg,rgba(220,242,255,.6) 0 2px,transparent 2px 6px)}
+.sk-retro .sec:after{height:2px;background:repeating-linear-gradient(90deg,var(--acc) 0 4px,transparent 4px 8px)}
+.sk-newyear .sec:after{background:linear-gradient(90deg,#f2c14e,transparent)}
+.sk-sakura .sec:after,.sk-summer .sec:after,.sk-autumn .sec:after,.sk-night .sec:after{background:linear-gradient(90deg,var(--acc),transparent)}
+.sk-halloween .sec:after{background:repeating-linear-gradient(90deg,#ff7a1a 0 5px,transparent 5px 9px)}
+.sk-neon .sec:after{background:var(--acc);box-shadow:0 0 6px var(--acc)}
+.sk-paper .sec:after{height:0;border-top:1.5px dashed rgba(120,90,60,.35);background:none}
+.sk-glass .sec:after{background:rgba(255,255,255,.35)}
+
+/* 규칙 알약 */
+.sk-xmas .pill{border-color:rgba(229,56,59,.5);background:rgba(229,56,59,.1)}
+.sk-snow .pill{border-color:rgba(220,242,255,.35);background:rgba(220,242,255,.08)}
+.sk-retro .pill{border-radius:0;border-color:var(--acc);box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.sk-newyear .pill{border-radius:3px;border-color:rgba(242,193,78,.6);background:rgba(215,38,61,.18)}
+.sk-sakura .pill{border-color:rgba(255,170,200,.5);background:rgba(255,143,179,.12)}
+.sk-summer .pill{border-color:rgba(62,224,197,.45);background:rgba(25,184,230,.12)}
+.sk-halloween .pill{border-radius:4px;border-style:dashed;border-color:rgba(255,122,26,.6);background:rgba(42,18,56,.55)}
+.sk-autumn .pill{border-radius:4px;border-color:rgba(255,200,87,.4);background:rgba(110,60,25,.3)}
+.sk-neon .pill{background:transparent;border-color:var(--acc);box-shadow:0 0 6px rgba(var(--acc-rgb),.5)}
+.sk-night .pill{border-color:rgba(155,140,255,.45);background:rgba(155,140,255,.12)}
+.sk-paper .pill{border-radius:3px;border:0;padding:5px 11px;background:#fff6c9;box-shadow:0 1px 2px rgba(0,0,0,.18);transform:rotate(-1deg)}
+.sk-glass .pill{border-color:rgba(255,255,255,.35)}
+
+/* 아래 총 득표·디데이 상자 */
+.sk-xmas .tot b,.sk-xmas .dd b{font-family:Jua,sans-serif;font-size:26px}
+.sk-xmas .dd{border-color:#ffd166;background:linear-gradient(90deg,transparent 46%,rgba(255,209,102,.4) 46% 54%,transparent 54%),rgba(229,56,59,.25)}
+.sk-snow .dd{border-radius:999px;border-color:rgba(220,242,255,.6);background:rgba(220,242,255,.12)}
+.sk-retro .tot b,.sk-retro .dd b{font-size:22px}.sk-retro .dd{border-radius:0;border-color:var(--hi);box-shadow:3px 3px 0 rgba(0,0,0,.55)}
+.sk-newyear .tot b,.sk-newyear .dd b{font-family:'Song Myung',serif}.sk-newyear .dd{border-radius:3px;border-color:#f2c14e;background:rgba(215,38,61,.25);box-shadow:inset 0 0 0 2px rgba(242,193,78,.25)}
+.sk-sakura .dd{border-radius:999px;border-color:rgba(255,170,200,.7);background:rgba(255,143,179,.15)}
+.sk-summer .tot b,.sk-summer .dd b{font-family:'Do Hyeon',sans-serif}.sk-summer .dd{border-radius:999px;border-color:#3ee0c5;background:linear-gradient(transparent 60%,rgba(25,184,230,.35) 60%)}
+.sk-halloween .tot b,.sk-halloween .dd b{font-family:'East Sea Dokdo',serif;font-size:30px}.sk-halloween .dd{border-style:dashed;border-color:#ff7a1a;background:rgba(42,18,56,.6)}
+.sk-autumn .tot b,.sk-autumn .dd b{font-family:'Gowun Batang',serif;font-weight:700}.sk-autumn .dd{border-radius:4px;border-color:rgba(255,200,87,.6);background:repeating-linear-gradient(90deg,rgba(120,70,30,.15) 0 2px,transparent 2px 9px),rgba(110,60,25,.3)}
+.sk-neon .dd{background:transparent;border-color:var(--hi);box-shadow:0 0 8px rgba(var(--hi-rgb),.6)}.sk-neon .tot b{text-shadow:0 0 8px rgba(var(--acc-rgb),.8)}
+.sk-night .tot b,.sk-night .dd b{font-family:'Nanum Myeongjo',serif;font-weight:800}.sk-night .dd{border-radius:999px;border-color:rgba(255,233,168,.6);background:rgba(155,140,255,.15)}
+.sk-paper .tot b,.sk-paper .dd b{font-family:Gaegu,sans-serif;font-weight:700;font-size:28px}.sk-paper .dd{border:1.5px dashed var(--hi);background:#fff6c9;transform:rotate(1.5deg)}
+.sk-glass .dd{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+
+:where(.board[class*=" sk-"]) .tot b{line-height:26px}:where(.board[class*=" sk-"]) .dd b{line-height:23px;display:block}:where(.board[class*=" sk-"]) .tot small,:where(.board[class*=" sk-"]) .dd small{line-height:13px;height:13px}
+/* 투표 불가·선호 직업 칩 (빨강·분홍 뜻은 그대로, 모양만) */
+.sk-retro .ban span{border-radius:0}
+.sk-newyear .ban span,.sk-autumn .ban span,.sk-halloween .ban span{border-radius:3px}
+.sk-snow .ban span,.sk-sakura .ban span,.sk-summer .ban span,.sk-night .ban span,.sk-xmas .ban span{border-radius:999px}
+.sk-neon .ban span{background:transparent;box-shadow:0 0 6px rgba(255,77,94,.4)}.sk-neon .ban.lk span{box-shadow:0 0 6px rgba(255,111,163,.45)}
+.sk-paper .ban span{border-radius:3px;border-style:dashed;transform:rotate(-1deg)}.sk-paper .ban span:nth-child(2n){transform:rotate(1deg)}
+.sk-paper .ban span{color:#a33a3a}.sk-paper .ban.lk span{color:#b0446e}
 .credit{text-align:right;margin:8px -4px -8px 0;font-size:9px;font-weight:700;color:var(--sub);opacity:.45;letter-spacing:.3px}
 .toast{position:absolute;right:16px;top:16px;background:var(--acc);color:var(--on-acc);font-weight:900;font-size:14px;padding:6px 12px;border-radius:999px;
   opacity:0;transform:translateY(-6px);transition:.3s;pointer-events:none;box-shadow:0 4px 14px rgba(var(--acc-rgb),.45);z-index:3}
@@ -170,6 +537,7 @@ body{overflow:hidden}
 body.edit .editor{display:block}
 .editor.peek{opacity:.22}
 .editor h3{margin:2px 0 8px;font-size:15px;font-weight:900;color:var(--acc)}
+.editor select{font:inherit;font-size:14px;font-weight:700;padding:7px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;min-width:0;cursor:pointer}.editor select option{background:#2a2844;color:var(--txt)}
 .editor input{font:inherit;font-size:14px;padding:7px 9px;background:#2a2844;color:var(--txt);border:1px solid #3d3a5a;border-radius:8px;width:100%;min-width:0}
 .line{display:flex;gap:6px;margin-bottom:6px;align-items:center}
 .line>*{flex:1}
@@ -219,6 +587,19 @@ body.edit .editor{display:block}
 .jg button .u{color:var(--pt);font-size:10px;margin-left:3px}
 .jg button.on .v,.jg button.on .u{color:inherit}
 .tip{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.6}
+.etabs{display:flex;gap:3px;margin:0 0 12px;padding:3px;border-radius:10px;background:#2a2844;border:1px solid #3d3a5a}
+.etabs button{flex:1;font:inherit;font-size:13.5px;font-weight:900;border:0;border-radius:7px;padding:8px 4px;background:none;color:var(--sub);cursor:pointer}
+.etabs button.on{background:var(--acc);color:var(--on-acc)}
+.etabs button{position:relative}.etabs .nw{position:absolute;top:-7px;right:6px;font-size:9.5px;font-weight:900;line-height:1;padding:3px 5px;border-radius:999px;background:#ff4d5e;color:#fff;box-shadow:0 0 8px rgba(255,77,94,.7);animation:nwPop 1.6s ease-in-out infinite}
+@keyframes nwPop{50%{transform:translateY(-2px)}}
+.lb{flex:none!important;width:44px;color:var(--sub);font-weight:700}
+.cols{flex:1;display:flex;flex-wrap:wrap;gap:6px}
+.cols button{width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #3d3a5a;cursor:pointer;padding:0}
+.cols button.on{border-color:#fff;box-shadow:0 0 0 2px var(--acc)}
+.cols button.sk{width:auto;border-radius:999px;padding:0 11px;font:inherit;font-size:12px;font-weight:900;color:var(--txt);background:#37344f}
+.evLine{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:7px 10px;border-radius:10px;font-size:12px;font-weight:900;color:#ffd166;background:rgba(229,56,59,.14);border:1px solid rgba(229,56,59,.45)}
+.evLine span{flex:1}
+@keyframes selBlink{50%{box-shadow:0 0 0 3px var(--acc)}}.editor select.blink{animation:selBlink .45s 3}.evLine button{border:0;border-radius:7px;padding:4px 9px;font:inherit;font-size:11.5px;font-weight:900;background:#37344f;color:var(--txt);cursor:pointer}
 /* 새 버전 알림: 판 위 큰 창(#updPop, 닫으면 다음 버전까지 안 뜸) + 편집창 맨 위 카드 */
 .upd{margin:0 0 12px;padding:10px 12px;border:1px solid rgba(var(--pt-rgb),.55);border-radius:12px;background:rgba(var(--pt-rgb),.09);line-height:1.5}
 .upd .uh{display:flex;align-items:center;gap:6px;font-weight:900;color:var(--pt)}.upd .uh span{flex:1}
@@ -247,6 +628,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h6M16 18h4"/><circle cx="15" cy="6" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="13" cy="18" r="2.2"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 3.5l3 3-3 3M4 11V9.5a3 3 0 0 1 3-3h13M7 20.5l-3-3 3-3M20 13v1.5a3 3 0 0 1-3 3H4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 5L4 9l4 4M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol></defs></svg>
 <div class="wrap" id="wrap">
   <div class="board" id="board">
+    <div class="fx" id="fx"></div><div class="deco" id="deco"></div>
     <div class="head">
       <div class="ava"><div id="ava"></div></div>
       <div class="ttl"><div class="s" id="sub"></div><h1 id="title"></h1></div>
@@ -282,7 +664,9 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="ehead"><b>현황판 편집</b><button id="closeEd">닫기 (E)</button></div>
   <div class="upd hide" id="upd"></div>
   <div class="draw"><button class="btn y" id="drawBtn"></button><button class="btn g hide" id="pinOpen">추첨(핀볼)용 텍스트 다시 보기</button><div class="amtTip" id="drawTip"></div></div>
-  <h3><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> 후원 입력</h3>
+  <div class="evLine hide" id="evLine"></div>
+  <div class="etabs" id="etabs"><button data-tab="in" class="on">후원 입력</button><button data-tab="view">화면</button><button data-tab="look">꾸미기</button></div>
+  <div class="tab" data-tab="in">
   <div class="picked">선택한 직업: <b id="pickedName">없음</b> <em id="pickedUnit"></em></div>
   <div class="jg" id="jg"></div>
   <div class="line"><span class="cur" id="curLbl">원</span>
@@ -295,7 +679,14 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="jlist" id="jlist"></div>
   <div id="rrEdBox"><hr><h3><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 리롤 사용 처리</h3><div class="amtTip">판의 리롤 칸을 눌러도 같아요. 다시 누르면 취소돼요.</div><div class="line" id="rrEdit"></div></div>
   <hr>
-  <h3><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg> 화면</h3>
+  <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
+  <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
+    • 직업 버튼을 누른 뒤 +표 버튼을 누르면 그 직업의 표 금액만큼 들어가요.<br>
+    • 데이터는 OBS 안에 저장돼 방송을 껐다 켜도 유지돼요.</div>
+  </div>
+  <div class="tab hide" data-tab="view">
+  <div class="line"><label for="sTitle" class="lb">제목</label><input id="sTitle" maxlength="30"></div>
+  <div class="line"><label for="sSub" class="lb">부제</label><input id="sSub" maxlength="40" placeholder="비우면 숨김"></div>
   <div class="line"><label>한 페이지 개수</label><input id="sTop" type="number" min="2" max="40" step="2"><label>넘김 간격(초)</label><input id="sSec" type="number" min="2" max="60"></div>
   <div class="line"><label>크기 배율</label><input id="sScale" type="number" step="0.1" min="0.5" max="2.5" style="flex:2.4"></div>
   <div class="amtTip">배율을 올리면 판과 이 편집창이 같이 커져요.</div>
@@ -306,22 +697,28 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   <div class="line chk"><span>그 외</span><label><input id="sTotal" type="checkbox">총 후원 금액</label><label><input id="sCredit" type="checkbox">제작 표시</label></div>
   <div class="line chk"><span>직업 이름</span><label title="데슬·엔버·나로처럼 판에 줄여서 보여요 (편집창 버튼·추첨용 텍스트는 그대로)"><input id="sAbbr" type="checkbox">판에 줄여 쓰기 <small style="color:var(--sub);font-weight:700">(글씨가 더 커져요)</small></label></div>
   <div class="amtTip" id="sizeTip"></div>
-  <div class="line"><button class="btn s" id="undo"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> 마지막 입력 취소</button><button class="btn red" id="reset">투표 전체 초기화</button></div>
   <div class="line"><button class="btn s hide" id="liveBack"></button></div>
   <div class="line"><button class="btn s" id="reload"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg> 판 새로 고침 (새로 받은 설정 파일 적용)</button></div>
-  <div class="tip">• OBS 소스 우클릭 → <b>상호작용</b>에서 조작. <b>E</b> 키로 편집창 열기/닫기.<br>
-    • 직업 버튼을 누른 뒤 +표 버튼을 누르면 그 직업의 표 금액만큼 들어가요.<br>
-    • 제목·단위·투표 불가 직업·테마 같은 설정은 설정 페이지에서 새 파일을 만들어 바꿔요. 같은 이름으로 덮어쓴 뒤 <b>판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 표는 그대로 남아요.<br>
-    • 표가 많아 페이지가 여러 개면 판을 클릭하거나 마우스 휠로 바로 넘길 수 있어요. 마우스가 판 위에 있는 동안은 자동 넘김이 멈춰요.<br>
-    • 데이터는 OBS 안에 저장돼 방송을 껐다 켜도 유지돼요.<br>
+  <div class="tip">• 표가 많아 페이지가 여러 개면 판을 클릭하거나 마우스 휠로 바로 넘길 수 있어요. 마우스가 판 위에 있는 동안은 자동 넘김이 멈춰요.<br>
+    • 단위·표 금액·투표 불가 직업 같은 설정은 설정 페이지에서 새 파일을 만들어 바꿔요. 같은 이름으로 덮어쓴 뒤 <b>판 새로 고침</b>을 누르면 방송 중에도 바로 바뀌고, 표는 그대로 남아요.<br>
     • 버전 <b id="verNow"></b> · 새 버전이 나오면 판 위에 업데이트 창이 떠요. <b>지금 업데이트</b>를 누르면 파일을 다시 받지 않아도 바뀌고, 표와 설정은 그대로예요.</div>
+  </div>
+  <div class="tab hide" data-tab="look">
+  <div class="amtTip hide" id="evTip"><b>크리스마스 이벤트 스킨</b>을 끄려면 아래 스킨을 <b>기본</b>(또는 다른 스킨)으로 바꾸세요.</div>
+  <div class="line"><label for="sSkin" class="lb">스킨</label><select id="sSkin" style="flex:1"></select></div>
+  <div class="line" id="sColBox" style="align-items:flex-start"><label class="lb" style="padding-top:6px">색</label><div class="cols" id="sCols"></div></div>
+  <div class="amtTip hide" id="sColLock">이 스킨은 색이 정해져 있어요. 색을 바꾸려면 스킨을 <b>기본</b>으로 고르세요.</div>
+  <div class="line chk"><span>움직이는 장식</span><label><input id="sFx" type="checkbox">눈·꽃잎·별·전구 깜빡임</label></div>
+  <div class="tip">• 스킨마다 색이 정해져 있어요. 색은 <b>기본</b> 스킨에서만 바꿀 수 있어요.<br>
+    • 여기서 바꾼 꾸미기·제목은 이 OBS에 기억돼요. 설정 페이지에서 바꿔 새 파일로 덮어쓰면 새 파일 설정이 우선이에요.</div>
+  </div>
 </div>
 
 <script>
 let CFG={};
 try{CFG=JSON.parse(document.getElementById("board-config").textContent)}catch(e){}
 const DEF={title:"직업 룰렛 현황",sub:"",avatarText:"룰",avatarImg:"",theme:{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"},opacity:75,grad:true,currency:"원",unit:2000,spJobs:[],spUnit:4000,spMore:[],banned:[],liked:[],
-  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,reroll:true,credit:true,abbr:true},page:{top:10,sec:6}};
+  meso:{on:false,unit:1},reroll:{on:false,n:3,costs:[50000,100000,200000]},dday:{on:false,date:"",label:"마감"},show:{total:false,banned:true,banPage:true,liked:true,reroll:true,credit:true,abbr:true,fx:true},page:{top:10,sec:6},skin:""};
 for(const k in DEF){ if(CFG[k]===undefined) CFG[k]=DEF[k]; else if(DEF[k]&&typeof DEF[k]==="object"&&!Array.isArray(DEF[k])) CFG[k]=Object.assign({},DEF[k],CFG[k]); }
 const PREVIEW=!!CFG._preview;
 
@@ -360,14 +757,15 @@ const isSp=j=>unitOf(j)!==UNIT;
 const short=n=>n%1000?fmt(n):n>=10000?fmt(n/10000)+"만":fmt(n/1000)+"천";
 
 // theme
-(function(){const t=CFG.theme||{},r=document.documentElement.style;
+function setTheme(t){t=t||{};const r=document.documentElement.style;
   const rgb=h=>{h=(h||"").replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");const n=parseInt(h,16);return isNaN(n)?null:[n>>16&255,n>>8&255,n&255]};
   const set=(k,h)=>{const c=rgb(h);if(!c)return;r.setProperty("--"+k,h);r.setProperty("--"+k+"-rgb",c.join(","));return c};
   const a=set("acc",t.acc); set("hi",t.hi); const pc=set("pt",t.pt); set("bg",t.bg);
   if(pc){const L=(.2126*pc[0]+.7152*pc[1]+.0722*pc[2])/255; r.setProperty("--on-pt",L>.5?"#14121f":"#fff");}
   if(a){r.setProperty("--acc2",`rgb(${a.map(x=>Math.round(x*.85)).join(",")})`);
     const L=(.2126*a[0]+.7152*a[1]+.0722*a[2])/255; r.setProperty("--on-acc",L>.62?"#14121f":"#fff");}
-})();
+}
+setTheme(CFG.theme);
 
 // 판 바탕 진하기 (0 = 완전 투명, 100 = 불투명)
 const OP=(v=>Number.isFinite(v)?Math.min(100,Math.max(0,v)):75)(+CFG.opacity);
@@ -384,11 +782,83 @@ const save=()=>{if(PREVIEW)return;try{localStorage.setItem(KEY,JSON.stringify(S)
 // 편집창에서 바꾼 투명도·투표 불가 표시. 설정 페이지에서 그 값을 바꿔 새로 저장하면(base가 달라지면) 새 파일 값을 씀
 if(S.op&&S.op.base!==OP) delete S.op;
 if(!S.show||typeof S.show!=="object") S.show={};
-for(const k of ["banned","banPage","liked","reroll","total","credit","abbr"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
+for(const k of ["banned","banPage","liked","reroll","total","credit","abbr","fx"]) if(S.show[k]&&S.show[k].base!==!!CFG.show[k]) delete S.show[k];
 const curOp=()=>S.op&&Number.isFinite(S.op.v)?Math.min(100,Math.max(0,S.op.v)):OP;
 const curShow=k=>S.show[k]?!!S.show[k].v:!!CFG.show[k];
 const banPage=()=>EX.length>0&&curShow("banPage");
 setOp(curOp());
+// ===== 스킨 (설정 페이지 index.html의 SKINS와 같은 목록·색) =====
+const SKINS={
+  "":{n:"기본"},
+  xmas:{n:"크리스마스",t:{acc:"#e5383b",hi:"#ffd166",pt:"#2ec27e",bg:"#1b1f2a"},font:"https://fonts.googleapis.com/css2?family=Jua&display=swap",fx:"snow"},
+  snow:{n:"겨울 눈",t:{acc:"#7cc6ff",hi:"#ffffff",pt:"#b8e1ff",bg:"#16202e"},font:"https://fonts.googleapis.com/css2?family=Gowun+Dodum:wght@400;700&display=swap",fx:"snow"},
+  retro:{n:"레트로 픽셀",t:{acc:"#ff4f9a",hi:"#ffe14f",pt:"#4ff0c8",bg:"#141026"},font:"https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css"},
+  newyear:{n:"새해·설날",t:{acc:"#d7263d",hi:"#f2c14e",pt:"#3fa34d",bg:"#2a1416"},font:"https://fonts.googleapis.com/css2?family=Song+Myung&display=swap",fx:"spark"},
+  sakura:{n:"봄 벚꽃",t:{acc:"#ff8fb3",hi:"#fff0f5",pt:"#9be08a",bg:"#2a1c26"},font:"https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap",fx:"petal"},
+  summer:{n:"여름 바다",t:{acc:"#19b8e6",hi:"#ffe066",pt:"#3ee0c5",bg:"#0f2335"},font:"https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap",fx:"bubble"},
+  halloween:{n:"할로윈",t:{acc:"#ff7a1a",hi:"#c77dff",pt:"#7cff6b",bg:"#1a1024"},font:"https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gamja+Flower&display=swap"},
+  autumn:{n:"가을 단풍",t:{acc:"#e8673a",hi:"#ffc857",pt:"#c9a227",bg:"#24170f"},font:"https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap",fx:"leaf"},
+  neon:{n:"네온 사이버",t:{acc:"#00e5ff",hi:"#ff3df2",pt:"#b6ff3d",bg:"#0a0a16"},font:"https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap"},
+  night:{n:"별밤·우주",t:{acc:"#9b8cff",hi:"#ffe9a8",pt:"#6fd3ff",bg:"#0d1030"},font:"https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap",fx:"star"},
+  paper:{n:"종이·다이어리",t:{acc:"#e9a03b",hi:"#c8553d",pt:"#2a9d8f",bg:"#fbf6ea"},font:"https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap"},
+  glass:{n:"유리",t:{acc:"#8fd3ff",hi:"#ffffff",pt:"#a5ffd6",bg:"#2a3550"}}
+};
+const FXN={snow:24,petal:14,leaf:12,bubble:14,star:30,spark:14};
+// 판 위·뒤 장식 그림
+function skinDeco(id){
+  if(id==="xmas"){const C=["#ff4d4d","#ffd166","#4dd4ff","#7dff8a","#ff8ad8"];let g="";
+    for(let k=0;k<10;k++){const x=21+42*k;g+=`<rect x="${x-2}" y="9" width="4" height="4" rx="1" fill="#55655a"/><ellipse class="b" cx="${x}" cy="18" rx="4.8" ry="6.8" fill="${C[k%5]}" style="filter:drop-shadow(0 0 4px ${C[k%5]});animation-delay:${(k%3)*.8}s"/>`;}
+    return {front:`<svg class="lights" style="position:absolute" viewBox="0 0 420 30" preserveAspectRatio="none"><path d="M0 5 Q21 15 42 5 T84 5 T126 5 T168 5 T210 5 T252 5 T294 5 T336 5 T378 5 T420 5" fill="none" stroke="#55655a" stroke-width="1.8"/>${g}</svg>`};}
+  if(id==="snow") return {back:`<svg class="cap" style="position:absolute" viewBox="0 0 420 16" preserveAspectRatio="none"><path d="M0 16V8Q20 2 42 7T84 6T126 8T168 5T210 7T252 6T294 8T336 5T378 7T420 6V16Z" fill="#fff" opacity=".85"/></svg>`,
+    front:`<svg class="ice" style="position:absolute" viewBox="0 0 420 10" preserveAspectRatio="none"><path d="M0 0H420V1L414 1 410 8 406 1 380 1 377 6 374 1 330 1 326 9 322 1 270 1 267 5 264 1 214 1 210 8 206 1 150 1 147 6 144 1 96 1 92 9 88 1 40 1 37 5 34 1 0 1Z" fill="#cfeeff" opacity=".7"/></svg>`};
+  if(id==="retro") return {front:`<i class="scan"></i>`};
+  if(id==="newyear") return {front:`<i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>`};
+  if(id==="sakura"){const fl=(x,y,r)=>{let p="";for(let a=0;a<5;a++){const t=a*72*Math.PI/180;p+=`<circle cx="${(x+Math.sin(t)*r).toFixed(1)}" cy="${(y-Math.cos(t)*r).toFixed(1)}" r="${(r*.8).toFixed(1)}" fill="#ffc4d6"/>`;}return p+`<circle cx="${x}" cy="${y}" r="${(r*.45).toFixed(1)}" fill="#ff7fa8"/>`;};
+    return {back:`<svg class="bloom" style="position:absolute" viewBox="0 0 64 40">${fl(18,16,6)}${fl(44,12,5)}${fl(52,30,4)}</svg>`};}
+  if(id==="summer"){const w=c=>`<svg class="wave${c?" w2":""}" style="position:absolute" viewBox="0 0 840 22" preserveAspectRatio="none"><path d="M0 10Q52 0 105 10T210 10T315 10T420 10T525 10T630 10T735 10T840 10V22H0Z" fill="${c?"#3ee0c5":"#19b8e6"}" opacity=".45"/></svg>`;
+    return {back:`<i class="sun"></i>`+w(0)+w(1)};}
+  if(id==="halloween"){const web=`<svg viewBox="0 0 74 74"><g fill="none" stroke="#e9dcff" stroke-width="1"><path d="M74 0L0 74M74 0L20 74M74 0L48 74M74 0L0 20M74 0L0 48"/><path d="M60 0Q58 12 74 14M44 0Q42 26 74 30M28 0Q26 42 74 46M12 0Q10 58 74 62"/></g></svg>`;
+    return {front:`<i class="web tr">${web}</i><i class="web bl">${web}</i>`};}
+  if(id==="night") return {back:`<i class="moon"></i>`};
+  if(id==="paper") return {front:`<i class="tape"></i>`};
+  return {};
+}
+
+// 표가 들어오면 그 줄에서 스킨별 효과 (움직이는 장식을 끄면 안 나옴)
+const BURST={xmas:"xmas",snow:"flake",retro:"pixel",newyear:"coin",sakura:"petal",summer:"bubble",halloween:"bat",autumn:"leaf",neon:"neon",night:"star",paper:"ink",glass:"shine"};
+function burst(job){const k=BURST[curSkin()];if(!k||!curShow("fx")||PREVIEW)return;
+  const row=[...document.querySelectorAll("#list .row")].find(r=>r.dataset.j===job);if(!row)return;
+  const bd=$("board"),sc=opt("scale")||1,r=row.getBoundingClientRect(),b=bd.getBoundingClientRect(),e=document.createElement("div");
+  e.className="burst bk-"+k;e.style.cssText=`left:${(r.left-b.left)/sc}px;top:${(r.top-b.top)/sc}px;width:${r.width/sc}px;height:${r.height/sc}px`;
+  if(k==="pixel"||k==="ink")e.innerHTML='<span class="txt">+1</span>';
+  else if(k==="shine")e.innerHTML='<span class="sweep"></span>';
+  else{const C=["#ff4d4d","#2ec27e","#ffd166","#ffffff"];let h="";for(let i=0;i<14;i++){const a=Math.random()*Math.PI*2,d=26+Math.random()*44;
+    h+=`<i style="--bx:${(Math.cos(a)*d*1.6).toFixed(0)}px;--by:${(Math.sin(a)*d).toFixed(0)}px;--br:${(Math.random()*540-270).toFixed(0)}deg;--c:${C[i%4]};animation-delay:${(Math.random()*.12).toFixed(2)}s"></i>`;}e.innerHTML=h;}
+  if(k==="neon"){row.classList.remove("nhit");void row.offsetWidth;row.classList.add("nhit");}
+  bd.appendChild(e);setTimeout(()=>e.remove(),1300);}
+const fontsDone={};
+function curSkin(){const b=CFG.skin||"",s=S.skin&&S.skin.base===b&&(S.skin.v in SKINS)?S.skin.v:(b in SKINS?b:"");return s===""&&evActive()?EVENT.skin:s;}
+function applySkin(){const id=curSkin(),sk=SKINS[id]||{},b=document.getElementById("board");
+  b.className=b.className.split(" ").filter(c=>!c.startsWith("sk-")).join(" ")+(id?" sk-"+id:"");
+  // 편집창에서 스킨을 바꿨으면 그 스킨 색, 아니면 파일에 저장된 색(설정 페이지에서 고른 색)
+  const locked=id!==""&&!evActive();setTheme(locked?sk.t:(S.theme&&S.theme.t?S.theme.t:(S.skin&&S.skin.base===(CFG.skin||"")&&S.skin.v===""&&(CFG.skin||"")!==""?DEF.theme:CFG.theme)));
+  if(sk.font&&!fontsDone[sk.font]){fontsDone[sk.font]=1;const l=document.createElement("link");l.rel="stylesheet";l.href=sk.font;document.head.appendChild(l);}
+  const d=skinDeco(id),on=curShow("fx");b.classList.toggle("nofx",!on);
+  const fx=document.getElementById("fx");fx.className="fx"+(sk.fx&&on?" fx-"+sk.fx:"");
+  let h=d.back||"";if(sk.fx&&on){const R=Math.random;for(let i=0;i<FXN[sk.fx];i++)h+=`<i class="p" style="left:${(R()*100).toFixed(1)}%;--t:${(R()*96).toFixed(1)}%;--s:${(.6+R()*.8).toFixed(2)};--d:${(7+R()*8).toFixed(1)}s;--dl:-${(R()*15).toFixed(1)}s;--dx:${((R()-.5)*70).toFixed(0)}px"></i>`;}
+  fx.innerHTML=h;document.getElementById("deco").innerHTML=d.front||"";}
+if(S.skin&&S.skin.base!==(CFG.skin||"")) delete S.skin;
+// ===== 크리스마스 이벤트: 기간 동안 스킨을 고르지 않은(기본) 판에 크리스마스 장식을 씌움. 색은 그대로, 끝나면 자동으로 원래대로 =====
+const EVENT={id:"xmas2026",skin:"xmas",n:"크리스마스 이벤트"}; // 끝내려면 이 줄을 지우거나 on:false 처리
+const todayStr=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};
+const evActive=()=>!(S.skin&&S.skin.base===(CFG.skin||""))&&!((CFG.skin||"") in SKINS&&CFG.skin)&&S.evOff!==EVENT.id;
+// 편집창 색: 준비된 7가지 (설정 페이지 PRESETS와 같은 색)
+const PRESETS=[["메이플 오렌지",{acc:"#ff8a1f",hi:"#ffe08a",pt:"#8fd3ff",bg:"#22180f"}],["코랄",{acc:"#ff6153",hi:"#fff09a",pt:"#5ce6b0",bg:"#18162c"}],["민트",{acc:"#00e6a0",hi:"#b9b0ff",pt:"#7b6cff",bg:"#141518"}],
+  ["라벤더",{acc:"#a78bfa",hi:"#ffd6f5",pt:"#67e8f9",bg:"#16142a"}],["스카이",{acc:"#4cc3ff",hi:"#fff3a6",pt:"#ff8fb0",bg:"#121a26"}],["핑크",{acc:"#ff7aa8",hi:"#fff0a8",pt:"#7ee8c6",bg:"#221424"}],["모노",{acc:"#e8e8ee",hi:"#ffd166",pt:"#9be7a6",bg:"#141416"}]];
+const themeBase=()=>JSON.stringify(CFG.theme||{})+"|"+(CFG.skin||"");
+if(S.theme&&S.theme.base!==themeBase()) delete S.theme;
+const curTitle=()=>S.title&&S.title.base===CFG.title?S.title.v:CFG.title, curSub=()=>S.sub&&S.sub.base===CFG.sub?S.sub.v:CFG.sub;
+applySkin();
 const opt=k=>S[k]!==undefined?S[k]:(k==="scale"?1:CFG.page[k]);
 const $=id=>document.getElementById(id);
 const fmt=n=>(+n||0).toLocaleString("ko-KR");
@@ -402,7 +872,7 @@ function add(job,amt,silent,kind){
   box[job]=(box[job]||0)+amt; if(box[job]<=0) delete box[job];
   S.log.push([job,amt,kind]); S.log=S.log.slice(-300); save();
   const idx=ordered().findIndex(x=>x[0]===job); if(idx>=0){page=Math.floor(idx/opt("top")); restartTimer();}
-  render(job);
+  render(job); if(amt>0) burst(job);
   if(!silent&&amt>0) toast(`${disp(job)} +${kind==="m"?Math.floor(amt/MU):Math.floor(amt/unitOf(job))}표`);
 }
 let page=0,timer=null;
@@ -437,7 +907,7 @@ function render(flash){
   const top=opt("top");
   $("wrap").style.transform=`scale(${opt("scale")})`;
   $("board").classList.toggle("drawing",S.draw);
-  $("title").textContent=S.draw?"추첨 시작":CFG.title; $("sub").textContent=CFG.sub; $("sub").classList.toggle("hide",!CFG.sub);
+  $("title").textContent=S.draw?"추첨 시작":curTitle(); $("sub").textContent=curSub(); $("sub").classList.toggle("hide",!curSub());
   $("ava").style.backgroundImage=CFG.avatarImg?`url(${CFG.avatarImg})`:""; $("ava").textContent=CFG.avatarImg?"":(CFG.avatarText||"");
   const rrA=S.rr.slice(0,RRN),used=rrA.filter(Boolean).length,nextI=rrA.indexOf(false);
   $("rule").innerHTML=`<span class="pill"><b>${fmt(UNIT)}</b>${esc(CUR)}${MESO?` · <b>${fmt(MU)}억</b> 메소`:""} = 1표</span>`+
@@ -494,14 +964,18 @@ function render(flash){
     "투표를 다 받은 뒤 누르세요. 판에 <b>집계 완료</b>가 뜨고"+(RR?", 리롤 칸이 나와요(모든 회차 미사용으로 시작). 리롤은 판의 칸을 눌러 사용 처리해요.":" 투표가 끝났음을 알려요.");
   $("rrEdit").innerHTML=rrA.map((u,i)=>`<button class="btn ${u?"g":"s"}" data-rr="${i}">${i+1}회 ${u?"사용됨":"미사용"}</button>`).join("");
   $("sTop").value=top;$("sSec").value=opt("sec");$("sScale").value=opt("scale");$("sOp").value=curOp();$("sOpV").textContent=curOp()+"%";
-  $("sBanBox").classList.toggle("hide",!EX.length);$("sLkBox").classList.toggle("hide",!LK.length);$("sRrBox").classList.toggle("hide",!RR);$("sRrShow").checked=curShow("reroll");$("sLiked").checked=curShow("liked");$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");$("sTotal").checked=curShow("total");$("sCredit").checked=curShow("credit");$("sAbbr").checked=curShow("abbr");$("list").classList.toggle("flip",pages()>1);
+  $("sBanBox").classList.toggle("hide",!EX.length);$("sLkBox").classList.toggle("hide",!LK.length);$("sRrBox").classList.toggle("hide",!RR);$("sRrShow").checked=curShow("reroll");$("sLiked").checked=curShow("liked");$("sBanned").checked=curShow("banned");$("sBanPage").checked=curShow("banPage");$("sTotal").checked=curShow("total");$("sCredit").checked=curShow("credit");$("sAbbr").checked=curShow("abbr");$("sFx").checked=curShow("fx");$("sSkin").value=curSkin();
+  if(document.activeElement!==$("sTitle"))$("sTitle").value=curTitle();if(document.activeElement!==$("sSub"))$("sSub").value=curSub();
+  {const lk=curSkin()!==""&&!evActive();$("sColBox").classList.toggle("hide",lk);$("sColLock").classList.toggle("hide",!lk);const cur=JSON.stringify(S.theme&&S.theme.t?S.theme.t:null);$("sCols").innerHTML=`<button class="sk${cur==="null"?" on":""}" data-col="skin">파일 색</button>`+PRESETS.map(([n,t],i)=>`<button data-col="${i}" title="${n}" class="${JSON.stringify(t)===cur?"on":""}" style="background:linear-gradient(135deg,${t.acc} 50%,${t.bg} 50%)"></button>`).join("");}
+  $("evLine").classList.toggle("hide",!evActive());$("evLine").innerHTML=`<span>${EVENT.n} 스킨 적용 중</span><button id="evOff">끄기</button>`;$("list").classList.toggle("flip",pages()>1);
   fitRows(); renderSize(); fitEditor();
 }
 // 이름이 잘리지 않게: 이름 글자 줄이기 → 이 페이지 표·퍼센트 글자를 조금 줄이기 → 그래도 안 되는 줄만 두 줄
 function fitRows(){
   const L=$("list"),rows=[...L.querySelectorAll(".row")],nm=r=>r.querySelector(".name"),cut=r=>{const n=nm(r),g=document.createRange();g.selectNodeContents(n);return g.getBoundingClientRect().width>n.getBoundingClientRect().width-.3;};
   // 줄여 쓰기를 켜면 이름이 짧아진 만큼 글자를 키움(넘치면 한 줄에 맞을 때까지 줄임)
-  const big=curShow("abbr")?20:17,fit=(r,min)=>{const n=nm(r);n.style.fontSize=big+"px";for(let f=big-.5;cut(r)&&f>=min;f-=.5)n.style.fontSize=f+"px";return !cut(r);};
+  const FSK={paper:1.22,halloween:1.22,sakura:1.14,newyear:1.06,snow:1.04,night:1.04,summer:1.06},mul=FSK[curSkin()]||1;
+  const big=Math.round((curShow("abbr")?20:17)*mul*2)/2,fit=(r,min)=>{const n=nm(r);n.style.fontSize=big+"px";for(let f=big-.5;cut(r)&&f>=min;f-=.5)n.style.fontSize=f+"px";return !cut(r);};
   L.classList.remove("sm"); L.classList.toggle("ab",curShow("abbr")); rows.forEach(r=>r.classList.remove("two"));
   if(rows.map(r=>fit(r,13)).every(Boolean)) return;
   L.classList.add("sm");
@@ -620,8 +1094,21 @@ $("reset").onclick=()=>{if(!armed){armed=true;$("reset").textContent="한 번 �
 let opT;$("sOp").oninput=e=>{const v=+e.target.value;S.op={v,base:OP};setOp(v);$("sOpV").textContent=v+"%";save();
   $("editor").classList.add("peek");clearTimeout(opT);opT=setTimeout(()=>$("editor").classList.remove("peek"),900);};
 $("sOp").onchange=e=>e.target.blur();
-[["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"],["sRrShow","reroll"],["sTotal","total"],["sCredit","credit"],["sAbbr","abbr"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();render();});
-const toggle=()=>{document.body.classList.toggle("edit");fitEditor();};
+[["sBanned","banned"],["sBanPage","banPage"],["sLiked","liked"],["sRrShow","reroll"],["sTotal","total"],["sCredit","credit"],["sAbbr","abbr"],["sFx","fx"]].forEach(([id,k])=>$(id).onchange=e=>{S.show[k]={v:e.target.checked,base:!!CFG.show[k]};e.target.blur();page=0;restartTimer();save();if(k==="fx")applySkin();render();});
+$("sSkin").innerHTML=Object.entries(SKINS).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join("");
+$("sSkin").onchange=e=>{S.skin={v:e.target.value,base:CFG.skin||""};delete S.theme;e.target.blur();$("evTip").classList.add("hide");applySkin();save();render();};
+$("sCols").onclick=e=>{const b=e.target.closest("[data-col]");if(!b)return;const c=b.dataset.col;
+  if(c==="skin")delete S.theme;else S.theme={t:{...PRESETS[+c][1]},base:themeBase()};applySkin();save();render();};
+$("evLine").onclick=e=>{if(!e.target.closest("#evOff"))return;showTab("look");$("evTip").classList.remove("hide");const s=$("sSkin");s.focus();s.classList.add("blink");setTimeout(()=>s.classList.remove("blink"),1400);};
+[["sTitle","title"],["sSub","sub"]].forEach(([id,k])=>{$(id).oninput=e=>{S[k]={v:e.target.value,base:CFG[k]};render();clearTimeout(window.__tSave);window.__tSave=setTimeout(save,400);};$(id).onkeydown=e=>{if(e.key==="Enter")e.target.blur();};});
+// 편집창 탭: 열 때마다 후원 입력부터
+// 새로 생긴 탭(화면·꾸미기)에는 한 번 열어 볼 때까지 NEW 표시
+const NEW_TABS=["view","look"];
+function markNewTabs(){const seen=S.tabSeen||{};document.querySelectorAll("#etabs button").forEach(b=>{const on=NEW_TABS.includes(b.dataset.tab)&&!seen[b.dataset.tab];let n=b.querySelector(".nw");if(on&&!n){n=document.createElement("span");n.className="nw";n.textContent="NEW";b.appendChild(n);}if(!on&&n)n.remove();});}
+function showTab(t){if(NEW_TABS.includes(t)&&!(S.tabSeen&&S.tabSeen[t])){S.tabSeen={...(S.tabSeen||{}),[t]:1};save();}markNewTabs();document.querySelectorAll("#etabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));document.querySelectorAll(".editor .tab").forEach(d=>d.classList.toggle("hide",d.dataset.tab!==t));$("editor").scrollTop=0;}
+$("etabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(b)showTab(b.dataset.tab);};
+markNewTabs();
+const toggle=()=>{if(document.body.classList.toggle("edit"))showTab("in");fitEditor();};
 $("gear").onclick=toggle;$("closeEd").onclick=toggle;
 // 판 새로 고침: 덮어쓴 설정 파일을 다시 읽음(표는 OBS 안에 저장돼 그대로)
 $("reload").onclick=()=>{save();try{sessionStorage.setItem("mjrb.reloaded","1")}catch(e){}(typeof HOST!=="undefined"?HOST:window).location.reload();};
@@ -630,6 +1117,7 @@ document.addEventListener("keydown",e=>{if(/^(e|E|ㄷ)$/.test(e.key)&&!/INPUT|SE
 if(PREVIEW&&CFG._demo){const d=[["아란",6],["에반",4],["엔젤릭버스터",3],["카데나",3],["아델",2],["아크메이지(썬,콜)",2],["칼리",1]].filter(([j])=>JOBS.includes(j)&&!EX.includes(j));
   d.forEach(([j,v])=>S.data[j]=v*unitOf(j)); if(MESO&&d[1])S.meso[d[1][0]]=2*MU; }
 render();restartTimer();setInterval(renderDday,60000);
+if(!PREVIEW&&evActive()&&S.evSeen!==EVENT.id){S.evSeen=EVENT.id;save();setTimeout(()=>toast("크리스마스 이벤트 스킨 · 편집창 꾸미기에서 끌 수 있어요"),1200);}
 // 버전: 설정 페이지의 version.json과 비교해 새 버전이 있으면 판 위 큰 알림 창 + 편집창 맨 위에 변경 내용
 const VER=BOARD_VER,SITE="https://gggip21.github.io/job-roulette-board/";
 // 버튼 업데이트로 실행 중이면 LIVE = 원래 파일 버전, HOST = 다시 읽을 바깥 창(원래 파일)
