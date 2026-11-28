@@ -52,7 +52,7 @@ index.html            설정·다운로드 페이지 (GitHub Pages 첫 화면)
 roulette-board.html   현황판 본체 = 설정 페이지가 쓰는 템플릿 = 기본 설정 파일
 GUIDE.pdf             스트리머용 사용 가이드
 download/             기본 설정 zip
-docs/                 README 이미지
+docs/                 README 이미지, 결정 기록(decisions.md)
 img/                  설정 페이지 이미지
 tools/guide-source.html  GUIDE.pdf 원본 (브라우저 PDF 인쇄로 생성)
 ```
@@ -62,6 +62,7 @@ tools/guide-source.html  GUIDE.pdf 원본 (브라우저 PDF 인쇄로 생성)
 - 버전을 올릴 때는 `roulette-board.html`의 `BOARD_VER`와 `version.json` 맨 앞 항목을 같이 고쳐요.
 - 버튼 업데이트는 사이트의 `roulette-board.html`을 OBS 안(`mapleJobRouletteBoard.code`)에 저장해 두고, 받은 파일보다 새 버전이면 그 코드에 파일의 설정을 넣어 실행해요. 실행 신호가 없으면 그 버전을 막고(`mapleJobRouletteBoard.codeBad`) 파일 버전으로 돌아가요.
 - 빌드 도구 없이 html·css·js만 써요.
+- 왜 이렇게 만들었는지(구조·업데이트 방식·스킨·크기 규칙 등)는 [결정 기록](docs/decisions.md)에 정리했어요.
 
 ---
 
